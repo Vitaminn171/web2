@@ -2,8 +2,8 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Apr 06, 2023 at 07:10 PM
+-- Host: 127.0.0.1
+-- Generation Time: Apr 08, 2023 at 03:54 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -199,13 +199,34 @@ CREATE TABLE `receiptdetail` (
 CREATE TABLE `spec` (
   `phoneID` int(10) NOT NULL,
   `chipset` varchar(50) NOT NULL,
-  `body` varchar(255) NOT NULL,
-  `display` varchar(255) NOT NULL,
+  `cpuType` varchar(255) NOT NULL,
+  `bodySize` varchar(255) NOT NULL,
+  `bodyWeight` varchar(255) NOT NULL,
+  `screenFeature` varchar(255) NOT NULL,
+  `screenResolution` varchar(50) NOT NULL,
+  `screenSize` varchar(255) NOT NULL,
+  `screenTech` varchar(255) NOT NULL,
   `os` varchar(50) NOT NULL,
-  `camera` varchar(255) NOT NULL,
+  `videoCapture` varchar(255) NOT NULL,
+  `cameraFront` varchar(255) NOT NULL,
+  `cameraBack` varchar(255) NOT NULL,
+  `cameraFeature` varchar(255) NOT NULL,
   `batery` varchar(255) NOT NULL,
+  `sim` varchar(50) NOT NULL,
+  `networkSupport` varchar(50) NOT NULL,
+  `wifi` varchar(255) NOT NULL,
   `misc` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `spec`
+--
+
+INSERT INTO `spec` (`phoneID`, `chipset`, `cpuType`, `bodySize`, `bodyWeight`, `screenFeature`, `screenResolution`, `screenSize`, `screenTech`, `os`, `videoCapture`, `cameraFront`, `cameraBack`, `cameraFeature`, `batery`, `sim`, `networkSupport`, `wifi`, `misc`) VALUES
+(3, 'Snapdragon 8 Gen 2', '1 nhân 3.36 GHz, 4 nhân 2.8 GHz & 3 nhân 2 GHz', '146.3 x 70.9 x 7.6 mm', '168g', 'Tần số quét 120Hz, Kính cường lực Corning Gorilla Glass Victus 2, Độ sáng tối đa: 1750 nits', '1080 x 2340 pixels (FullHD+)', '6.1 inches', 'Dynamic AMOLED 2X', 'Android 13, One UI 5.1', '\r\nFullHD 1080p@30fps, 4K 2160p@60fps, HD 720p@30fps, 8K 4320p@24fps, 8K 4320p@30fps', '12MPc', 'Chính 50 MP & Phụ 12 MP, 10 MP', 'Quay Siêu chậm\r\n, AI Camera\r\n, Chuyên nghiệp (Pro)\r\n, Tự động lấy nét (AF)\r\n, Toàn cảnh (Panorama)\r\n, Chống rung quang học (OIS)\r\n, Ảnh Raw\r\n, Ban đêm (Night Mode)\r\n, Trôi nhanh thời gian (Time Lapse)\r\n, Zoom quang học\r\n, Nhãn dán (AR Stickers)\r\n, Làm đẹ', '3900 mAh, USB Type-C, Sạc pin nhanh, Sạc không dây, Sạc ngược không dây', '2 Nano-SIM + eSIM', '5G', 'Dual-band (2.4 GHz/5 GHz), Wi-Fi Direct, Wi-Fi 802.11 a/b/g/n/ac/ax, 6 GHz', 'Cảm biến vân tay trong màn hình, Hỗ trợ 5G, Sạc không dây, Bảo mật vân tay, Nhận diện khuôn mặt, Kháng nước, kháng bụi'),
+(4, 'Snapdragon 8 Gen 2', '1x3.2 GHz Cortex-X3 & 2x2.8 GHz Cortex-A715 & 2x2.8 GHz Cortex-A710 & 3x2.0 GHz Cortex-A510', '\r\n157.8 x 76.2 x 7.6 mm', '195g', 'Tần số quét 120Hz, HDR10+, Kính cường lực Corning® Gorilla® Glass Victus® 2c', '1080 x 2340 pixels (FullHD+)', '6.6 inches', 'Dynamic AMOLED 2X', 'Android 13, One UI 5.1', '8K@24/30fps, 4K@30/60fps, 1080p@30/60/240fps, 720p@960fps, HDR10+, stereo sound rec., gyro-EIS', '12MP, f/2.2', 'Camera chính góc rộng: 50 MP, f/1.8, Dual Pixel PDAF, OIS, Camera tele: 10 MP, f/2, 3x optical zoom, Camera góc siêu rộng:12 MP, f/2.2', 'Quay Siêu chậm (Super Slow Motion), AI Camera, Chuyên nghiệp (Pro), Tự động lấy nét (AF), Toàn cảnh (Panorama), Ảnh Raw, Ban đêm (Night Mode), Zoom quang học, Nhãn dán (AR Stickers), Làm đẹp, Live Photo, Bộ lọc màu, Trôi nhanh thời gian (Time Lapse), Góc ', '4700 mAh, USB Type-C, Sạc nhanh 45 W, sạc không dây 15W, chia sẻ pin không dây', '2 SIM (nano‑SIM và eSIM)', '5G', 'Wi-Fi 802.11 a/b/g/n/ac/6e, tri-band, Wi-Fi Direct', 'Cảm biến vân tay trong màn hình, Cảm biến gia tốc, La bàn, Con quay hồi chuyển, Cảm biến áp kế, Hỗ trợ 5G, Sạc không dây, Bảo mật vân tay, Nhận diện khuôn mặt, Kháng nước, kháng bụi'),
+(5, 'Snapdragon 8 Gen 2 (4 nm)', '1x3.36 GHz Cortex-X3 & 2x2.8 GHz Cortex-A715 & 2x2.8 GHz Cortex-A710 & 3x2.0 GHz Cortex-A510', '163.4 x 78.1 x 8.9 mm', '234g', '120Hz, HDR10+, 1750 nits, Gorilla Glass Victus 2', '1440 x 3088 pixels (QHD+)', '6.8 inches', 'Dynamic AMOLED 2X', 'Android 13, One UI 5.1', '8K@24/30fps, 4K@30/60fps, 1080p@30/60/240fps, 720p@960fps, HDR10+, stereo sound rec., gyro-EIS', '\r\n12MP F2.2 (Dual Pixel AF)', 'Siêu rộng: 12MP F2.2 (Dual Pixel AF), Chính: 200MP F1.7 OIS ±3° (Super Quad Pixel AF), Tele 1: 10MP F4.9 (10X, Dual Pixel AF) OIS,Tele 2: 10MP F2.4 (3X, Dual Pixel AF) OIS Thu phóng chuẩn không gian 100X', 'Quay Siêu chậm (Super Slow Motion), Chuyên nghiệp (Pro), Tự động lấy nét (AF), HDR, Toàn cảnh (Panorama), Ảnh Raw, Ban đêm (Night Mode), Zoom quang học, \r\nLàm đẹp, Live Photo, Bộ lọc màu, Trôi nhanh thời gian (Time Lapse), Góc siêu rộng (Ultrawide), Góc r', '\r\n5.000mAh, USB Type-C, Sạc có dây: 45W có dây\r\nSạc không dây: 15W (Qi/PMA)\r\nChia sẻ pin không dây', '\r\n2 Nano-SIM + eSIM', '5G', 'Wi-Fi 802.11 a/b/g/n/ac/6e, tri-band, Wi-Fi Direct', 'Cảm biến vân tay trong màn hình, Cảm biến gia tốc, Cảm biến tiệm cận, La bàn, Con quay hồi chuyển, Cảm biến áp kế\r\n'),
+(6, 'Snapdragon 8 Plus Gen 1', '1 nhân 3.18 GHz, 3 nhân 2.7 GHz & 4 nhân 2 GHz', 'Kích thước khi gập lại: 155.1 x 130.1 x 6.3 mm, Kích thước khi máy mở ra: 155.1 x 67.1 x 14.2-15.8 mm', '263g', 'Màn hình chính: 7,6 inch QXGA + Dynamic AMOLED 2X, 120Hz, Màn hình phụ: 6.2 inch HD + AMOLED, 120Hz', '2176 x 1812 pixels (QXGA+)', '\r\n7.6 inches', 'AMOLED', 'Android 12, One UI 5.1', 'UHD 8K (7680 x 4320)@24fps', '10MP (bên ngoài) + 4MP (dưới màn hình)', 'Camera chính: 50MP, f/1.8, Camera góc siêu rộng: 12MP, f/2.2, Camera tele: 10MP, f/2.4 (3x zoom)', 'Quay Siêu chậm (Super Slow Motion), Chuyên nghiệp (Pro), Tự động lấy nét (AF), HDR, Toàn cảnh (Panorama), Ảnh Raw, Ban đêm (Night Mode), Zoom quang học, \r\nLàm đẹp, Live Photo, Bộ lọc màu, Trôi nhanh thời gian (Time Lapse), Góc siêu rộng (Ultrawide), Quay ', '4,400 mAhc, \r\nUSB Type-C, Sạc nhanh 25 W', '2 SIM (nano‑SIM và eSIM)', '5G', '802.11 a/b/g/n/ac/ax 2.4G+5GHz+6GHz, HE160, MIMO, 1024-QAM', 'Hỗ trợ 5G, Sạc không dây, Bảo mật vân tay, Nhận diện khuôn mặt, Kháng nước, kháng bụi, Cảm biến gia tốc, Cảm biến tiệm cận, Cảm biến ánh sáng, La bàn, Cảm biến áp kế, Cảm biến vân tay cạnh bên');
 
 -- --------------------------------------------------------
 
