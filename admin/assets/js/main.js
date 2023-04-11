@@ -116,3 +116,55 @@ let menu, animate;
   // Auto update menu collapsed/expanded based on the themeConfig
   window.Helpers.setCollapsed(true, false);
 })();
+
+const container = $("#container");
+const product = $("#product");
+const all_item = $("#all_item");
+const dashboard = $("#dashboard");
+const category = $("#category");
+const inventory = $("#inventory");
+const url = window.location.href;
+
+function myFunction(url) {
+  dashboard.removeClass("active");
+  container.addClass("ps--active-y");
+  container.addClass("ps");
+  product.addClass("open");
+  product.addClass("active");
+  switch(url) {
+    case "http://localhost/web2/admin/html/all_phone.php":
+      all_item.addClass("active");
+      category.removeClass("active");
+      inventory.removeClass("active");
+      
+      break;
+    case "http://localhost/web2/admin/html/category.php":
+      category.addClass("active");
+      all_item.removeClass("active");
+      inventory.removeClass("active");
+      
+      break;
+    case "http://localhost/web2/admin/html/inventory.php":
+      inventory.addClass("active");
+      category.removeClass("active");
+      all_item.removeClass("active");
+      
+      break;
+  }
+}
+
+switch(url) {
+  
+  case "http://localhost/web2/admin/html/all_phone.php":
+    all_item.addClass("active");
+    myFunction(url);
+    break;
+  case "http://localhost/web2/admin/html/category.php":
+    category.addClass("active");
+    myFunction(url);    
+    break;
+  case "http://localhost/web2/admin/html/inventory.php":
+    inventory.addClass("active");
+    myFunction(url);
+    break;
+}

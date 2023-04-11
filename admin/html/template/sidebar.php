@@ -1,6 +1,8 @@
+<!-- Menu -->
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="index.php" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -68,44 +70,34 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+            <li class="menu-item active" id="dashboard">
+              <a href="index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div data-i18n="Analytics">Tổng quan</div>
               </a>
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item">
+            <li class="menu-item" id="product">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Layouts</div>
+                <div data-i18n="Layouts">Sản Phẩm</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="layouts-without-menu.html" class="menu-link">
-                    <div data-i18n="Without menu">Without menu</div>
+                <li class="menu-item" id="all_item">
+                  <a href="all_phone.php" class="menu-link">
+                    <div data-i18n="All_item">Tất cả sản phẩm</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
-                    <div data-i18n="Without navbar">Without navbar</div>
+                <li class="menu-item" id="category">
+                  <a href="category.php" class="menu-link">
+                    <div data-i18n="Without navbar">Danh mục</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="layouts-container.html" class="menu-link">
-                    <div data-i18n="Container">Container</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-fluid.html" class="menu-link">
-                    <div data-i18n="Fluid">Fluid</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
+                <li class="menu-item" id="inventory">
+                  <a href="inventory.php" class="menu-link">
+                    <div data-i18n="Container">Tồn kho</div>
                   </a>
                 </li>
               </ul>
@@ -389,4 +381,3 @@
             </li>
           </ul>
         </aside>
-        / Menu
