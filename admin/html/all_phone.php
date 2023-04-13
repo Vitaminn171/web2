@@ -188,7 +188,7 @@
                <div class="card">
                 <h5 class="card-header">Table Basic</h5>
                 
-                <div class="table-responsive text-nowrap">
+                <div class="table text-nowrap">
                   <table class="table">
                     <thead>
                       <tr>
@@ -230,7 +230,7 @@
                         
                       ?>
                       <tr>
-                        <td><img src="../../phone_image/<?=$row["image"] ?>" alt="Example Image" class="d-block mx-auto img-fluid"></td>
+                        <td><img src="../../phone_image/<?=$row["image"] ?>" alt="Example Image" class="float-left" style="width: 50%"></td>
                         <td><strong><?= $row['name'] ?></strong></td>
                         <td>
                           <?=$row['cac_mau'] ?>
@@ -298,15 +298,16 @@
             </div>
             <!-- / Content -->
             <?php 
-                      $prevLink = ($page > 1) ? '<a href="?page='.($page - 1).'">Prev</a>' : '';
-                      $nextLink = ($page < $totalPages) ? '<a href="?page='.($page + 1).'">Next</a>' : '';
+                      $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page='.($page - 1).'">Prev</a></li>' : '';
+                      $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page='.($page + 1).'">Next</a>' : '';
                       
-                      echo '<div class="pagination">' . $prevLink;
+                      echo '<ul class="pagination justify-content-center">' . $prevLink;
                       for($i = 1; $i <= $totalPages; $i++) {
                           $activeClass = ($i == $page) ? ' active' : '';
-                          echo '<a class="'. $activeClass .'" href="?page=' . $i . '">' . $i .'</a>';
+                          echo '<li class="page-item '. $activeClass .'"><a class="page-link" href="?page=' . $i . '">' . $i .'</a></li>';
                       }
-                      echo $nextLink . '</div>';
+                      echo $nextLink . '</ul>';
+                      
                         
                   ?>
             <!-- Footer -->
