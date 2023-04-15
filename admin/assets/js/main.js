@@ -118,53 +118,58 @@ let menu, animate;
 })();
 
 const container = $("#container");
+const dashboard = $("#dashboard");
+
+// product sidebar
 const product = $("#product");
 const all_item = $("#all_item");
-const dashboard = $("#dashboard");
 const category = $("#category");
 const inventory = $("#inventory");
+// product sidebar
+
+
+// account sidebar
+const account = $("#account");
+const employee = $("#employee");
+const customer = $("#customer");
+// account sidebar
+
+
+
 const url = window.location.href;
 
-function myFunction(url) {
+function click_sub_item_sidebar(menu,sub_active,sub_dis) {
   dashboard.removeClass("active");
   container.addClass("ps--active-y");
   container.addClass("ps");
-  product.addClass("open");
-  product.addClass("active");
-  switch(url) {
-    case "http://localhost/web2/admin/html/all_phone.php":
-      all_item.addClass("active");
-      category.removeClass("active");
-      inventory.removeClass("active");
-      
-      break;
-    case "http://localhost/web2/admin/html/category.php":
-      category.addClass("active");
-      all_item.removeClass("active");
-      inventory.removeClass("active");
-      
-      break;
-    case "http://localhost/web2/admin/html/inventory.php":
-      inventory.addClass("active");
-      category.removeClass("active");
-      all_item.removeClass("active");
-      
-      break;
-  }
+  menu.addClass("open");
+  menu.addClass("active");
+  sub_active.addClass("active");
+  sub_dis.removeClass("active");
+}
+
+function click_item_sidebar(item) {
+  dashboard.removeClass("active");
+  product.removeClass("open");
+  product.removeClass("active");
+  item.addClass("active");
 }
 
 switch(url) {
   
   case "http://localhost/web2/admin/html/all_phone.php":
-    all_item.addClass("active");
-    myFunction(url);
+    click_sub_item_sidebar(product,all_item,category);
     break;
   case "http://localhost/web2/admin/html/category.php":
-    category.addClass("active");
-    myFunction(url);    
+    click_sub_item_sidebar(product,category,all_item);    
     break;
   case "http://localhost/web2/admin/html/inventory.php":
-    inventory.addClass("active");
-    myFunction(url);
+    click_item_sidebar(inventory);
+    break;
+  case "http://localhost/web2/admin/html/employee.php":
+    click_sub_item_sidebar(account,employee,all_item);
+    break;
+  case "http://localhost/web2/admin/html/customer.php":
+    click_sub_item_sidebar(account,customer,employee);
     break;
 }
