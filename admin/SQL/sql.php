@@ -21,6 +21,12 @@ function get_all_item($limit,$offset){
 }
 
 
+function get_all_category($limit,$offset){
+    $querry_get_category = "SELECT * FROM category";
+    return $querry_get_category;
+}
+
+
 
 
 

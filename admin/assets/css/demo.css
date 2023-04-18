@@ -122,3 +122,11 @@
 .menu-item:hover{ 
 	padding-left: 15px;
 }
+
+/* table {
+  table-layout: fixed;
+} */
+/* td img {
+  max-width: 100%;
+  height: auto;
+} */

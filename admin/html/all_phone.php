@@ -102,22 +102,16 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
+                  <button
+                    class="btn btn-primary"
+                    href="#">Thêm sản phẩm mới</button>
                 </li>
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -126,11 +120,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
+                            <span class="fw-semibold d-block">Username (Email)</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -145,7 +139,7 @@
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
-                    <li>
+                    <!-- <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-cog me-2"></i>
                         <span class="align-middle">Settings</span>
@@ -162,7 +156,7 @@
                     </li>
                     <li>
                       <div class="dropdown-divider"></div>
-                    </li>
+                    </li> -->
                     <li>
                       <a class="dropdown-item" href="auth-login-basic.html">
                         <i class="bx bx-power-off me-2"></i>
@@ -186,12 +180,12 @@
               <!-- Layout Demo -->
                <!-- Basic Bootstrap Table -->
                <div class="card">
-                <h5 class="card-header">Table Basic</h5>
+                <h5 class="card-header">Tất cả sản phẩm</h5>
                 
-                <div class="table text-nowrap">
-                  <table class="table">
+                <div class="table">
+                  <table class="table table-hover">
                     <thead>
-                      <tr>
+                      <tr >
                         <th>ID</th>
                         <th>Name</th>
                         <th>Color</th>
@@ -216,9 +210,9 @@
                         
                       ?>
                       <tr>
-                        <td><img src="../../phone_image/<?=$row["image"] ?>" alt="Example Image" class="float-left" style="width: 50%"></td>
-                        <td><strong><?= $row['name'] ?></strong></td>
-                        <td>
+                        <td class="col-2"><img src="../../phone_image/<?=$row["image"] ?>" alt="Example Image" style="width: 50%"></td>
+                        <td class="col-3"><strong><?= $row['name'] ?></strong></td>
+                        <td class="col-3">
                           <?=$row['cac_mau'] ?>
                           <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                             <li
@@ -250,20 +244,20 @@
                             </li> -->
                           </ul>
                         </td>
-                        <td>
+                        <td class="col-4">
                           <!-- <span class="badge bg-label-primary me-1">Active</span> -->
                           <?= $row['size'] ?>
                         </td>
-                        <td>
+                        <td class="col-1 text-center">
                           <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
+                              <a class="dropdown-item text-success" href="javascript:void(0);"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item" href="javascript:void(0);"
+                              <a class="dropdown-item text-danger" href="javascript:void(0);"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -340,16 +334,6 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
-    <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
-    </div>
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

@@ -155,21 +155,13 @@ function click_item_sidebar(item) {
   item.addClass("active");
 }
 
-switch(url) {
-  
-  case "http://localhost/web2/admin/html/all_phone.php":
-    click_sub_item_sidebar(product,all_item,category);
-    break;
-  case "http://localhost/web2/admin/html/category.php":
-    click_sub_item_sidebar(product,category,all_item);    
-    break;
-  case "http://localhost/web2/admin/html/inventory.php":
-    click_item_sidebar(inventory);
-    break;
-  case "http://localhost/web2/admin/html/employee.php":
-    click_sub_item_sidebar(account,employee,all_item);
-    break;
-  case "http://localhost/web2/admin/html/customer.php":
-    click_sub_item_sidebar(account,customer,employee);
-    break;
-}
+if(url.includes("all_phone.php")) 
+  click_sub_item_sidebar(product,all_item,category);
+if(url.includes("category.php"))
+  click_sub_item_sidebar(product,category,all_item); 
+if(url.includes("inventory.php"))   
+  click_item_sidebar(inventory);
+if(url.includes("employee.php"))   
+  click_sub_item_sidebar(account,employee,all_item);
+if(url.includes("customer.php"))   
+  click_sub_item_sidebar(account,customer,employee);
