@@ -1,6 +1,6 @@
 <?php
 
-$con=mysqli_connect("localhost","root","","phone_web_db");
+$con=mysqli_connect("localhost:3307","root","","phone_web_db");
                 // Check connection
                 if (mysqli_connect_errno())
                 {

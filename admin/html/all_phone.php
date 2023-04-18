@@ -104,7 +104,7 @@
                 <li class="nav-item lh-1 me-3">
                   <button
                     class="btn btn-primary"
-                    href="#">Thêm sản phẩm mới</button>
+                    href="#">Add new product</button>
                 </li>
 
                 <!-- User -->
@@ -180,13 +180,42 @@
               <!-- Layout Demo -->
                <!-- Basic Bootstrap Table -->
                <div class="card">
-                <h5 class="card-header">Tất cả sản phẩm</h5>
+                <div class="row">
+                  <div class="col-sm">
+                    <h5 class="card-header">All products</h5>
+                  </div>
+                  <div class="col-sm text-end">
+                    <div class="dropdown card-header">
+                      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                        Brand
+                      </button>
+                      <?php require_once("template/connection.php"); 
+                      require("../SQL/sql.php"); 
+                      
+                      $result = mysqli_query($con,get_category_id_name());?>
+                      
+                      
+
+
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="all_phone.php">All</a></li>
+                      <?php 
+                        while($row = mysqli_fetch_array($result)){
+                      ?>
+                        <li><a class="dropdown-item" href="all_phone.php?category=<?=$row["id"]?>"><?=$row["name"]?></a></li>
+                        <?php } ?>
+                      </ul>
+                    </div>
+                  </div>
+                  
+
+                </div>
                 
                 <div class="table">
                   <table class="table table-hover">
                     <thead>
                       <tr >
-                        <th>ID</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Color</th>
                         <th>Size</th>
@@ -194,23 +223,46 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <?php require_once("template/connection.php"); 
-                    require("../SQL/sql.php");
+                    <?php
                     $limit = 5; // Số bản ghi hiển thị trên mỗi trang
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
                     $offset = ($page - 1) * $limit;
-
-                      
+                    $result = "";
+                    $countSql = "";
+                    if(isset($_GET["category"])){
+                      $result = mysqli_query($con,get_item_by_category($limit,$offset,$_GET["category"]));
+                      $countSql = count_item($_GET["category"]);
+                    }else{
                       $result = mysqli_query($con,get_all_item($limit,$offset));
-                      $countSql = "SELECT COUNT(id) AS total FROM phone";
-                      $countResult = mysqli_query($con, $countSql);
-                      $dataCount = mysqli_fetch_assoc($countResult);
-                      $totalPages = ceil($dataCount['total'] / $limit);
-                      while($row = mysqli_fetch_array($result)){
+                      $countSql = count_item("0");
+                      }
+
+                    $countResult = mysqli_query($con, $countSql);
+                    $dataCount = mysqli_fetch_assoc($countResult);
+                    $totalPages = ceil($dataCount['total'] / $limit);
+                    while($row = mysqli_fetch_array($result)){
                         
                       ?>
                       <tr>
-                        <td class="col-2"><img src="../../phone_image/<?=$row["image"] ?>" alt="Example Image" style="width: 50%"></td>
+                        <td class="col-1">
+                          <?php 
+                          if($row["visible"] == True){
+                            echo "<img src='../../phone_image/".$row['image']."' style='width: 110%'>";
+                          }
+                          else {
+                            echo "<div class='card'>
+                            <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='opacity: 0.5'>
+                            <div class='card-img-overlay'>
+                              <img class='card-img justify-content-left' src='../assets/img/elements/visible.png' style='width: 100%'></img>
+                              
+                            </div>
+                          </div>";
+                          }
+
+                          ?>
+                      
+                          
+                      </td>
                         <td class="col-3"><strong><?= $row['name'] ?></strong></td>
                         <td class="col-3">
                           <?=$row['cac_mau'] ?>
@@ -254,7 +306,13 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item text-success" href="javascript:void(0);"
+                              <a class="dropdown-item text-dark" href="../php/visible.php?phoneID=<?=$row["phoneID"]?>&visible=<?=$row["visible"]?>" >
+                              
+                              <i class='bx bx-low-vision me-1'></i> Visible</a
+                              >
+                              
+                              
+                              <a class="dropdown-item text-primary" href="javascript:void(0);"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
                               <a class="dropdown-item text-danger" href="javascript:void(0);"
@@ -263,14 +321,24 @@
                             </div>
                           </div>
                         </td>
+                        
                       </tr>
+                      
                       <?php } 
                         mysqli_close($con);
+                    
+
+
                         ?>
                     </tbody>
+                    
                   </table>
-                  
+                        <!--  -->
+                        
+
+
                 </div>
+          
                 
               </div>
               <!--/ Basic Bootstrap Table -->
@@ -353,5 +421,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+  
   </body>
 </html>

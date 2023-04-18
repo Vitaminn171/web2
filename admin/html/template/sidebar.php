@@ -73,30 +73,30 @@
             <li class="menu-item active" id="dashboard">
               <a href="index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Tổng quan</div>
+                <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Quản Lý Sản Phẩm</span>
+              <span class="menu-header-text">Product Management</span>
             </li>
 
             <!-- Layouts -->
             <li class="menu-item" id="product">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-devices'></i>
-                <div data-i18n="Layouts">Sản Phẩm</div>
+                <div data-i18n="Layouts">Products</div>
               </a>
 
               <ul class="menu-sub">
                 <li class="menu-item" id="all_item">
                   <a href="all_phone.php" class="menu-link">
-                    <div data-i18n="All_item">Tất cả sản phẩm</div>
+                    <div data-i18n="All_item">All Products</div>
                   </a>
                 </li>
                 <li class="menu-item" id="category">
                   <a href="category.php" class="menu-link">
-                    <div data-i18n="Without navbar">Danh mục</div>
+                    <div data-i18n="Without navbar">Category</div>
                   </a>
                 </li>
                 <!-- <li class="menu-item" id="inventory">
@@ -110,27 +110,27 @@
             <li class="menu-item" id="inventory">
               <a href="inventory.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
-                <div data-i18n="Container">Tồn Kho</div>
+                <div data-i18n="Container">Inventory</div>
               </a>
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Quản Lý Tài Khoản</span>
+              <span class="menu-header-text">Account Management</span>
             </li>
             <li class="menu-item" id="account">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bxs-user-detail'></i>
-                <div data-i18n="Account Settings">Tài Khoản</div>
+                <div data-i18n="Account Settings">Account</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item" id="employee">
                   <a href="employee.php" class="menu-link">
-                    <div data-i18n="Employee">Nhân Viên</div>
+                    <div data-i18n="Employee">Employee</div>
                   </a>
                 </li>
                 <li class="menu-item" id="customer">
                   <a href="customer.php" class="menu-link">
-                    <div data-i18n="Customer">Khách Hàng</div>
+                    <div data-i18n="Customer">Customer</div>
                   </a>
                 </li>
               </ul>
@@ -138,7 +138,7 @@
             
             </li>
             <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Quản lý Hóa Đơn</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Bill management</span></li>
             <!-- Cards -->
             <!-- <li class="menu-item">
               <a href="cards-basic.html" class="menu-link">
