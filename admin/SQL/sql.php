@@ -22,12 +22,12 @@ function get_all_item($limit,$offset){
 
 
 function get_item_by_category($limit,$offset,$categoryID){
-    $querry_get_item_by_category = "SELECT phoneID, name, cac_mau, size, image
+    $querry_get_item_by_category = "SELECT phoneID, name, cac_mau, size, image, visible
                                                       FROM (
                                                           SELECT phone.id AS phoneID, phone.name, 
                                                               GROUP_CONCAT(DISTINCT color.color ORDER BY color.color SEPARATOR ', ') AS cac_mau,
                                                               GROUP_CONCAT(DISTINCT variant.size ORDER BY variant.size SEPARATOR ', ') AS size,
-                                                              image 
+                                                              image , visible
                                                           FROM `color`
                                                           JOIN `phone` ON color.phoneID = phone.id 
                                                           JOIN `variant` on variant.phoneID = phone.id
@@ -44,7 +44,7 @@ function get_item_by_category($limit,$offset,$categoryID){
 
 function get_all_category($limit,$offset){
     // get category id, name and quantity for each brand
-    $querry_get_category = "SELECT category.id, category.name, COUNT(phone.id) AS quantity
+    $querry_get_category = "SELECT category.id, category.name, COUNT(phone.id) AS quantity 
                             FROM phone INNER JOIN category ON phone.category = category.id
                             GROUP BY category.id, category.name LIMIT $limit OFFSET $offset";
     return $querry_get_category;

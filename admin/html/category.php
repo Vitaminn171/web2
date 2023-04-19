@@ -1,6 +1,6 @@
-<?php 
-  session_start();
-  $useremail = $_SESSION['useremail'];
+<?php
+session_start();
+$useremail = $_SESSION['useremail'];
 ?>
 <!DOCTYPE html>
 
@@ -128,7 +128,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $useremail;?></span>
+                            <span class="fw-semibold d-block"><?php echo $useremail; ?></span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -196,28 +196,28 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <?php require_once("template/connection.php"); 
+                    <?php require_once("template/connection.php");
                     require("../SQL/sql.php");
                     $limit = 5; // Số bản ghi hiển thị trên mỗi trang
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
                     $offset = ($page - 1) * $limit;
                     $array_color = array("bg-label-primary", "bg-label-danger", "bg-label-success", "bg-label-secondary", "bg-label-warning", "bg-label-info", "bg-label-dark");
-                      
-                      $result = mysqli_query($con,get_all_category($limit,$offset));
-                      $countSql = "SELECT COUNT(id) AS total FROM category";
-                      $countResult = mysqli_query($con, $countSql);
-                      $dataCount = mysqli_fetch_assoc($countResult);
-                      $totalPages = ceil($dataCount['total'] / $limit);
-                      while($row = mysqli_fetch_array($result)){
-                        $num = rand(0,6);
-                        
-                      ?>
-                      <tr>
-                        <td class="col-1"><strong><?= $row['id'] ?></strong></td>
-                        <td class="col-2 text-center"><a class="text-dark badge <?= $array_color[$num]?> me-1" href="all_phone.php?category=<?= $row['id'] ?>">
-                          <?=$row['name'] ?> 
-                          </a>
-                          <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+
+                    $result = mysqli_query($con, get_all_category($limit, $offset));
+                    $countSql = "SELECT COUNT(id) AS total FROM category";
+                    $countResult = mysqli_query($con, $countSql);
+                    $dataCount = mysqli_fetch_assoc($countResult);
+                    $totalPages = ceil($dataCount['total'] / $limit);
+                    while ($row = mysqli_fetch_array($result)) {
+                        $num = rand(0, 6);
+
+                        ?>
+                          <tr>
+                            <td class="col-1"><strong><?= $row['id'] ?></strong></td>
+                            <td class="col-2 text-center"><a class="text-dark badge <?= $array_color[$num] ?> me-1" href="all_phone.php?category=<?= $row['id'] ?>">
+                              <?= $row['name'] ?> 
+                              </a>
+                              <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                             <li
                               data-bs-toggle="tooltip"
                               data-popup="tooltip-custom"
@@ -245,13 +245,13 @@
                             >
                               <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
                             </li> -->
-                          </ul>
-                        </td>
-                        <td class="col-1 text-center">
-                          <!-- <span class="badge bg-label-primary me-1">Active</span> -->
-                          <?= $row['quantity'] ?>
-                        </td>
-                        <!-- <td>
+                              </ul>
+                            </td>
+                            <td class="col-1 text-center">
+                              <!-- <span class="badge bg-label-primary me-1">Active</span> -->
+                              <?= $row['quantity'] ?>
+                            </td>
+                            <!-- <td>
                           <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                               <i class="bx bx-dots-vertical-rounded"></i>
@@ -266,25 +266,25 @@
                             </div>
                           </div>
                         </td> -->
-                        <td class="col-1 text-center">
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item text-warning" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item text-danger" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <?php } 
-                        mysqli_close($con);
-                        ?>
+                            <td class="col-1 text-center">
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item text-warning" href="javascript:void(0);"
+                                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                  >
+                                  <a class="dropdown-item text-danger" href="javascript:void(0);"
+                                    ><i class="bx bx-trash me-1"></i> Delete</a
+                                  >
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                      <?php }
+                    mysqli_close($con);
+                    ?>
                     </tbody>
                   </table>
                   
@@ -295,19 +295,19 @@
               <!--/ Layout Demo -->
             </div>
             <!-- / Content -->
-            <?php 
-                      $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page='.($page - 1).'">Prev</a></li>' : '';
-                      $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page='.($page + 1).'">Next</a>' : '';
-                      
-                      echo '<ul class="pagination justify-content-center">' . $prevLink;
-                      for($i = 1; $i <= $totalPages; $i++) {
-                          $activeClass = ($i == $page) ? ' active' : '';
-                          echo '<li class="page-item '. $activeClass .'"><a class="page-link" href="?page=' . $i . '">' . $i .'</a></li>';
-                      }
-                      echo $nextLink . '</ul>';
-                      
-                        
-                  ?>
+            <?php
+            $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">Prev</a></li>' : '';
+            $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Next</a>' : '';
+
+            echo '<ul class="pagination justify-content-center">' . $prevLink;
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $activeClass = ($i == $page) ? ' active' : '';
+                echo '<li class="page-item ' . $activeClass . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+            }
+            echo $nextLink . '</ul>';
+
+
+            ?>
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -315,7 +315,7 @@
                   ©
                   <script>
                     document.write(new Date().getFullYear());
-                  </script>
+                </script>
                   , made with ❤️ by
                   <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>

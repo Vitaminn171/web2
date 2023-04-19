@@ -102,9 +102,9 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                  <button
-                    class="btn btn-primary"
-                    href="#">Add new product</button>
+                  <a href="form_add_phone.php">
+                    <button class="btn btn-primary">Add new product</button>
+                  </a>
                 </li>
 
                 <!-- User -->
@@ -246,12 +246,12 @@
                       <tr>
                         <td class="col-1">
                           <?php 
-                          if($row["visible"] == True){
+                          if($row["visible"] == 1){
                             echo "<img src='../../phone_image/".$row['image']."' style='width: 110%'>";
                           }
                           else {
                             echo "<div class='card'>
-                            <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='opacity: 0.5'>
+                            <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='opacity: 0.3'>
                             <div class='card-img-overlay'>
                               <img class='card-img justify-content-left' src='../assets/img/elements/visible.png' style='width: 100%'></img>
                               
@@ -424,5 +424,5 @@
 
 
   
-  </body>
+    </body>
 </html>

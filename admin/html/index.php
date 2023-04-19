@@ -1,6 +1,6 @@
 <?php 
-  session_start();
-  $useremail = $_SESSION['useremail'];
+  // session_start();
+  // $useremail = $_SESSION['useremail'];
 ?>
 <!DOCTYPE html>
 
@@ -58,7 +58,6 @@
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -119,7 +118,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $useremail;?></span>
+                            <span class="fw-semibold d-block"></span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
