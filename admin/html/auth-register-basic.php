@@ -65,6 +65,32 @@
   </head>
 
   <body>
+    <?php require_once("template/connection.php"); 
+      require("../SQL/sql.php");                     
+      $result = mysqli_query($con,get_all_email_customer());
+      $fetchResult = mysqli_fetch_all($result);
+      $id = count($fetchResult) + 1;
+
+      if(isset($_POST['BtnSubmit'])) {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        if(!empty($username) && !empty($email) && !empty($password)) {
+          $sql = "INSERT INTO `customer` (`id`, `name`, `email`, `password`, `address`, `phoneNumber`) VALUES
+          ('$id', '$username', '$email', md5('$password'), '', '')";
+
+          $resultRegister = $con->query($sql);
+
+          if($resultRegister) {
+            echo "luu thanh cong";
+            header("Location: /admin/html/auth-login-basic.php");
+          } else {
+            echo "Loi";
+          }
+        }
+      }
+    ?>
     <!-- Content -->
 
     <div class="container-xxl">
@@ -131,14 +157,15 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                  <span class="app-brand-text demo text-body fw-bolder">ĐĂNG KÝ</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Adventure starts here 🚀</h4>
+              <h4 class="mb-2">ĐĂNG KÝ TÀI KHOẢN ĐỂ TRẢI NGHIỆM 🚀</h4>
               <p class="mb-4">Make your app management easy and fun!</p>
-
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <p class="h6 text-danger mt-2" id="error-notice"></p>
+              
+              <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
                   <input
@@ -169,7 +196,7 @@
                   </div>
                 </div>
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
                     <label class="form-check-label" for="terms-conditions">
@@ -177,13 +204,13 @@
                       <a href="javascript:void(0);">privacy policy & terms</a>
                     </label>
                   </div>
-                </div>
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
+                </div> -->
+                <button class="btn btn-primary d-grid w-100" name="BtnSubmit" id="signup--submit">Sign up</button>
               </form>
 
               <p class="text-center">
                 <span>Already have an account?</span>
-                <a href="auth-login-basic.html">
+                <a href="auth-login-basic.php">
                   <span>Sign in instead</span>
                 </a>
               </p>
@@ -196,14 +223,14 @@
 
     <!-- / Content -->
 
-    <div class="buy-now">
+    <!-- <div class="buy-now">
       <a
         href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
         target="_blank"
         class="btn btn-danger btn-buy-now"
         >Upgrade to Pro</a
       >
-    </div>
+    </div> -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -224,5 +251,96 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+      const validateEmail = (email) => {
+          return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
+      const checkEmailDuplicates = (email) => {
+        let emailList = <?php echo json_encode($fetchResult) ?>;
+
+        for(let e of emailList) {
+          if(e[0] === email) {
+            return true
+          }
+        }
+        return false
+      }
+
+      const emailInput = document.getElementById('email')
+      const passwordInput = document.getElementById('password')
+      const userInput = document.getElementById('username')
+      const btnSubmit = document.getElementById('signup--submit')
+      const errorNotice = document.querySelector('#error-notice')
+      const form = document.querySelector('#formAuthentication')
+
+      let isValidEmail = false
+      let isEmptyValueEmail = true
+      let isEmailDuplicates = false
+      emailInput.addEventListener('change' , (e) => {
+        if(!validateEmail(e.target.value)) {
+          isValidEmail = true
+        } else {
+          isValidEmail = false
+        }
+
+        if(e.target.value === "") {
+          isEmptyValueEmail = true
+        } else {
+          isEmptyValueEmail = false
+        }
+
+        if(checkEmailDuplicates(e.target.value)) {
+          isEmailDuplicates = true
+        } else {
+          isEmailDuplicates = false
+        }
+      })
+
+      let isEmptyValuePassword = true
+      passwordInput.addEventListener('change' , (e) => {
+        if(e.target.value === "") {
+          isEmptyValuePassword = true
+        } else {
+          isEmptyValuePassword = false
+        }
+      })
+
+      let isEmptyValueUsername = true
+      userInput.addEventListener('change' , (e) => {
+        if(e.target.value === "") {
+          isEmptyValueUsername = true
+        } else {
+          isEmptyValueUsername = false
+        }
+      })
+
+      btnSubmit.disabled = true
+      form.addEventListener('change' , (e) => {
+        if(isEmptyValuePassword || isEmptyValueEmail || isEmptyValueUsername) {
+          errorNotice.innerText = "Vui lòng nhập đầy đủ các trường !"
+          return
+        } else {
+          if(isValidEmail) {
+            errorNotice.innerText = "Email không đúng định dạng !"
+            return
+          } else if(isEmailDuplicates) {
+            errorNotice.innerText = "Email đã tồn tại !"
+          } 
+          else {
+            errorNotice.innerText = ""
+            btnSubmit.disabled = false
+          }
+        }
+      })
+
+      btnSubmit.addEventListener('click' , (e) => {
+        alert("Đăng ký thành công !")
+      })
+    </script>
   </body>
+  <?php
+   mysqli_close($con);
+  ?>
 </html>
