@@ -1,3 +1,30 @@
+<?php 
+  session_start();
+  require_once("template/connection.php"); 
+  require("../SQL/sql.php");              
+
+  $resultAccount = mysqli_query($con,get_all_account_customer());
+  $fetchResultAccount = mysqli_fetch_all($resultAccount);
+  $boolCheckAccount = true;
+  if(isset($_POST['BtnSubmit'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    if(!empty($email) && !empty($password)) {
+      foreach($fetchResultAccount as $rsAccount) {
+        // rsAccount[0] : tai khoan , rsAccount[0] : mat khau
+        if ($email == $rsAccount[0] && md5($password) == $rsAccount[1]) {
+          $boolCheckAccount = false;
+          break;
+        }
+      }
+      if($boolCheckAccount != true) {
+        $_SESSION['useremail'] = $email;
+        header("Location: /admin/html/index.php");
+      }
+    }
+  }
+?>
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -131,22 +158,31 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                  <span class="app-brand-text demo text-body fw-bolder">ĐĂNG NHẬP</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Sneat! 👋</h4>
+              <h4 class="mb-2">Welcome to Phone Store 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
+              <p class="h6 text-danger mt-2" id="error-notice">
+                <?php
+                  if(isset($_POST['BtnSubmit'])) {
+                    if($boolCheckAccount == true) {
+                      echo  "Tài khoản hoặc mật khẩu không chính xác";
+                    } 
+                  }
+                ?>
+              </p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email or Username</label>
+                  <label for="email" class="form-label">Email</label>
                   <input
                     type="text"
                     class="form-control"
                     id="email"
-                    name="email-username"
-                    placeholder="Enter your email or username"
+                    name="email"
+                    placeholder="Enter your email"
                     autofocus
                   />
                 </div>
@@ -176,13 +212,13 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit" name="BtnSubmit">Sign in</button>
                 </div>
               </form>
 
               <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
+                <a href="auth-register-basic.php">
                   <span>Create an account</span>
                 </a>
               </p>
@@ -223,5 +259,9 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <?php
+      mysqli_close($con);
+    ?>
   </body>
 </html>

@@ -1,3 +1,7 @@
+<?php 
+  session_start();
+  $useremail = $_SESSION['useremail'];
+?>
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -115,7 +119,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Username (Email)</span>
+                            <span class="fw-semibold d-block"><?php echo $useremail;?></span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -149,7 +153,7 @@
                       <div class="dropdown-divider"></div>
                     </li> -->
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="logout.php">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
