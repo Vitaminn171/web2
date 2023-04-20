@@ -165,3 +165,180 @@ if(url.includes("employee.php"))
   click_sub_item_sidebar(account,employee,all_item);
 if(url.includes("customer.php"))   
   click_sub_item_sidebar(account,customer,employee);
+
+
+
+/**
+ * The function inserts a new row into a table with a given size and a remove button.
+ */
+
+var items_variant = []
+const insertTable = ({size}
+  
+) => {
+  const tr = `<tr>
+                  <td class="text-center">${size}</td>
+            
+                  <td>
+                      <button id="removeVariant" class="text-danger btn-light border-0 removeItem" size="${size}" name="new_size"><a> <i class='bx bx-trash' ></i>
+                      </a></button>
+                      <input type="hidden" name="variant['size']" value="${size}"> 
+                  </td>
+              </tr>`
+
+  $("#table_variant").append(tr)
+  document.getElementById('size').value = ''
+}
+
+/**
+ * 
+ * The function adds a new row to a table when a button is clicked, based on user input, and prevents
+ * duplicates.
+ */
+ //Onclick thêm vào table
+ $("#addVariant").on("click", function(e) {
+  e.preventDefault();
+  
+  if ($("#size").val() != "") {
+      let variant = {
+          size: $("#size").val(),
+      }
+      !items_variant.find(e => e.size == variant.size) && items_variant.push(variant);
+      $("#table_variant").text("")
+      
+      items_variant.forEach(variant => insertTable(variant))
+      
+  }
+})
+const removeItem = (e) => {
+  e.preventDefault();
+  let size = e.target.closest("button").getAttribute("size")
+  items_variant.splice(items_variant.indexOf(items_variant.find(ele => ele.size == size)),1)
+  e.target.closest("tr").remove()
+}
+$(document).ready(() => {
+  $(document).on("click", "button[id=removeVariant]", (e) => removeItem(e))
+})
+
+//----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function (e) {
+    (function () {
+      const deactivateAcc = document.querySelector('#formAccountDeactivation');
+  
+      // Update/reset user image of account page
+      let accountUserImage = document.getElementById('uploadedAvatar');
+      const fileInput = document.querySelector('.account-file-input'),
+        resetFileInput = document.querySelector('.account-image-reset');
+  
+      if (accountUserImage) {
+        const resetImage = accountUserImage.src;
+        fileInput.onchange = () => {
+          if (fileInput.files[0]) {
+            accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
+            
+          }
+        };
+        resetFileInput.onclick = () => {
+          fileInput.value = '';
+          accountUserImage.src = resetImage;
+        };
+      }
+    })();
+  });
+
+
+
+var items_color = []
+const insertTableColor = ({color}
+  
+) => {
+  const tr = `<tr>
+                  <td class="text-center">${color}</td>
+              
+                 
+                  
+                <td>
+                    <button id="removeColor" class="text-danger btn-light border-0 removeItemColor" name="new_color"><a> <i class='bx bx-trash' ></i>
+                    </a></button>
+                    <input type="hidden" name="colors['color']" value="${color}"> 
+                </td>
+              </tr>`
+
+  $("#table_color").append(tr)
+  document.getElementById('color').value = ''
+}
+
+ //Onclick thêm vào table
+ $("#addColor").on("click", function(e) {
+  e.preventDefault();
+  
+  if ($("#color").val() != "") {
+      let colors = {
+        color: $("#color").val(),
+      }
+      !items_color.find(e => e.color == colors.color) && items_color.push(colors);
+      $("#table_color").text("")
+      
+      items_color.forEach(colors => insertTableColor(colors))
+      
+  }
+})
+const removeItemColor = (e) => {
+  e.preventDefault();
+  let color = e.target.closest("button").getAttribute("color")
+  items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color)),1)
+  e.target.closest("tr").remove()
+}
+$(document).ready(() => {
+  $(document).on("click", "button[id=removeColor]", (e) => removeItem(e))
+})
+
+
+// when submit push data to add_new_phone.php 
+$("button[name=submit]").on("click",(e) => {
+    e.preventDefault();
+    // console.log(items)
+    const phone = {
+        name: $("#phoneName").val(),
+        brand: $("#brand option:selected").attr("value"),
+        date: $("#date").val()
+    }
+    const spec = {
+        chipset: $("#chipset").val(),
+        cpu: $("#cpu").val(),
+        dimensions: $("#dimensions").val(),
+        weight: $("#weight").val() + "g",
+        display_feature: $("#display_feature").val(),
+        resolution: $("#resolution").val(),
+        display_size: $("#display_size").val() + " inches",
+        technology: $("#technology").val(),
+        os: $("#os").val(),
+        video: $("#video").val(),
+        fcamera: $("#fcamera").val(),
+        bcamera: $("#bcamera").val(),
+        camera_feature: $("#camera_feature").val(),
+        sim: $("#sim").val(),
+        network: $("#network").val(),
+        wifi: $("#wifi").val(),
+        misc: $("#misc").val(),
+    }
+
+
+    phone.length && spec.length && dataColor.length && dataVariant.length && $.post(`../php/add_new_phone.php`,{submit: true, dataColor: items_color, data_variant: items_variant, phone: phone, spec: spec}, (data) => {
+        console.log(data)
+                $("button[name=submit]").prop("disabled", true);
+                $("#header").append(`<div class="absolute px-4 py-2 bg-green-500 font-medium text-base text-gray-50 shadow bottom-3 mr-2">
+                Cập nhật thành công
+            </div>`)
+                setTimeout(function() {
+                    //document.location.href = `../html/all_phone.php`
+                },150);
+            
+        
+    })
+})

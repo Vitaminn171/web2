@@ -170,18 +170,19 @@
 
                 <form id="formAccountSettings" method="POST" action="../php/add_new_phone.php">
                     <div class="card-body">
-                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img
-                            src="../assets/img/elements/phone.jpg"
+                        <div class="d-flex align-items-center align-items-sm-center">
+                          
+                             <img
+                            src="../assets/img/elements/all_device.jpg"
                             alt="user-avatar"
                             class="d-block rounded"
                             height="100"
                             width="100"
                             id="uploadedAvatar"
-                            />
+                            /> 
                             
-                            <div class="button-wrapper">
-                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                            <!-- <div class="button-wrapper"> -->
+                            <!-- <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                 <span class="d-none d-sm-block">Upload new photo</span>
                                 <i class="bx bx-upload d-block d-sm-none"></i>
                                 <input
@@ -200,7 +201,7 @@
                             </button>
 
                             <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                            </div>
+                            </div>  -->
                         </div>
                         </div>
                         <hr class="my-0" />
@@ -214,23 +215,23 @@
                                     type="text"
                                     id="phoneName"
                                     name="phoneName"
-                                    autofocus
                                     placeholder="Device name"
+                                    required 
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label" for="category">Brand</label>
-                                    <select id="category" class="select2 form-select">
-                                    <option value="">Select</option>
-                                    <?php require_once("template/connection.php"); 
-                                    require("../SQL/sql.php"); 
-                                    
-                                    $result = mysqli_query($con,get_category_id_name());
-                                    while($row = mysqli_fetch_array($result)){?>
-                                        <option value="<?=$row['id']?>"><?=$row['name']?></option>
-                                    <?php } ?>
+                                    <label class="form-label" for="brand">Brand</label>
+                                    <select id="brand" class="select2 form-select" required >
+                                      <option value="0">Select</option>
+                                      <?php require_once("template/connection.php"); 
+                                      require("../SQL/sql.php"); 
+                                      
+                                      $result = mysqli_query($con,get_category_id_name());
+                                      while($row = mysqli_fetch_array($result)){?>
+                                          <option value="<?=$row['id']?>"><?=$row['name']?></option>
+                                      <?php } ?>
 
-                                
+                                  
                                     </select>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -240,6 +241,7 @@
                                     type="date"
                                     id="date"
                                     name="date"
+                                    required 
                                     />
                                 </div>
                             </div>
@@ -254,6 +256,7 @@
                                     id="chipset"
                                     name="chipset"
                                     placeholder="Chipset"
+                                    required 
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -264,6 +267,7 @@
                                     id="cpu"
                                     name="cpu"
                                     placeholder="Cpu name"
+                                    required 
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -276,36 +280,55 @@
                                         name="dimensions"
                                         class="form-control"
                                         placeholder="Dimensions"
+                                        required 
                                     />
                                 </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="weight" class="form-label">Body weight</label>
-                                    <input type="number" class="form-control" id="weight" name="weight" placeholder="Weight" />
+                                    <div class="input-group input-group-merge">
+                                      <input
+                                      type="number"
+                                      class="form-control"
+                                      id="weight"
+                                      name="weight"
+                                      placeholder="Weight"    
+                                      required 
+                                      />
+                                      <span class="input-group-text"> g</span>
+                                    </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="display_feature" class="form-label">Display feature</label>
-                                    <input class="form-control" type="text" id="display_feature" name="display_feature" placeholder="Feature" />
+                                    <input class="form-control" type="text" id="display_feature" name="display_feature" placeholder="Feature" required />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="resolution" class="form-label">Display resolution</label>
-                                    <input
-                                    type="text"
-                                    class="form-control"
-                                    id="resolution"
-                                    name="resolution"
-                                    placeholder="Resolution"    
-                                    />
+                                    <div class="input-group input-group-merge">
+                                      <input
+                                      type="text"
+                                      class="form-control"
+                                      id="resolution"
+                                      name="resolution"
+                                      placeholder="Display resolution"    
+                                      required 
+                                      />
+                                      <span class="input-group-text"> pixels</span>
+                                    </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="display_size" class="form-label">Display size</label>
-                                    <input
-                                    type="number"
-                                    class="form-control"
-                                    id="display_size"
-                                    name="display_size"
-                                    placeholder="Display size"    
-                                    />
+                                    <div class="input-group input-group-merge">
+                                      <input
+                                      type="number"
+                                      class="form-control"
+                                      id="display_size"
+                                      name="display_size"
+                                      placeholder="Display size"    
+                                      required 
+                                      />
+                                      <span class="input-group-text"> inches</span>
+                                    </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="resolution" class="form-label">Display technology</label>
@@ -314,7 +337,8 @@
                                     class="form-control"
                                     id="technology"
                                     name="technology"
-                                    placeholder="Technology"    
+                                    placeholder="Technology"   
+                                    required  
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -325,6 +349,7 @@
                                     id="os"
                                     name="os"
                                     placeholder="OS"    
+                                    required 
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -334,7 +359,8 @@
                                     class="form-control"
                                     id="video"
                                     name="video"
-                                    placeholder="Video capture"    
+                                    placeholder="Video capture"  
+                                    required   
                                     />
                                 </div>        
                                 <div class="mb-3 col-md-6">
@@ -344,7 +370,8 @@
                                     class="form-control"
                                     id="fcamera"
                                     name="fcamera"
-                                    placeholder="Front camera"    
+                                    placeholder="Front camera"   
+                                    required  
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -355,6 +382,7 @@
                                     id="bcamera"
                                     name="bcamera"
                                     placeholder="Back camera"    
+                                    required 
                                     />
                                 </div>        
                                 <div class="mb-3 col-md-6">
@@ -364,7 +392,8 @@
                                     class="form-control"
                                     id="camera_feature"
                                     name="camera_feature"
-                                    placeholder="Camera feature"    
+                                    placeholder="Camera feature"   
+                                    required  
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -375,6 +404,7 @@
                                     id="battery"
                                     name="battery"
                                     placeholder="Battery"    
+                                    required 
                                     />
                                 </div>        
                                 <div class="mb-3 col-md-6">
@@ -384,7 +414,8 @@
                                     class="form-control"
                                     id="sim"
                                     name="sim"
-                                    placeholder="Nano sim, eSim, ..."    
+                                    placeholder="Nano sim, eSim, ..."   
+                                    required  
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -394,7 +425,8 @@
                                     class="form-control"
                                     id="network"
                                     name="network"
-                                    placeholder="5G, 4G, ..."    
+                                    placeholder="5G, 4G, ..."  
+                                    required   
                                     />
                                 </div>    
                                 <div class="mb-3 col-md-6">
@@ -404,7 +436,8 @@
                                     class="form-control"
                                     id="wifi"
                                     name="wifi"
-                                    placeholder="Wifi"    
+                                    placeholder="Wifi"
+                                    required    
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -414,18 +447,19 @@
                                     class="form-control"
                                     id="misc"
                                     name="misc"
-                                    placeholder="Misc"    
+                                    placeholder="Misc"  
+                                    required   
                                     />
                                 </div>        
 
                                 
                             </div>
                             <hr class="my-4" />
-                            <h5>Variant</h5>
+                            
                             <div class="row"> 
-                                <form method="post">
-                                    <div class="mb-3 col-md-5">
-                                        
+                              <h5>Variant</h5>
+                                    <div class="mb-1 col-md-5">
+                                    
                                         <label for="size" class="form-label">Ram & Internal storage</label>
                                         <input
                                         type="text"
@@ -434,44 +468,80 @@
                                         name="size"
                                         placeholder="Example: 8GB 128GB"    
                                         />
-                                        
+                                                                  
                                     </div>   
                                     <div class="mb-3 col-md-1">
-                                        <label for="size" class="form-label">Add variant</label>
-                                        <button class="btn btn-primary form-control" name="add"><i class='bx bx-plus-medical' ></i></button>
+                                        <label for="add" class="form-label">Add variant</label>
+                                        <button class="btn btn-primary form-control" id="addVariant"><i class='bx bx-plus-medical' ></i></button>
                                     </div>
-                                    
-                                </form>
-                                
-                                <?php 
 
-                                            
-                                ?>
+                                
+                                    
+                                
+                                
+                                
                                 
                                 
                             </div>
-                            <div class="mb-3 col-5">
+                            
+                            <div class="mb-3 col-6">
                                 <table class="table text-center">
-                                    <thead class="table-success">
+                                    <thead class="table-secondary">
                                     <tr>
                                         <th>Size</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>John</td>
-                                       
-                                    </tr>
+                                    <tbody id="table_variant">
+                                   
                                 
                                     </tbody>
                                 </table>
                                         
 
                             </div>
+                            <div class="row"> 
+                              <div class="mb-3 col-5">
+                                      <label for="color" class="form-label">Color</label>
+                                          <input
+                                          type="text"
+                                          class="form-control"
+                                          id="color"
+                                          name="color"
+                                          placeholder="Example: Trắng, Đen ....."    
+                                          />
+                                          
+
+                                      </div>
+                                      <div class="mb-3 col-1">
+                                      <label for="addColor" class="form-label">Add color</label>
+                                          <button class="btn btn-primary form-control" id="addColor"><i class='bx bx-plus-medical' ></i></button>
+                                          
+
+                                      </div>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <table class="table text-center">
+                                    <thead class="table-secondary">
+                                    <tr>
+                                        <th>Color</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table_color">
+                                   
+                                
+                                    </tbody>
+                                    
+                                </table>
+                                        
+
+                            </div>
+
+
+                            <hr class="my-4" />
                             <div class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2" name="submit">Save changes</button>
+                            <button type="submit" class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
                             <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                             </div>
                         </div>        

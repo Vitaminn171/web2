@@ -82,6 +82,11 @@ function get_all_account_customer() {
     return $query;
 }
 
+function insert_phone($name,$category,$date) {
+    $query = "INSERT INTO phone VALUES('',$name,$category,$date,'',1)";
+    return $query;
+}
+
 
 
 
