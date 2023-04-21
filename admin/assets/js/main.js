@@ -252,6 +252,24 @@ $(document).ready(() => {
 //   });
 
 var items_color = []
+const refresh = () => {
+  $("#table_color").empty();
+  $("#image").empty();
+  items_color.forEach(item => {
+    const tr = `<tr>
+                  <td class="text-center">${item.color}</td>
+                  <td>
+                    <button id="removeColor" class="text-danger btn-light border-0 removeItemColor" name="new_color"><a> <i class='bx bx-trash' ></i></a></button>
+                    <input type="hidden" value="${item.color}"> 
+                  </td>
+                </tr>`;
+    const opt = `<option value="${item.color}">${item.color}</option>`;
+    $("#table_color").append(tr);
+    $("#image").append(opt);
+  });
+};
+
+
 const insertTableColor = ({color}
   
 ) => {
@@ -262,7 +280,7 @@ const insertTableColor = ({color}
                       <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
                       </a></button>
                       <input type="hidden" name="colors['color']" value="${color}"> 
-                  </td>
+                  </td>c
               </tr>`
   const opt = `<option value="${color}" id="${color}">${color}</option>`
   $("#table_color").append(tr)
@@ -285,6 +303,7 @@ const insertTableColor = ({color}
       }
       !items_color.find(e => e.color == colors.color) && items_color.push(colors);
       $("#table_color").text("")
+      $("#image").text("")
       
       items_color.forEach(colors => insertTableColor(colors))
       
@@ -295,6 +314,7 @@ const removeItemColor = (e) => {
   let color = e.target.closest("button").getAttribute("color")
   items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color)),1)
   e.target.closest("tr").remove()
+  refresh()
 }
 $(document).ready(() => {
   $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
