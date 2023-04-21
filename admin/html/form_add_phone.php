@@ -470,7 +470,7 @@
                                         />
                                                                   
                                     </div>   
-                                    <div class="mb-3 col-md-1">
+                                    <div class="mb-3 col-md-2">
                                         <label for="add" class="form-label">Add variant</label>
                                         <button class="btn btn-primary form-control" id="addVariant"><i class='bx bx-plus-medical' ></i></button>
                                     </div>
@@ -484,7 +484,7 @@
                                 
                             </div>
                             
-                            <div class="mb-3 col-6">
+                            <div class="mb-3 col-7">
                                 <table class="table text-center">
                                     <thead class="table-secondary">
                                     <tr>
@@ -513,14 +513,14 @@
                                           
 
                                       </div>
-                                      <div class="mb-3 col-1">
+                                      <div class="mb-3 col-md-2">
                                       <label for="addColor" class="form-label">Add color</label>
                                           <button class="btn btn-primary form-control" id="addColor"><i class='bx bx-plus-medical' ></i></button>
                                           
 
                                       </div>
                             </div>
-                            <div class="mb-3 col-6">
+                            <div class="mb-3 col-7">
                                 <table class="table text-center">
                                     <thead class="table-secondary">
                                     <tr>
@@ -529,6 +529,39 @@
                                     </tr>
                                     </thead>
                                     <tbody id="table_color">
+                                   
+                                
+                                    </tbody>
+                                    
+                                </table>
+                                        
+
+                            </div>
+                            <div class="row"> 
+                              <div class="mb-3 col-5">
+                                      <label for="image" class="form-label">Image</label>
+                                      <select id="image" class="select2 form-select" required >
+                                          
+                                  
+                                    </select>
+
+                                      </div>
+                                      <div class="mb-3 col-md-2">
+                                      <label for="addImage" class="form-label">Add image</label>
+                                          <button class="btn btn-primary form-control" id="addImage"><i class='bx bx-plus-medical' ></i></button>
+                                          
+
+                                      </div>
+                            </div>
+                            <div class="mb-3 col-7">
+                                <table class="table text-center">
+                                    <thead class="table-secondary">
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table_image">
                                    
                                 
                                     </tbody>

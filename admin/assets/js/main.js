@@ -185,7 +185,7 @@ const insertTable = ({size}
                       <input type="hidden" name="variant['size']" value="${size}"> 
                   </td>
               </tr>`
-
+    
   $("#table_variant").append(tr)
   document.getElementById('size').value = ''
 }
@@ -226,32 +226,30 @@ $(document).ready(() => {
 
 
 
-document.addEventListener('DOMContentLoaded', function (e) {
-    (function () {
-      const deactivateAcc = document.querySelector('#formAccountDeactivation');
+// document.addEventListener('DOMContentLoaded', function (e) {
+//     (function () {
+//       const deactivateAcc = document.querySelector('#formAccountDeactivation');
   
-      // Update/reset user image of account page
-      let accountUserImage = document.getElementById('uploadedAvatar');
-      const fileInput = document.querySelector('.account-file-input'),
-        resetFileInput = document.querySelector('.account-image-reset');
+//       // Update/reset user image of account page
+//       let accountUserImage = document.getElementById('uploadedAvatar');
+//       const fileInput = document.querySelector('.account-file-input'),
+//         resetFileInput = document.querySelector('.account-image-reset');
   
-      if (accountUserImage) {
-        const resetImage = accountUserImage.src;
-        fileInput.onchange = () => {
-          if (fileInput.files[0]) {
-            accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
+//       if (accountUserImage) {
+//         const resetImage = accountUserImage.src;
+//         fileInput.onchange = () => {
+//           if (fileInput.files[0]) {
+//             accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
             
-          }
-        };
-        resetFileInput.onclick = () => {
-          fileInput.value = '';
-          accountUserImage.src = resetImage;
-        };
-      }
-    })();
-  });
-
-
+//           }
+//         };
+//         resetFileInput.onclick = () => {
+//           fileInput.value = '';
+//           accountUserImage.src = resetImage;
+//         };
+//       }
+//     })();
+//   });
 
 var items_color = []
 const insertTableColor = ({color}
@@ -259,27 +257,31 @@ const insertTableColor = ({color}
 ) => {
   const tr = `<tr>
                   <td class="text-center">${color}</td>
-              
-                 
-                  
-                <td>
-                    <button id="removeColor" class="text-danger btn-light border-0 removeItemColor" name="new_color"><a> <i class='bx bx-trash' ></i>
-                    </a></button>
-                    <input type="hidden" name="colors['color']" value="${color}"> 
-                </td>
+            
+                  <td>
+                      <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
+                      </a></button>
+                      <input type="hidden" name="colors['color']" value="${color}"> 
+                  </td>
               </tr>`
-
+  const opt = `<option value="${color}" id="${color}">${color}</option>`
   $("#table_color").append(tr)
+  $("#image").append(opt)
   document.getElementById('color').value = ''
 }
 
+/**
+ * 
+ * The function adds a new row to a table when a button is clicked, based on user input, and prevents
+ * duplicates.
+ */
  //Onclick thêm vào table
  $("#addColor").on("click", function(e) {
   e.preventDefault();
   
   if ($("#color").val() != "") {
       let colors = {
-        color: $("#color").val(),
+          color: $("#color").val(),
       }
       !items_color.find(e => e.color == colors.color) && items_color.push(colors);
       $("#table_color").text("")
@@ -295,7 +297,7 @@ const removeItemColor = (e) => {
   e.target.closest("tr").remove()
 }
 $(document).ready(() => {
-  $(document).on("click", "button[id=removeColor]", (e) => removeItem(e))
+  $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
 })
 
 
@@ -340,5 +342,7 @@ $("button[name=submit]").on("click",(e) => {
                 },150);
             
         
+        })
     })
-})
+
+    
