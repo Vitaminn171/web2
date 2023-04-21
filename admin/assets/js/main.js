@@ -263,14 +263,14 @@ const refresh = () => {
                     <input type="hidden" value="${item.color}"> 
                   </td>
                 </tr>`;
-    const opt = `<option value="${item.color}">${item.color}</option>`;
+    const opt = `<option value="${item.colorID}">${item.color}</option>`;
     $("#table_color").append(tr);
     $("#image").append(opt);
   });
 };
 
 
-const insertTableColor = ({color}
+const insertTableColor = ({color, colorID}
   
 ) => {
   const tr = `<tr>
@@ -280,9 +280,9 @@ const insertTableColor = ({color}
                       <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
                       </a></button>
                       <input type="hidden" name="colors['color']" value="${color}"> 
-                  </td>c
+                  </td>
               </tr>`
-  const opt = `<option value="${color}" id="${color}">${color}</option>`
+  const opt = `<option value="${colorID}" id="${color}">${color}</option>`
   $("#table_color").append(tr)
   $("#image").append(opt)
   document.getElementById('color').value = ''
@@ -294,17 +294,19 @@ const insertTableColor = ({color}
  * duplicates.
  */
  //Onclick thêm vào table
+ let icolor = 1;
  $("#addColor").on("click", function(e) {
   e.preventDefault();
-  
+ 
   if ($("#color").val() != "") {
       let colors = {
           color: $("#color").val(),
+          colorID: icolor
       }
-      !items_color.find(e => e.color == colors.color) && items_color.push(colors);
+      !items_color.find(e => e.color == colors.color && e.colorID == colors.colorID) && items_color.push(colors);
       $("#table_color").text("")
       $("#image").text("")
-      
+      icolor++;
       items_color.forEach(colors => insertTableColor(colors))
       
   }
@@ -312,7 +314,7 @@ const insertTableColor = ({color}
 const removeItemColor = (e) => {
   e.preventDefault();
   let color = e.target.closest("button").getAttribute("color")
-  items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color)),1)
+  items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color && ele.colorID == colorID)),1)
   e.target.closest("tr").remove()
   refresh()
 }
