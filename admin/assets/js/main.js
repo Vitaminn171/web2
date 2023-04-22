@@ -255,19 +255,19 @@ var items_color = []
 const refresh = () => {
   $("#table_color").empty();
   $("#image").empty();
-  // const opt1 = `<option>Select</option>`
-  // $("#image").append(opt1)
+  const opt1 = `<option>Select</option>`
+  $("#image").append(opt1)
   items_color.forEach(item => {
     const tr = `<tr>
                   <td class="text-center">${item.color}</td>
                   <td>
-                    <button id="removeColor" class="text-danger btn-light border-0 removeItemColor" name="new_color"><a> <i class='bx bx-trash' ></i></a></button>
+                    <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" name="new_color" color="${item.color}"><a> <i class='bx bx-trash' ></i></a></button>
                     <input type="hidden" value="${item.color}"> 
                   </td>
                 </tr>`;
     const opt = `<option value="${item.colorID}">${item.color}</option>`;
-    $("#table_color").append(tr);
-    $("#image").append(opt);
+    $("#table_color").append(tr)
+    $("#image").append(opt)
   });
 };
 
@@ -284,7 +284,7 @@ const insertTableColor = ({color, colorID}
                       <input type="hidden" name="colors['color']" value="${color}"> 
                   </td>
               </tr>`
-  const opt = `<option value="${colorID}" id="${color}">${color}</option>`
+  const opt = `<option value="${colorID}" id="${colorID}">${color}</option>`
   $("#table_color").append(tr)
   $("#image").append(opt)
   document.getElementById('color').value = ''
@@ -324,7 +324,7 @@ const removeItemColor = (e) => {
   items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color)),1)
   e.target.closest("tr").remove()
   
-  refresh()
+  refresh();
 }
 $(document).ready(() => {
   $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
@@ -332,22 +332,108 @@ $(document).ready(() => {
 
 
  
-  const fileInput = document.querySelector('.account-file-input');
-    fileInput.onchange = () => {
-          if (fileInput.files[0]) {
-          
-              //accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
-              console.log(fileInput.files[0]['name'])//get file name
-              console.log($("#image option:selected"))//get file name
-          
-          }
-        };
+
 
 function loadImageFromSelectedColor(){
   //var x = document.getElementById("image").value;
   const value = $("#image option:selected").attr("value")
-  console.log(value)
+  //console.log($("#image option:selected").text())
 }
+
+const insertTableImage = ({color, image}
+  
+    ) => {
+      const tr = `<tr>
+                      <td class="text-center">${color}</td>
+                
+                      <td>
+                          <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
+                          </a></button>
+                          <input type="hidden" name="colors['color']" value="${color}"> 
+                      </td>
+                  </tr>`
+      
+      $("#table_image").append(tr)
+      
+      document.getElementById('color').value = ''
+    }
+    
+    /**
+     * 
+     * The function adds a new row to a table when a button is clicked, based on user input, and prevents
+     * duplicates.
+     */
+     //Onclick thêm vào table
+     
+const fileInput = document.querySelector('.account-file-input');
+  fileInput.onchange = () => {
+    if (fileInput.files[0]) {
+        // console.log(fileInput.files[0]['name'])//get file name
+        // console.log($("#image option:selected").attr("value"))//get file name
+        const fileName = fileInput.files[0]['name'];
+        const colorID = $("#image option:selected").attr("value");
+        const colorName = $("#image option:selected").text();
+        if(fileName != "" && colorName != "" && colorID != null){
+            // console.log(fileName)
+            // console.log(colorID)
+            // console.log(colorName)
+            // let dataImage = { 
+            //   image: fileName
+            // }
+            if(items_color && items_color.dataImage){
+              
+              // let targetItem = items_color.find((item) => item.colorID === colorID);
+              // targetItem.items_color.push({dataImage: [{image: fileName}]});
+               
+            }else{
+              !items_color.find((item) => item.colorID === colorID) && items_color.colorID.push({dataImage: [{image: fileName}]});// need to fix bug
+            }
+
+            // let targetItem = items_color.find((item) => item.colorID === colorID);
+            // targetItem.dataImage.push({image: fileName});
+            
+            console.log(items_color);
+        }
+
+           
+    }
+};
+     $("#").on("click", function(e) {
+      e.preventDefault();
+      console.log($("#image option:selected").text())
+      if ($("#color").val() != "") {
+          let colors = {
+              color: $("#color").val(),
+              colorID: icolor,
+              dataImage: []
+          }
+          !items_color.find(e => e.color == colors.color && e.colorID == colors.colorID) && items_color.push(colors);
+          $("#table_color").text("")
+          $("#image").text("")
+          icolor++;
+          items_color.forEach(colors => insertTableColor(colors))
+          
+      }
+    })
+    const removeItemImage = (e) => {
+      e.preventDefault();
+      let color = e.target.closest("button").getAttribute("color")
+      items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color && ele.colorID == colorID)),1)
+      e.target.closest("tr").remove()
+      refresh()
+    }
+    $(document).ready(() => {
+      $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
+    })
+      
+
+
+
+
+
+
+
+
 
 // when submit push data to add_new_phone.php 
 $("button[name=submit]").on("click",(e) => {
@@ -395,55 +481,4 @@ $("button[name=submit]").on("click",(e) => {
 
 
     
-// const insertTableImage = ({color, colorID}
-  
-//   ) => {
-//     const tr = `<tr>
-//                     <td class="text-center">${color}</td>
-              
-//                     <td>
-//                         <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
-//                         </a></button>
-//                         <input type="hidden" name="colors['color']" value="${color}"> 
-//                     </td>
-//                 </tr>`
-//     const opt = `<option value="${colorID}" id="${color}">${color}</option>`
-//     $("#table_color").append(tr)
-//     $("#image").append(opt)
-//     document.getElementById('color').value = ''
-//   }
-  
-//   /**
-//    * 
-//    * The function adds a new row to a table when a button is clicked, based on user input, and prevents
-//    * duplicates.
-//    */
-//    //Onclick thêm vào table
-//    let icolor = 1;
-//    $("#addColor").on("click", function(e) {
-//     e.preventDefault();
-   
-//     if ($("#color").val() != "") {
-//         let colors = {
-//             color: $("#color").val(),
-//             colorID: icolor
-//         }
-//         !items_color.find(e => e.color == colors.color && e.colorID == colors.colorID) && items_color.push(colors);
-//         $("#table_color").text("")
-//         $("#image").text("")
-//         icolor++;
-//         items_color.forEach(colors => insertTableColor(colors))
-        
-//     }
-//   })
-//   const removeItemColor = (e) => {
-//     e.preventDefault();
-//     let color = e.target.closest("button").getAttribute("color")
-//     items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color && ele.colorID == colorID)),1)
-//     e.target.closest("tr").remove()
-//     refresh()
-//   }
-//   $(document).ready(() => {
-//     $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
-//   })c
-    
+// 

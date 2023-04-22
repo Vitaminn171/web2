@@ -120,7 +120,13 @@
 }
 
 .menu-item:hover{ 
-	padding-left: 15px;
+	padding-left: 15px
+}
+
+
+button#addColor, button#addVariant{
+  width: 60px;
+  text-align: center;
 }
 
 /* table {

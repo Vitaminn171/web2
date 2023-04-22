@@ -446,7 +446,7 @@
                             
                             <div class="row"> 
                               <h5>Variant</h5>
-                                    <div class="mb-1 col-md-5">
+                                    <div class="mb-1 col-5">
                                     
                                         <label for="size" class="form-label">Ram & Internal storage</label>
                                         <input
@@ -459,8 +459,8 @@
                                                                   
                                     </div>   
                                     <div class="mb-3 col-md-2">
-                                        <label for="add" class="form-label">Add variant</label>
-                                        <button class="btn btn-primary form-control" id="addVariant"><i class='bx bx-plus-medical' ></i></button>
+                                        <label for="add" class="form-label">Add variant</label><br>
+                                        <button class="btn btn-primary me-md-2 form-control" id="addVariant"><i class='bx bx-plus'></i></button>
                                     </div>
 
                                 
@@ -488,7 +488,7 @@
                                         
 
                             </div>
-                            <div class="row"> 
+                            <div class="row mt-5"> 
                               <div class="mb-3 col-5">
                                       <label for="color" class="form-label">Color</label>
                                           <input
@@ -502,8 +502,8 @@
 
                                       </div>
                                       <div class="mb-3 col-md-2">
-                                      <label for="addColor" class="form-label">Add color</label>
-                                          <button class="btn btn-primary form-control" id="addColor"><i class='bx bx-plus-medical' ></i></button>
+                                      <label for="addColor" class="form-label">Add color</label><br>
+                                          <button class="btn btn-primary form-control" id="addColor"><i class='bx bx-plus text-center'></i></button>
                                           
 
                                       </div>
@@ -525,53 +525,57 @@
                                         
 
                             </div>
-                            <div class="row"> 
+                            
+                            <div class="row mt-5"> 
                               <div class="mb-3 col-5">
                                       <label for="image" class="form-label">Image</label>
                                       <select id="image" class="select2 form-select" onchange="loadImageFromSelectedColor()" required >
                                           
                                   
-                                    </select>
+                                      </select>
 
-                                      </div>
-                                      <div class="mb-3 col-md-2">
-                                      <label for="addImage" class="form-label">Add image</label>
-                                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                            <span class="d-none d-sm-block">Upload</span>
-                                            <i class="bx bx-upload d-block d-sm-none"></i>
-                                            <input
-                                            type="file"
-                                            id="upload"
-                                            class="account-file-input"
-                                            hidden
-                                            id="file"
-                                            name="file"
-                                            accept="image/png, image/jpeg, image/jpg"
-                                            />
+                              </div>
+                              <div class="mb-3 col-md-2">
+                                        
+                                <label for="buttonLabel" class="form-label">Add image</label><br>
+                                <label for="upload" class="btn btn-primary me-3" tabindex="0" id="buttonLabel">
                                             
-                                          </label>
+                                      <i class="bx bx-upload"></i>
+                                      <input
+                                          type="file"
+                                          id="upload"
+                                          class="account-file-input"
+                                          hidden
+                                          id="file"
+                                          name="file"
+                                          accept="image/png, image/jpeg, image/jpg"
+                                        />
+                                            
+                                </label>
                                           
 
-                                      </div>
+                              </div>
                             </div>
-                            <div class="mb-3 col-7">
-                                <table class="table text-center">
-                                    <thead class="table-secondary">
-                                    <tr>
-                                        <th>Color</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
-                                        
-                                    </tr>
-                                    </thead>
-                                    <tbody id="table_image">
-                                   
-                                
-                                    </tbody>
+                            <div class="row"> 
+                              <div class="mb-3 col-7">
+                                  <table class="table text-center">
+                                      <thead class="table-secondary">
+                                      <tr>
+                                          <th>Color</th>
+                                          <th>Image</th>
+                                          <th>Action</th>
+                                          
+                                      </tr>
+                                      </thead>
+                                      <tbody id="table_image">
                                     
-                                </table>
-                                        
+                                  
+                                      </tbody>
+                                      
+                                  </table>
+                                          
 
+                              </div>
                             </div>
 
 
