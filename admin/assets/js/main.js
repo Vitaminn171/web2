@@ -255,6 +255,8 @@ var items_color = []
 const refresh = () => {
   $("#table_color").empty();
   $("#image").empty();
+  // const opt1 = `<option>Select</option>`
+  // $("#image").append(opt1)
   items_color.forEach(item => {
     const tr = `<tr>
                   <td class="text-center">${item.color}</td>
@@ -306,7 +308,11 @@ const insertTableColor = ({color, colorID}
       !items_color.find(e => e.color == colors.color && e.colorID == colors.colorID) && items_color.push(colors);
       $("#table_color").text("")
       $("#image").text("")
+      
+      const opt1 = `<option value="0">Select</option>`
+      $("#image").append(opt1)
       icolor++;
+      
       items_color.forEach(colors => insertTableColor(colors))
       
   }
@@ -314,14 +320,34 @@ const insertTableColor = ({color, colorID}
 const removeItemColor = (e) => {
   e.preventDefault();
   let color = e.target.closest("button").getAttribute("color")
-  items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color && ele.colorID == colorID)),1)
+
+  items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color)),1)
   e.target.closest("tr").remove()
+  
   refresh()
 }
 $(document).ready(() => {
   $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
 })
 
+
+ 
+  const fileInput = document.querySelector('.account-file-input');
+    fileInput.onchange = () => {
+          if (fileInput.files[0]) {
+          
+              //accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
+              console.log(fileInput.files[0]['name'])//get file name
+              console.log($("#image option:selected"))//get file name
+          
+          }
+        };
+
+function loadImageFromSelectedColor(){
+  //var x = document.getElementById("image").value;
+  const value = $("#image option:selected").attr("value")
+  console.log(value)
+}
 
 // when submit push data to add_new_phone.php 
 $("button[name=submit]").on("click",(e) => {
@@ -367,4 +393,57 @@ $("button[name=submit]").on("click",(e) => {
         })
     })
 
+
+    
+// const insertTableImage = ({color, colorID}
+  
+//   ) => {
+//     const tr = `<tr>
+//                     <td class="text-center">${color}</td>
+              
+//                     <td>
+//                         <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
+//                         </a></button>
+//                         <input type="hidden" name="colors['color']" value="${color}"> 
+//                     </td>
+//                 </tr>`
+//     const opt = `<option value="${colorID}" id="${color}">${color}</option>`
+//     $("#table_color").append(tr)
+//     $("#image").append(opt)
+//     document.getElementById('color').value = ''
+//   }
+  
+//   /**
+//    * 
+//    * The function adds a new row to a table when a button is clicked, based on user input, and prevents
+//    * duplicates.
+//    */
+//    //Onclick thêm vào table
+//    let icolor = 1;
+//    $("#addColor").on("click", function(e) {
+//     e.preventDefault();
+   
+//     if ($("#color").val() != "") {
+//         let colors = {
+//             color: $("#color").val(),
+//             colorID: icolor
+//         }
+//         !items_color.find(e => e.color == colors.color && e.colorID == colors.colorID) && items_color.push(colors);
+//         $("#table_color").text("")
+//         $("#image").text("")
+//         icolor++;
+//         items_color.forEach(colors => insertTableColor(colors))
+        
+//     }
+//   })
+//   const removeItemColor = (e) => {
+//     e.preventDefault();
+//     let color = e.target.closest("button").getAttribute("color")
+//     items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color && ele.colorID == colorID)),1)
+//     e.target.closest("tr").remove()
+//     refresh()
+//   }
+//   $(document).ready(() => {
+//     $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
+//   })c
     

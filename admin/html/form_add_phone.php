@@ -182,19 +182,7 @@
                             /> 
                             
                             <!-- <div class="button-wrapper"> -->
-                            <!-- <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                <span class="d-none d-sm-block">Upload new photo</span>
-                                <i class="bx bx-upload d-block d-sm-none"></i>
-                                <input
-                                type="file"
-                                id="upload"
-                                class="account-file-input"
-                                hidden
-                                name="file"
-                                accept="image/png, image/jpeg, image/jpg"
-                                />
-                                
-                            </label>
+                            <!-- c
                             <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                 <i class="bx bx-reset d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Reset</span>
@@ -540,7 +528,7 @@
                             <div class="row"> 
                               <div class="mb-3 col-5">
                                       <label for="image" class="form-label">Image</label>
-                                      <select id="image" class="select2 form-select" required >
+                                      <select id="image" class="select2 form-select" onchange="loadImageFromSelectedColor()" required >
                                           
                                   
                                     </select>
@@ -548,7 +536,20 @@
                                       </div>
                                       <div class="mb-3 col-md-2">
                                       <label for="addImage" class="form-label">Add image</label>
-                                          <button class="btn btn-primary form-control" id="addImage"><i class='bx bx-plus-medical' ></i></button>
+                                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                            <span class="d-none d-sm-block">Upload</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input
+                                            type="file"
+                                            id="upload"
+                                            class="account-file-input"
+                                            hidden
+                                            id="file"
+                                            name="file"
+                                            accept="image/png, image/jpeg, image/jpg"
+                                            />
+                                            
+                                          </label>
                                           
 
                                       </div>
@@ -557,8 +558,10 @@
                                 <table class="table text-center">
                                     <thead class="table-secondary">
                                     <tr>
+                                        <th>Color</th>
                                         <th>Image</th>
                                         <th>Action</th>
+                                        
                                     </tr>
                                     </thead>
                                     <tbody id="table_image">
