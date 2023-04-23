@@ -224,59 +224,81 @@ $(document).ready(() => {
 
 
 
-
-
-// document.addEventListener('DOMContentLoaded', function (e) {
-//     (function () {
-//       const deactivateAcc = document.querySelector('#formAccountDeactivation');
-  
-//       // Update/reset user image of account page
-//       let accountUserImage = document.getElementById('uploadedAvatar');
-//       const fileInput = document.querySelector('.account-file-input'),
-//         resetFileInput = document.querySelector('.account-image-reset');
-  
-//       if (accountUserImage) {
-//         const resetImage = accountUserImage.src;
-//         fileInput.onchange = () => {
-//           if (fileInput.files[0]) {
-//             accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
-            
-//           }
-//         };
-//         resetFileInput.onclick = () => {
-//           fileInput.value = '';
-//           accountUserImage.src = resetImage;
-//         };
-//       }
-//     })();
-//   });
-
+let icolor = 1;
 var items_color = []
 const refresh = () => {
   $("#table_color").empty();
-  $("#image").empty();
-  const opt1 = `<option>Select</option>`
-  $("#image").append(opt1)
+  
   items_color.forEach(item => {
     const tr = `<tr>
                   <td class="text-center">${item.color}</td>
-                  <td>
-                    <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" name="new_color" color="${item.color}"><a> <i class='bx bx-trash' ></i></a></button>
-                    <input type="hidden" value="${item.color}"> 
+                  <td class="img-container" id="id_${item.colorID}">
+                    
                   </td>
-                </tr>`;
-    const opt = `<option value="${item.colorID}">${item.color}</option>`;
+                  <td>
+                      
+                                            
+                                      
+                                      <input
+                                          type="file"
+                                          id="upload_${item.colorID}"
+                                          class="account-file-input"
+                                          hidden  
+                                          name="file"
+                                          accept="image/png, image/jpeg, image/jpg"
+                                        />
+                                        <label for="upload_${item.colorID}" class="btn btn-primary me-3" onclick="uploadImage(${item.colorID})">
+                                          <i class="bx bx-upload"></i>   
+                                        </label>
+                  </td>
+            
+                  <td>
+                      <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${item.color}" name="new_color"><a> <i class='bx bx-trash' ></i>
+                      </a></button>
+                      <input type="hidden" name="colors['color']" value="${item.color}"> 
+                  </td>
+              </tr>`
+           
     $("#table_color").append(tr)
-    $("#image").append(opt)
-  });
+    var n = items_color.length;
+    if(n > 0){
+
+      for (var i = 1;i < n; i++){
+          $("#id_" + (n - i)).text("")
+        }  
+        items_image.forEach(imageData => insertTdImage(imageData));
+      
+    }
+    document.getElementById('color').value = ''
+  }) 
 };
 
 
 const insertTableColor = ({color, colorID}
   
 ) => {
+  
   const tr = `<tr>
                   <td class="text-center">${color}</td>
+                  <td class="img-container" id="id_${colorID}">
+                    
+                  </td>
+                  <td>
+                      
+                                            
+                                      
+                                      <input
+                                          type="file"
+                                          id="upload_${colorID}"
+                                          class="account-file-input"
+                                          hidden  
+                                          name="file"
+                                          accept="image/png, image/jpeg, image/jpg"
+                                        />
+                                        <label for="upload_${colorID}" class="btn btn-primary me-3" onclick="uploadImage(${colorID})">
+                                          <i class="bx bx-upload"></i>   
+                                        </label>
+                  </td>
             
                   <td>
                       <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
@@ -284,11 +306,55 @@ const insertTableColor = ({color, colorID}
                       <input type="hidden" name="colors['color']" value="${color}"> 
                   </td>
               </tr>`
-  const opt = `<option value="${colorID}" id="${colorID}">${color}</option>`
+           
   $("#table_color").append(tr)
-  $("#image").append(opt)
+  var n = items_color.length;
+  if(n > 0){
+
+    for (var i = 0;i <= n; i++){
+        $("#id_" + (n - i)).text("")
+      }  
+      items_image.forEach(imageData => insertTdImage(imageData));
+    
+  }
   document.getElementById('color').value = ''
 }
+
+const insertTdImage = ({fileName, colorID}) => {
+  const img = `<div class="flex-item">
+                  <img src="../../phone_image/${fileName}"/>
+                  <a class="btn btn-sm text-danger" id="delete-btn" image="${fileName}" onclick="deleteImage('${fileName}',${colorID})"><i class='bx bx-trash' ></i></a>
+                  </div>`;
+
+  $("#id_" + colorID).append(img);
+}
+
+
+function deleteImage(fileName, colorID) {
+  var n = items_color.length;
+  for (var i = 0;i <= n; i++){
+    $("#id_" + (n - i)).text("")
+  }
+  items_image.splice(items_image.indexOf(items_image.find(ele => ele.fileName == fileName && ele.colorID == colorID)),1)
+  items_image.forEach(imageData => insertTdImage(imageData));
+}
+
+const refreshImageTd = () => {
+  $("#img-container").empty()
+  console.log(items_image)
+  items_image.forEach(item => {
+    const img = `<div class="flex-item">
+                  <img src="../../phone_image/${item.fileName}"/>
+                  <a class="btn btn-sm text-danger" id="delete-btn" onclick="deleteImage('${item.fileName}',${item.colorID})"><i class='bx bx-trash' ></i></a>
+                  </div>`;
+           
+      $("#id_" + item.colorID).append(img);
+  }) 
+};
+
+
+
+
 
 /**
  * 
@@ -296,7 +362,7 @@ const insertTableColor = ({color, colorID}
  * duplicates.
  */
  //Onclick thêm vào table
- let icolor = 1;
+ 
  $("#addColor").on("click", function(e) {
   e.preventDefault();
  
@@ -305,12 +371,12 @@ const insertTableColor = ({color, colorID}
           color: $("#color").val(),
           colorID: icolor
       }
-      !items_color.find(e => e.color == colors.color && e.colorID == colors.colorID) && items_color.push(colors);
+      !items_color.find(e => e.color == colors.color) && items_color.push(colors);
       $("#table_color").text("")
-      $("#image").text("")
-      
-      const opt1 = `<option value="0">Select</option>`
-      $("#image").append(opt1)
+      //$("#img-container").text("")
+      $("#table_image").text("")
+    
+      console.log(colors)
       icolor++;
       
       items_color.forEach(colors => insertTableColor(colors))
@@ -322,6 +388,8 @@ const removeItemColor = (e) => {
   let color = e.target.closest("button").getAttribute("color")
 
   items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color)),1)
+
+  //remove items_image where colorID = items_color.colorID deleted
   e.target.closest("tr").remove()
   
   refresh();
@@ -330,91 +398,46 @@ $(document).ready(() => {
   $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
 })
 
+var items_image = []
+function uploadImage(color_id){
+  const fileInput = document.querySelector('#upload_' + color_id);
 
- 
+  function handleFileInputChange(){
+      if (fileInput.files[0]) {
+          const fileName = fileInput.files[0]['name'];
+          let dataImage = {
+              fileName: fileName,
+              colorID: color_id
+          }
+            
+          // Kiểm tra xem item đã tồn tại chưa
+          const isExistItem = items_image.find(e => e.colorID === dataImage.colorID && e.fileName === dataImage.fileName);
+          
+          if(!isExistItem){
+              items_image.push(dataImage);
+              
+              var n = items_color.length;
+              
 
+  
+                for (var i = 0;i <= n; i++){
+                    $("#id_" + (n - i)).text("")
+                } 
+              
+                
+              
+              items_image.forEach(imageData => insertTdImage(imageData));
+          }
+          
+          // Loại bỏ sự kiện change
+          fileInput.removeEventListener('change', handleFileInputChange);
+      }
+  }
+    
+  fileInput.addEventListener('change', handleFileInputChange);
 
-function loadImageFromSelectedColor(){
-  //var x = document.getElementById("image").value;
-  const value = $("#image option:selected").attr("value")
-  //console.log($("#image option:selected").text())
 }
 
-const insertTableImage = ({color, image}
-  
-    ) => {
-      const tr = `<tr>
-                      <td class="text-center">${color}</td>
-                
-                      <td>
-                          <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
-                          </a></button>
-                          <input type="hidden" name="colors['color']" value="${color}"> 
-                      </td>
-                  </tr>`
-      
-      $("#table_image").append(tr)
-      
-      document.getElementById('color').value = ''
-    }
-    
-    /**
-     * 
-     * The function adds a new row to a table when a button is clicked, based on user input, and prevents
-     * duplicates.
-     */
-     //Onclick thêm vào table
-     
-const fileInput = document.querySelector('.account-file-input');
-  fileInput.onchange = () => {
-    if (fileInput.files[0]) {
-        // console.log(fileInput.files[0]['name'])//get file name
-        // console.log($("#image option:selected").attr("value"))//get file name
-        const fileName = fileInput.files[0]['name'];
-        const colorID = $("#image option:selected").attr("value");
-        const colorName = $("#image option:selected").text();
-        if(fileName != "" && colorName != "" && colorID != null){
-            // console.log(fileName)
-            // console.log(colorID)
-            // console.log(colorName)
-            // let dataImage = { 
-            //   image: fileName
-            // }
-            if(items_color && items_color.dataImage){
-              
-              // let targetItem = items_color.find((item) => item.colorID === colorID);
-              // targetItem.items_color.push({dataImage: [{image: fileName}]});
-               
-            }else{
-              !items_color.find((item) => item.colorID === colorID) && items_color.colorID.push({dataImage: [{image: fileName}]});// need to fix bug
-            }
-
-            // let targetItem = items_color.find((item) => item.colorID === colorID);
-            // targetItem.dataImage.push({image: fileName});
-            
-            console.log(items_color);
-        }
-
-           
-    }
-};
-     $("#").on("click", function(e) {
-      e.preventDefault();
-      console.log($("#image option:selected").text())
-      if ($("#color").val() != "") {
-          let colors = {
-              color: $("#color").val(),
-              colorID: icolor,
-              dataImage: []
-          }
-          !items_color.find(e => e.color == colors.color && e.colorID == colors.colorID) && items_color.push(colors);
-          $("#table_color").text("")
-          $("#image").text("")
-          icolor++;
-          items_color.forEach(colors => insertTableColor(colors))
-          
-      }
-    })
     const removeItemImage = (e) => {
       e.preventDefault();
       let color = e.target.closest("button").getAttribute("color")
@@ -479,6 +502,3 @@ $("button[name=submit]").on("click",(e) => {
         })
     })
 
-
-    
-// 

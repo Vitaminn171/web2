@@ -508,11 +508,13 @@
 
                                       </div>
                             </div>
-                            <div class="mb-3 col-7">
+                            <div class="mb-3 col-12">
                                 <table class="table text-center">
                                     <thead class="table-secondary">
                                     <tr>
                                         <th>Color</th>
+                                        <th>Image</th>
+                                        <th>Upload</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -526,57 +528,7 @@
 
                             </div>
                             
-                            <div class="row mt-5"> 
-                              <div class="mb-3 col-5">
-                                      <label for="image" class="form-label">Image</label>
-                                      <select id="image" class="select2 form-select" onchange="loadImageFromSelectedColor()" required >
-                                          
-                                  
-                                      </select>
-
-                              </div>
-                              <div class="mb-3 col-md-2">
-                                        
-                                <label for="buttonLabel" class="form-label">Add image</label><br>
-                                <label for="upload" class="btn btn-primary me-3" tabindex="0" id="buttonLabel">
-                                            
-                                      <i class="bx bx-upload"></i>
-                                      <input
-                                          type="file"
-                                          id="upload"
-                                          class="account-file-input"
-                                          hidden
-                                          id="file"
-                                          name="file"
-                                          accept="image/png, image/jpeg, image/jpg"
-                                        />
-                                            
-                                </label>
-                                          
-
-                              </div>
-                            </div>
-                            <div class="row"> 
-                              <div class="mb-3 col-7">
-                                  <table class="table text-center">
-                                      <thead class="table-secondary">
-                                      <tr>
-                                          <th>Color</th>
-                                          <th>Image</th>
-                                          <th>Action</th>
-                                          
-                                      </tr>
-                                      </thead>
-                                      <tbody id="table_image">
-                                    
-                                  
-                                      </tbody>
-                                      
-                                  </table>
-                                          
-
-                              </div>
-                            </div>
+                            
 
 
                             <hr class="my-4" />
