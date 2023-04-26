@@ -3,7 +3,7 @@
  */
 
 'use strict';
-
+const _ = require('lodash');
 let menu, animate;
 
 (function () {
@@ -171,14 +171,20 @@ if(url.includes("customer.php"))
 /**
  * The function inserts a new row into a table with a given size and a remove button.
  */
+function currency_format($number) {
+    
+    return number_format($number, 0, ',', '.');
+}
+
 
 var items_variant = []
-const insertTable = ({size}
+const insertTable = ({size,price}
   
 ) => {
+    const number = parseInt(price).toLocaleString('en-US'); // format to currency 10000 -> 10,000
   const tr = `<tr>
                   <td class="text-center">${size}</td>
-            
+                  <td class="text-center">${number} VND</td>
                   <td>
                       <button id="removeVariant" class="text-danger btn-light border-0 removeItem" size="${size}" name="new_size"><a> <i class='bx bx-trash' ></i>
                       </a></button>
@@ -188,6 +194,7 @@ const insertTable = ({size}
     
   $("#table_variant").append(tr)
   document.getElementById('size').value = ''
+  document.getElementById('price').value = ''
 }
 
 /**
@@ -199,10 +206,12 @@ const insertTable = ({size}
  $("#addVariant").on("click", function(e) {
   e.preventDefault();
   
-  if ($("#size").val() != "") {
+  if ($("#size").val() != "" && $("#price").val() != null && isValidateVariantSize($("#size").val())) {
       let variant = {
           size: $("#size").val(),
+          price: $("#price").val()
       }
+    //   const number = parseInt($("#price").val()).toLocaleString('en-US')
       !items_variant.find(e => e.size == variant.size) && items_variant.push(variant);
       $("#table_variant").text("")
       
@@ -226,7 +235,7 @@ $(document).ready(() => {
 
 let icolor = 1;
 var items_color = []
-const refresh = () => {
+const refresh = (colorID) => {
   $("#table_color").empty();
   
   items_color.forEach(item => {
@@ -253,19 +262,20 @@ const refresh = () => {
                   </td>
             
                   <td>
-                      <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${item.color}" name="new_color"><a> <i class='bx bx-trash' ></i>
+                      <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${item.color}" colorID="${item.colorID}" name="new_color"><a> <i class='bx bx-trash' ></i>
                       </a></button>
                       <input type="hidden" name="colors['color']" value="${item.color}"> 
                   </td>
               </tr>`
            
     $("#table_color").append(tr)
-    var n = items_color.length;
+    var n = items_color.length + 1;
     if(n > 0){
 
-      for (var i = 1;i < n; i++){
-          $("#id_" + (n - i)).text("")
-        }  
+        items_color.forEach(colors => {
+            $("#id_" + colors.colorID).text("")
+        })  
+        
         items_image.forEach(imageData => insertTdImage(imageData));
       
     }
@@ -301,7 +311,7 @@ const insertTableColor = ({color, colorID}
                   </td>
             
                   <td>
-                      <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" name="new_color"><a> <i class='bx bx-trash' ></i>
+                      <button id="removeItemColor" class="text-danger btn-light border-0 removeItem" color="${color}" colorID="${colorID}" name="new_color"><a> <i class='bx bx-trash' ></i>
                       </a></button>
                       <input type="hidden" name="colors['color']" value="${color}"> 
                   </td>
@@ -311,9 +321,9 @@ const insertTableColor = ({color, colorID}
   var n = items_color.length;
   if(n > 0){
 
-    for (var i = 0;i <= n; i++){
-        $("#id_" + (n - i)).text("")
-      }  
+    items_color.forEach(colors => {
+        $("#id_" + colors.colorID).text("")
+    })
       items_image.forEach(imageData => insertTdImage(imageData));
     
   }
@@ -331,17 +341,15 @@ const insertTdImage = ({fileName, colorID}) => {
 
 
 function deleteImage(fileName, colorID) {
-  var n = items_color.length;
-  for (var i = 0;i <= n; i++){
-    $("#id_" + (n - i)).text("")
-  }
+  items_color.forEach(colors => {
+    $("#id_" + colors.colorID).text("")
+})
   items_image.splice(items_image.indexOf(items_image.find(ele => ele.fileName == fileName && ele.colorID == colorID)),1)
   items_image.forEach(imageData => insertTdImage(imageData));
 }
 
 const refreshImageTd = () => {
   $("#img-container").empty()
-  console.log(items_image)
   items_image.forEach(item => {
     const img = `<div class="flex-item">
                   <img src="../../phone_image/${item.fileName}"/>
@@ -351,10 +359,6 @@ const refreshImageTd = () => {
       $("#id_" + item.colorID).append(img);
   }) 
 };
-
-
-
-
 
 /**
  * 
@@ -376,7 +380,7 @@ const refreshImageTd = () => {
       //$("#img-container").text("")
       $("#table_image").text("")
     
-      console.log(colors)
+      
       icolor++;
       
       items_color.forEach(colors => insertTableColor(colors))
@@ -386,13 +390,31 @@ const refreshImageTd = () => {
 const removeItemColor = (e) => {
   e.preventDefault();
   let color = e.target.closest("button").getAttribute("color")
-
+  let colorID = e.target.closest("button").getAttribute("colorID")
   items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color)),1)
 
+  items_image.forEach(item => {
+    if(item.colorID == colorID){
+        console.log(item.fileName)
+        items_image.splice(items_image.indexOf(item), 1)
+    }
+    
+  });
+  items_image.forEach(item => {
+    if(item.colorID == colorID){
+        console.log(item.fileName)
+        items_image.splice(items_image.indexOf(item), 1)
+    }
+    
+  });
+  
+ 
   //remove items_image where colorID = items_color.colorID deleted
+  console.log(items_image)
+
   e.target.closest("tr").remove()
   
-  refresh();
+  refresh(colorID);
 }
 $(document).ready(() => {
   $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
@@ -414,18 +436,11 @@ function uploadImage(color_id){
           const isExistItem = items_image.find(e => e.colorID === dataImage.colorID && e.fileName === dataImage.fileName);
           
           if(!isExistItem){
-              items_image.push(dataImage);
-              
-              var n = items_color.length;
-              
+                items_image.push(dataImage);      
+                items_color.forEach(colors => {
+                    $("#id_" + colors.colorID).text("")
 
-  
-                for (var i = 0;i <= n; i++){
-                    $("#id_" + (n - i)).text("")
-                } 
-              
-                
-              
+                })
               items_image.forEach(imageData => insertTdImage(imageData));
           }
           
@@ -438,67 +453,118 @@ function uploadImage(color_id){
 
 }
 
-    const removeItemImage = (e) => {
-      e.preventDefault();
-      let color = e.target.closest("button").getAttribute("color")
-      items_color.splice(items_color.indexOf(items_color.find(ele => ele.color == color && ele.colorID == colorID)),1)
-      e.target.closest("tr").remove()
-      refresh()
-    }
-    $(document).ready(() => {
-      $(document).on("click", "button[id=removeItemColor]", (e) => removeItemColor(e))
-    })
       
 
 
+  function isDateBeforeToday(date) {
+    // check valid date must before today or today
+    const today = new Date();
+    return date.getTime() <= today.getTime();
+  }
+  
+  function isValidateBodyDimen(dimensions){
+    let pattern = /(\d+\s*x\s*\d+\s*x\s*\d+)/;
+    return dimensions.match(pattern)
+  }
 
+  function isValidateBodyWeight(weight){
+    return  int(weight) < 1000
+  }
 
+  function isValidateDisplayResolution(resolution){
+    let pattern = /(\d+\s*x\s*\d+)/;
+    return resolution.match(pattern)
+  }
 
-
-
-
+  function isValidateVariantSize(size){
+    let pattern = /(\d+GB\s\d+GB)/;
+    return size.match(pattern)
+  }
+ 
+  
+console.log(items_color)
 
 // when submit push data to add_new_phone.php 
-$("button[name=submit]").on("click",(e) => {
+$("button[name=submit]").on("submit", (e) => {
     e.preventDefault();
-    // console.log(items)
-    const phone = {
-        name: $("#phoneName").val(),
-        brand: $("#brand option:selected").attr("value"),
-        date: $("#date").val()
-    }
-    const spec = {
-        chipset: $("#chipset").val(),
-        cpu: $("#cpu").val(),
-        dimensions: $("#dimensions").val(),
-        weight: $("#weight").val() + "g",
-        display_feature: $("#display_feature").val(),
-        resolution: $("#resolution").val(),
-        display_size: $("#display_size").val() + " inches",
-        technology: $("#technology").val(),
-        os: $("#os").val(),
-        video: $("#video").val(),
-        fcamera: $("#fcamera").val(),
-        bcamera: $("#bcamera").val(),
-        camera_feature: $("#camera_feature").val(),
-        sim: $("#sim").val(),
-        network: $("#network").val(),
-        wifi: $("#wifi").val(),
-        misc: $("#misc").val(),
-    }
+    // var flag = false
+    // var selected_date = new Date($("#date").val());
 
+    // //check validate form
+    // if(isDateBeforeToday(selected_date)){
+    //     flag = true
+    // }else{
+    //     alert("Date selected must before today!")
+    //     flag = false
+    // }
+    // if(isValidateBodyDimen($("#dimensions").val())){
+    //     flag = true
+    // }else{
+    //     alert("Invalid dimensions!")
+    //     flag = false
+    // }
+   
+    // if(isValidateDisplayResolution($("#resolution").val())){
+    //     flag = true
+    // }else{
+    //     alert("Invalid resolution!")
+    //     flag = false
+    // }
 
-    phone.length && spec.length && dataColor.length && dataVariant.length && $.post(`../php/add_new_phone.php`,{submit: true, dataColor: items_color, data_variant: items_variant, phone: phone, spec: spec}, (data) => {
-        console.log(data)
-                $("button[name=submit]").prop("disabled", true);
-                $("#header").append(`<div class="absolute px-4 py-2 bg-green-500 font-medium text-base text-gray-50 shadow bottom-3 mr-2">
-                Cập nhật thành công
-            </div>`)
-                setTimeout(function() {
-                    //document.location.href = `../html/all_phone.php`
-                },150);
-            
+    
+        // console.log(items)
+        const phone = {
+            name: $("#phoneName").val(),
+            brand: $("#brand option:selected").attr("value"),
+            date: $("#date").val(),
         
-        })
-    })
+          spec : {
+              chipset: $("#chipset").val(),
+              cpu: $("#cpu").val(),
+              dimensions: $("#dimensions").val(),
+              weight: $("#weight").val() + "g",
+              display_feature: $("#display_feature").val(),
+              resolution: $("#resolution").val(),
+              display_size: $("#display_size").val() + " inches",
+              technology: $("#technology").val(),
+              os: $("#os").val(),
+              video: $("#video").val(),
+              fcamera: $("#fcamera").val(),
+              bcamera: $("#bcamera").val(),
+              camera_feature: $("#camera_feature").val(),
+              sim: $("#sim").val(),
+              network: $("#network").val(),
+              wifi: $("#wifi").val(),
+              misc: $("#misc").val()
+          },
+          dataColor: {items_color},
+          dataVariant: {items_variant},
+          dataImage: {items_image},
+
+      };
+        if (phone.name.trim() != "" && spec.chipset.trim() != "" && dataColor.length > 0) {
+            $.post(`../php/add_new_phone.php`,{phone: phone}, (data) => { // fix this shit problem, when js sent array phone into php, it can't get the right way, it collapse all key and value in 1 array
+              $("button[name=submit]").prop("disabled", true);
+              $("#header").append(`<div class="absolute px-4 py-2 bg-green-500 font-medium text-base text-gray-50 shadow bottom-3 mr-2">
+              Cập nhật thành công
+          </div>`)
+              setTimeout(function() {
+                  //document.location.href = `../html/all_phone.php`
+              },150);
+            });
+        }
+
+        // phone.length && spec.length && dataColor.length && dataVariant.length && $.post(`../php/add_new_phone.php`,{submit: true, dataColor: items_color, data_variant: items_variant, phone: phone,  data: { spec : JSON.stringify(spec) }}, (data) => {
+        //   console.log(data)
+        //           $("button[name=submit]").prop("disabled", true);
+        //           $("#header").append(`<div class="absolute px-4 py-2 bg-green-500 font-medium text-base text-gray-50 shadow bottom-3 mr-2">
+        //           Cập nhật thành công
+        //       </div>`)
+        //           setTimeout(function() {
+        //               //document.location.href = `../html/all_phone.php`
+        //           },150);
+              
+          
+        //   })
+      })
 

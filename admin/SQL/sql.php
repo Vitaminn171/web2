@@ -87,7 +87,58 @@ function insert_phone($name,$category,$date) {
     return $query;
 }
 
+function insert_phone_spec($id,
+$chipset,
+$cpu,
+$dimensions,
+$weight,
+$display_feature,
+$resolution,
+$display_size,
+$technology,
+$os,
+$video,
+$fcamera,
+$bcamera,
+$camera_feature,
+$sim,
+$network,
+$wifi,
+$misc) {
+    $query = "INSERT INTO spec VALUES($id,
+                                        $chipset,
+                                        $cpu,
+                                        $dimensions,
+                                        $weight,
+                                        $display_feature,
+                                        $resolution,
+                                        $display_size,
+                                        $technology,
+                                        $os,
+                                        $video,
+                                        $fcamera,
+                                        $bcamera,
+                                        $camera_feature,
+                                        $sim,
+                                        $network,
+                                        $wifi,
+                                        $misc";
+    return $query;
+}
+function insert_variant($id,$size,$colorID,$price) {
+    $query = "INSERT INTO variant VALUES('',$id,$size,$colorID,$price,'')";
+    return $query;
+}
 
+function insert_color($id,$colorID,$color) {
+    $query = "INSERT INTO color VALUES('',$id,$colorID,$color)";
+    return $query;
+}
+
+function insert_image($id,$colorID,$image) {
+    $query = "INSERT INTO image VALUES('',$id,$colorID,$image)";
+    return $query;
+}
 
 
 

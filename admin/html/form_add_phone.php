@@ -204,12 +204,12 @@
                                     id="phoneName"
                                     name="phoneName"
                                     placeholder="Device name"
-                                    required 
+                                    
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="brand">Brand</label>
-                                    <select id="brand" class="select2 form-select" required >
+                                    <select id="brand" class="select2 form-select"  >
                                       <option value="0">Select</option>
                                       <?php require_once("template/connection.php"); 
                                       require("../SQL/sql.php"); 
@@ -229,7 +229,7 @@
                                     type="date"
                                     id="date"
                                     name="date"
-                                    required 
+                                    
                                     />
                                 </div>
                             </div>
@@ -244,7 +244,7 @@
                                     id="chipset"
                                     name="chipset"
                                     placeholder="Chipset"
-                                    required 
+                                     
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -255,21 +255,22 @@
                                     id="cpu"
                                     name="cpu"
                                     placeholder="Cpu name"
-                                    required 
+                                    
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="dimensions">Body dimensions</label>
                                     <div class="input-group input-group-merge">
                                    
-                                    <input
-                                        type="text"
-                                        id="dimensions"
-                                        name="dimensions"
-                                        class="form-control"
-                                        placeholder="Dimensions"
-                                        required 
-                                    />
+                                      <input
+                                          type="text"
+                                          id="dimensions"
+                                          name="dimensions"
+                                          class="form-control"
+                                          placeholder="example: 146.3 x 70.9 x 7.6 mm"
+                                        
+                                      />
+                                      <span class="input-group-text"> mm</span>
                                 </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -281,14 +282,14 @@
                                       id="weight"
                                       name="weight"
                                       placeholder="Weight"    
-                                      required 
+                                      
                                       />
                                       <span class="input-group-text"> g</span>
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="display_feature" class="form-label">Display feature</label>
-                                    <input class="form-control" type="text" id="display_feature" name="display_feature" placeholder="Feature" required />
+                                    <input class="form-control" type="text" id="display_feature" name="display_feature" placeholder="Feature" />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="resolution" class="form-label">Display resolution</label>
@@ -299,7 +300,7 @@
                                       id="resolution"
                                       name="resolution"
                                       placeholder="Display resolution"    
-                                      required 
+                                       
                                       />
                                       <span class="input-group-text"> pixels</span>
                                     </div>
@@ -313,7 +314,7 @@
                                       id="display_size"
                                       name="display_size"
                                       placeholder="Display size"    
-                                      required 
+                                      
                                       />
                                       <span class="input-group-text"> inches</span>
                                     </div>
@@ -326,7 +327,7 @@
                                     id="technology"
                                     name="technology"
                                     placeholder="Technology"   
-                                    required  
+                                    
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -337,7 +338,7 @@
                                     id="os"
                                     name="os"
                                     placeholder="OS"    
-                                    required 
+                                   
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -348,7 +349,7 @@
                                     id="video"
                                     name="video"
                                     placeholder="Video capture"  
-                                    required   
+                                    
                                     />
                                 </div>        
                                 <div class="mb-3 col-md-6">
@@ -359,7 +360,7 @@
                                     id="fcamera"
                                     name="fcamera"
                                     placeholder="Front camera"   
-                                    required  
+                                   
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -370,7 +371,7 @@
                                     id="bcamera"
                                     name="bcamera"
                                     placeholder="Back camera"    
-                                    required 
+                                    
                                     />
                                 </div>        
                                 <div class="mb-3 col-md-6">
@@ -381,19 +382,22 @@
                                     id="camera_feature"
                                     name="camera_feature"
                                     placeholder="Camera feature"   
-                                    required  
+                                    
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="battery" class="form-label">Battery</label>
-                                    <input
-                                    type="text"
-                                    class="form-control"
-                                    id="battery"
-                                    name="battery"
-                                    placeholder="Battery"    
-                                    required 
-                                    />
+                                    <div class="input-group input-group-merge">
+                                      <input
+                                      type="number"
+                                      class="form-control"
+                                      id="battery"
+                                      name="battery"
+                                      placeholder="Battery"    
+                                      
+                                      />
+                                      <span class="input-group-text"> mAh</span>
+                                    </div>
                                 </div>        
                                 <div class="mb-3 col-md-6">
                                     <label for="sim" class="form-label">Sim</label>
@@ -403,7 +407,7 @@
                                     id="sim"
                                     name="sim"
                                     placeholder="Nano sim, eSim, ..."   
-                                    required  
+                                    
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -414,7 +418,7 @@
                                     id="network"
                                     name="network"
                                     placeholder="5G, 4G, ..."  
-                                    required   
+                                     
                                     />
                                 </div>    
                                 <div class="mb-3 col-md-6">
@@ -424,8 +428,8 @@
                                     class="form-control"
                                     id="wifi"
                                     name="wifi"
-                                    placeholder="Wifi"
-                                    required    
+                                    placeholder="Wifi support"
+                                      
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -436,7 +440,7 @@
                                     id="misc"
                                     name="misc"
                                     placeholder="Misc"  
-                                    required   
+                                  
                                     />
                                 </div>        
 
@@ -446,7 +450,7 @@
                             
                             <div class="row"> 
                               <h5>Variant</h5>
-                                    <div class="mb-1 col-5">
+                                    <div class="mb-1 col-3">
                                     
                                         <label for="size" class="form-label">Ram & Internal storage</label>
                                         <input
@@ -457,6 +461,22 @@
                                         placeholder="Example: 8GB 128GB"    
                                         />
                                                                   
+                                    </div>
+                             
+                                    <div class="mb-1 col-5">
+                                    
+                                        <label for="price" class="form-label">Price</label>
+                                      
+                                        <div class="input-group input-group-merge">
+                                          <input
+                                          type="number"
+                                          class="form-control"
+                                          id="price"
+                                          name="price"
+                                          placeholder="Price "    
+                                          />
+                                          <span class="input-group-text"> VND</span>
+                                        </div>
                                     </div>   
                                     <div class="mb-3 col-md-2">
                                         <label for="add" class="form-label">Add variant</label><br>
@@ -472,11 +492,12 @@
                                 
                             </div>
                             
-                            <div class="mb-3 col-7">
+                            <div class="mb-3 col-12">
                                 <table class="table text-center">
                                     <thead class="table-secondary">
                                     <tr>
                                         <th>Size</th>
+                                        <th>Price</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
