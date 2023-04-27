@@ -152,10 +152,7 @@ button#addColor, button#addVariant{
 .img-container{
   display: flex;
 }
-/* `#delete-btn` is selecting an HTML element with the ID of "delete-btn" and applying CSS styles to
-it. The styles position the element absolutely at the bottom left of its parent container, with a
-width of 15%. This is likely used to create a button or icon for deleting an item or element in the
-parent container. */
+
 .btn.btn-sm.text-danger {
   position: absolute;
    /*Đặt nút delete phía bên dưới*/

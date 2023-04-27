@@ -1,43 +1,24 @@
+
 <?php 
     require_once("../html/template/connection.php"); 
-    require("../SQL/sql.php");
-    
-    
-    // $date = str_replace('/', '-', $_POST["date"]);
-    // $new_date = date('Y-m-d', strtotime($date));
-    // echo $new_date;
-    
-    // $dataColor = json_decode($_POST['data'], true);
-    // foreach ($dataColor as $item) {
-    //     $colorname = $item['color'];
-    //     $colorID = $item['colorID'];
-    //     echo $colorname;
-    // }
+    require("../SQL/sql_admin.php");
 
+    $name = $_POST['phone']['name'];
+    $brand = $_POST['phone']['brand'];
 
-    // for($i = 0;$i < sizeof($_POST["dataColor"]); $i++){
-    //     echo $_POST["dataColor"][$i]["color"]; //get array from post 
-    // }
+    $date = str_replace('/', '-', $_POST['phone']["date"]);
+    $new_date = date('Y-m-d', strtotime($date));
+    $id = get_latest_phone_id() + 1;
+    mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
 
+    // foreach ($_POST['dataColor'] as $item_color){
 
+    //     foreach ($_POST['dataVariant'] as $item_variant){
 
-    
-        //mysqli_query($con,insert_phone($_POST["name"],$_POST["category"],$new_date));
-         
-    // }
-    // $jsonSpec = $_POST['spec'];
-    // $spec = json_decode($jsonSpec, true);
-    
-    // if ($spec == null && json_last_error() !== JSON_ERROR_NONE) {
-    //     echo json_last_error();
-    // }
-    // else {
-    //     $chipset = $spec['chipset'];
-    //     // Xử lý dữ liệu
+    //         foreach ()
+    //     }
     // }
     
-    var_dump($_POST)
-    
-    
 
+    
 ?>

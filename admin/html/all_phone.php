@@ -190,7 +190,7 @@
                         Brand
                       </button>
                       <?php require_once("template/connection.php"); 
-                      require("../SQL/sql.php"); 
+                      require("../SQL/sql_admin.php"); 
                       
                       $result = mysqli_query($con,get_category_id_name());?>
                       

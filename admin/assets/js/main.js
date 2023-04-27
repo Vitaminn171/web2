@@ -3,7 +3,6 @@
  */
 
 'use strict';
-const _ = require('lodash');
 let menu, animate;
 
 (function () {
@@ -171,10 +170,6 @@ if(url.includes("customer.php"))
 /**
  * The function inserts a new row into a table with a given size and a remove button.
  */
-function currency_format($number) {
-    
-    return number_format($number, 0, ',', '.');
-}
 
 
 var items_variant = []
@@ -480,14 +475,12 @@ function uploadImage(color_id){
     let pattern = /(\d+GB\s\d+GB)/;
     return size.match(pattern)
   }
- 
-  
-console.log(items_color)
-
+const submit = document.querySelector("#submit")
 // when submit push data to add_new_phone.php 
-$("button[name=submit]").on("submit", (e) => {
-    e.preventDefault();
-    // var flag = false
+submit && submit.addEventListener("click", (e) => {
+    e.preventDefault()
+    // console.log('ok')
+     var flag = true
     // var selected_date = new Date($("#date").val());
 
     // //check validate form
@@ -513,58 +506,41 @@ $("button[name=submit]").on("submit", (e) => {
 
     
         // console.log(items)
-        const phone = {
+      let phone = {
             name: $("#phoneName").val(),
             brand: $("#brand option:selected").attr("value"),
-            date: $("#date").val(),
-        
-          spec : {
-              chipset: $("#chipset").val(),
-              cpu: $("#cpu").val(),
-              dimensions: $("#dimensions").val(),
-              weight: $("#weight").val() + "g",
-              display_feature: $("#display_feature").val(),
-              resolution: $("#resolution").val(),
-              display_size: $("#display_size").val() + " inches",
-              technology: $("#technology").val(),
-              os: $("#os").val(),
-              video: $("#video").val(),
-              fcamera: $("#fcamera").val(),
-              bcamera: $("#bcamera").val(),
-              camera_feature: $("#camera_feature").val(),
-              sim: $("#sim").val(),
-              network: $("#network").val(),
-              wifi: $("#wifi").val(),
-              misc: $("#misc").val()
-          },
-          dataColor: {items_color},
-          dataVariant: {items_variant},
-          dataImage: {items_image},
-
+            date: $("#date").val()
       };
-        if (phone.name.trim() != "" && spec.chipset.trim() != "" && dataColor.length > 0) {
-            $.post(`../php/add_new_phone.php`,{phone: phone}, (data) => { // fix this shit problem, when js sent array phone into php, it can't get the right way, it collapse all key and value in 1 array
-              $("button[name=submit]").prop("disabled", true);
-              $("#header").append(`<div class="absolute px-4 py-2 bg-green-500 font-medium text-base text-gray-50 shadow bottom-3 mr-2">
-              Cập nhật thành công
-          </div>`)
-              setTimeout(function() {
-                  //document.location.href = `../html/all_phone.php`
-              },150);
-            });
-        }
 
-        // phone.length && spec.length && dataColor.length && dataVariant.length && $.post(`../php/add_new_phone.php`,{submit: true, dataColor: items_color, data_variant: items_variant, phone: phone,  data: { spec : JSON.stringify(spec) }}, (data) => {
-        //   console.log(data)
-        //           $("button[name=submit]").prop("disabled", true);
-        //           $("#header").append(`<div class="absolute px-4 py-2 bg-green-500 font-medium text-base text-gray-50 shadow bottom-3 mr-2">
-        //           Cập nhật thành công
-        //       </div>`)
-        //           setTimeout(function() {
-        //               //document.location.href = `../html/all_phone.php`
-        //           },150);
-              
-          
-        //   })
-      })
+      let spec = {
+        chipset: $("#chipset").val(),
+        cpu: $("#cpu").val(),
+        dimensions: $("#dimensions").val(),
+        weight: $("#weight").val() + "g",
+        display_feature: $("#display_feature").val(),
+        resolution: $("#resolution").val(),
+        display_size: $("#display_size").val() + " inches",
+        technology: $("#technology").val(),
+        os: $("#os").val(),
+        video: $("#video").val(),
+        fcamera: $("#fcamera").val(),
+        bcamera: $("#bcamera").val(),
+        camera_feature: $("#camera_feature").val(),
+        sim: $("#sim").val(),
+        network: $("#network").val(),
+        wifi: $("#wifi").val(),
+        misc: $("#misc").val()
+      };
+      if(flag){
+        $.ajax({
+          type: "POST",
+          url: "../php/add_new_phone.php",
+          data: { phone: phone , spec: spec, dataColor: items_color, dataVariant: items_variant, dataImage: items_image}
+        }).done(function( response ) {
+          document.location.href = `../html/all_phone.php`
+          alert(response); // hiển thị dữ liệu phản hồi trả về từ server
+        });
+      }
+      
+    })
 
