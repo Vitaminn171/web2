@@ -197,7 +197,7 @@ $useremail = $_SESSION['useremail'];
                     </thead>
                     <tbody class="table-border-bottom-0">
                     <?php require_once("template/connection.php");
-                    require("../SQL/sql.php");
+                    require("../SQL/sql_client.php");
                     $limit = 5; // Số bản ghi hiển thị trên mỗi trang
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
                     $offset = ($page - 1) * $limit;

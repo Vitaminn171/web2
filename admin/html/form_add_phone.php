@@ -57,7 +57,7 @@
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
-
+    
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
@@ -168,7 +168,7 @@
                 
 
 
-                <form id="formAccountSettings" method="POST" action="../php/add_new_phone.php">
+                <form method="POST">
                     <div class="card-body">
                         <div class="d-flex align-items-center align-items-sm-center">
                           
@@ -180,16 +180,6 @@
                             width="100"
                             id="uploadedAvatar"
                             /> 
-                            
-                            <!-- <div class="button-wrapper"> -->
-                            <!-- c
-                            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                                <i class="bx bx-reset d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Reset</span>
-                            </button>
-
-                            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                            </div>  -->
                         </div>
                         </div>
                         <hr class="my-0" />
@@ -209,10 +199,10 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="brand">Brand</label>
-                                    <select id="brand" class="select2 form-select"  >
+                                    <select id="brand" class="select2 form-select" name="brand" >
                                       <option value="0">Select</option>
                                       <?php require_once("template/connection.php"); 
-                                      require("../SQL/sql.php"); 
+                                      require("../SQL/sql_admin.php"); 
                                       
                                       $result = mysqli_query($con,get_category_id_name());
                                       while($row = mysqli_fetch_array($result)){?>
@@ -232,6 +222,7 @@
                                     
                                     />
                                 </div>
+                              
                             </div>
                             <hr class="my-4" />
                             <h5>Specifications</h5>
@@ -554,7 +545,7 @@
 
                             <hr class="my-4" />
                             <div class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
+                            <button class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
                             <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                             </div>
                         </div>        
@@ -615,10 +606,13 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    
+    
     <!-- / Layout wrapper -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
@@ -627,12 +621,12 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+  
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/pages-account-settings-account.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
