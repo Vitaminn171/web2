@@ -8,8 +8,21 @@
 
     $date = str_replace('/', '-', $_POST['phone']["date"]);
     $new_date = date('Y-m-d', strtotime($date));
-    $id = get_latest_phone_id() + 1;
-    mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
+
+
+    // get latest id
+    $id = 0;
+    $result = mysqli_query($con, get_latest_phone_id());
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $id = intval($row['id']);
+        $id += 1;
+    } 
+
+    if($id != 0){
+        
+    }
+    //mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
 
     // foreach ($_POST['dataColor'] as $item_color){
 

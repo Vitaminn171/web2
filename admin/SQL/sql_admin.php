@@ -73,7 +73,7 @@ function set_visible($phoneID,$visible){
 }
 
 function get_latest_phone_id(){
-    $query = "SELECT id FROM phone order by id DESC LIMIT 1";
+    $query = "SELECT id FROM phone ORDER BY id DESC LIMIT 1";
     return $query;
 }
 function insert_phone($id,$name,$brand,$date) {
