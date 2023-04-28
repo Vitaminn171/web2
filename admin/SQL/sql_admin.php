@@ -1,6 +1,8 @@
-<!-- store sql querry and function about sql -->
 <?php 
+require_once("../html/template/connection.php"); 
 
+
+// ----------------------- GET -----------------------
 function get_all_item($limit,$offset){
     $querry_get_name_color_size = "SELECT phoneID, name, cac_mau, size, image, visible
                                                       FROM (
@@ -55,7 +57,37 @@ function get_category_id_name(){
     $querry_get_category_id_name = "SELECT id, name FROM category";
     return $querry_get_category_id_name;
 }
+function get_latest_phone_id(){
+    $query = "SELECT id FROM phone ORDER BY id DESC LIMIT 1";
+    return $query;
+}
 
+function get_phone_by_id($phoneID){
+    $query = "SELECT name,category,date FROM phone WHERE id =".$phoneID;
+    return $query;
+}
+
+function get_phone_spec_by_id($phoneID){
+    $query = "SELECT * FROM spec WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+function get_phone_variant_by_id($phoneID){
+    $query = "SELECT size,colorID,price FROM variant WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+function get_phone_color_by_id($phoneID){
+    $query = "SELECT colorID,color FROM color WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+function get_phone_image_by_id($phoneID){
+    $query = "SELECT colorID,image FROM image WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+// ----------------------- CAL FUNC -----------------------
 function count_item($categoryID){
     $countSql = "";
     if($categoryID == "0"){
@@ -67,15 +99,19 @@ function count_item($categoryID){
 }
 
 
+
+
+
+// ----------------------- SET -----------------------
 function set_visible($phoneID,$visible){
     $query = "UPDATE phone SET visible = ".$visible." WHERE id =".$phoneID;
     return $query;
 }
 
-function get_latest_phone_id(){
-    $query = "SELECT id FROM phone ORDER BY id DESC LIMIT 1";
-    return $query;
-}
+
+
+
+//----------------------- INSERT -----------------------
 function insert_phone($id,$name,$brand,$date) {
     $query = "INSERT INTO phone VALUES ('".$id."','".$name."','".$brand."','".$date."','','1')";
     return $query;

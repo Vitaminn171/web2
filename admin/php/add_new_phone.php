@@ -1,6 +1,5 @@
 
 <?php 
-    require_once("../html/template/connection.php"); 
     require("../SQL/sql_admin.php");
 
     $name = $_POST['phone']['name'];
