@@ -67,7 +67,7 @@ const refresh = (colorID) => {
   items_color.forEach(item => {
     const tr = `<tr>
                   <td class="text-center">${item.color}</td>
-                  <td class="img-container" id="id_${item.colorID}">
+                  <td class="d-flex flex-wrap" id="id_${item.colorID}">
                     
                   </td>
                   <td>
@@ -116,7 +116,7 @@ const insertTableColor = ({color, colorID}
   
   const tr = `<tr>
                   <td class="text-center">${color}</td>
-                  <td class="img-container" id="id_${colorID}">
+                  <td class="d-flex flex-wrap" id="id_${colorID}">
                     
                   </td>
                   <td>

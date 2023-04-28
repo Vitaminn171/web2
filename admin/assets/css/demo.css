@@ -149,9 +149,9 @@ button#addColor, button#addVariant{
   
 
 }
-.img-container{
-  display: flex;
-}
+/* .d-flex.flex-wrap{
+  border-collapse: collapse;
+} */
 
 .btn.btn-sm.text-danger {
   position: absolute;

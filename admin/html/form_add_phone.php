@@ -521,7 +521,7 @@
                                       </div>
                             </div>
                             <div class="mb-3 col-12">
-                                <table class="table text-center">
+                                <table class="table text-center table-bordered">
                                     <thead class="table-secondary">
                                     <tr>
                                         <th>Color</th>
