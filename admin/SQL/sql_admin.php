@@ -81,51 +81,35 @@ function insert_phone($id,$name,$brand,$date) {
     return $query;
 }
 
-function insert_phone_spec($id,
-$chipset,
-$cpu,
-$dimensions,
-$weight,
-$display_feature,
-$resolution,
-$display_size,
-$technology,
-$os,
-$video,
-$fcamera,
-$bcamera,
-$camera_feature,
-$sim,
-$network,
-$wifi,
-$misc) {
+function insert_phone_spec($id, $spec
+) {
     $query = "INSERT INTO spec VALUES('".$id."',
-    '".$chipset."',
-    '".$cpu."',
-    '".$dimensions."',
-    '".$weight."',
-    '".$display_feature."',
-    '".$resolution."',
-    '".$display_size."',
-    '".$technology."',
-    '".$os."',
-    '".$video."',
-    '".$fcamera."',
-    '".$bcamera."',
-    '".$camera_feature."',
-    '".$sim."',
-    '".$network."',
-    '".$wifi."',
-    '".$misc."'";
+    '".$spec['chipset']."',
+    '".$spec['cpu']."',
+    '".$spec['dimensions']."',
+    '".$spec['weight']."',
+    '".$spec['display_feature']."',
+    '".$spec['resolution']."',
+    '".$spec['display_size']."',
+    '".$spec['technology']."',
+    '".$spec['os']."',
+    '".$spec['video']."',
+    '".$spec['fcamera']."',
+    '".$spec['bcamera']."',
+    '".$spec['camera_feature']."',
+    '".$spec['sim']."',
+    '".$spec['network']."',
+    '".$spec['wifi']."',
+    '".$spec['misc']."'";
     return $query;
 }
-function insert_variant($id,$size,$colorID,$price) {
-    $query = "INSERT INTO variant VALUES('','".$id."','".$size."','".$colorID."','".$price."','')";
+function insert_variant($phoneID,$size,$colorID,$price) {
+    $query = "INSERT INTO variant VALUES('','".$phoneID."','".$size."','".$colorID."','".$price."','')";
     return $query;
 }
 
-function insert_color($id,$colorID,$color) {
-    $query = "INSERT INTO color VALUES('','".$id."','".$colorID."','".$color."')";
+function insert_color($phoneID,$colorID,$color) {
+    $query = "INSERT INTO color VALUES('','".$phoneID."','".$colorID."','".$color."')";
     return $query;
 }
 
