@@ -110,7 +110,7 @@
             <li class="menu-item" id="inventory">
               <a href="inventory.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
-                <div data-i18n="Container">Inventory</div>
+                <div data-i18n="Container">Inventory</div> <!-- ai lam phan nay thi tu doi lai duong dan -->
               </a>
             </li>
 
@@ -125,12 +125,12 @@
               <ul class="menu-sub">
                 <li class="menu-item" id="employee">
                   <a href="employee.php" class="menu-link">
-                    <div data-i18n="Employee">Employee</div>
+                    <div data-i18n="Employee">Employee</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                   </a>
                 </li>
                 <li class="menu-item" id="customer">
                   <a href="customer.php" class="menu-link">
-                    <div data-i18n="Customer">Customer</div>
+                    <div data-i18n="Customer">Customer</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                   </a>
                 </li>
               </ul>
@@ -141,14 +141,14 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Order management</span></li>
             <!-- Cards -->
             <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
+              <a href="layouts-fluid.html" class="menu-link"><!-- ai lam phan nay thi tu doi lai duong dan -->
                 <i class='menu-icon tf-icons bx bx-file'></i>
                 
-                <div data-i18n="Order">Order</div>
+                <div data-i18n="Order">Order</div><!-- ai lam phan nay thi tu doi lai duong dan -->
               </a>
             </li>
             <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
+              <a href="layouts-fluid.html" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-export' ></i>
                 <div data-i18n="Order">Export Order Statistics</div>
               </a>
