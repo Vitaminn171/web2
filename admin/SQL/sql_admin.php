@@ -73,7 +73,7 @@ function get_phone_spec_by_id($phoneID){
 }
 
 function get_phone_variant_by_id($phoneID){
-    $query = "SELECT size,colorID,price FROM variant WHERE phoneID =".$phoneID;
+    $query = "SELECT DISTINCT size,price FROM variant WHERE phoneID =".$phoneID;
     return $query;
 }
 

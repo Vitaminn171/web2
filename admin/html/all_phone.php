@@ -312,7 +312,7 @@
                               >
                               
                               
-                              <a class="dropdown-item text-primary" href="javascript:void(0);"
+                              <a class="dropdown-item text-primary" href="form_edit_phone.php?phoneID=<?= $row["phoneID"] ?>"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
                               <a class="dropdown-item text-danger" href="javascript:void(0);"

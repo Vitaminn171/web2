@@ -328,12 +328,12 @@ submit && submit.addEventListener("click", (e) => {
         flag = false
     }
    
-    if(isValidateDisplayResolution($("#resolution").val())){
-        flag = true
-    }else{
-        alert("Invalid resolution!")
-        flag = false
-    }
+    // if(isValidateDisplayResolution($("#resolution").val())){
+    //     flag = true
+    // }else{
+    //     alert("Invalid resolution!")
+    //     flag = false
+    // }
 
     
         // console.log(items)

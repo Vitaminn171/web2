@@ -164,6 +164,7 @@ if(url.includes("employee.php"))
   click_sub_item_sidebar(account,employee,all_item);
 if(url.includes("customer.php"))   
   click_sub_item_sidebar(account,customer,employee);
+  
 
 
 
