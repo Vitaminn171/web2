@@ -3,9 +3,10 @@
   require_once("template/connection.php"); 
   require("../SQL/sql.php");              
 
-  $resultAccount = mysqli_query($con,get_all_account_customer());
+  $resultAccount = mysqli_query($con,get_all_account_employee());
   $fetchResultAccount = mysqli_fetch_all($resultAccount);
   $boolCheckAccount = true;
+
   if(isset($_POST['BtnSubmit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -102,7 +103,7 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
+                <a href="index.php" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <svg
                       width="25"

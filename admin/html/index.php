@@ -1,6 +1,6 @@
 <?php 
-  // session_start();
-  // $useremail = $_SESSION['useremail'];
+  session_start();
+  $useremail = $_SESSION['useremail'];
 ?>
 <!DOCTYPE html>
 
@@ -118,7 +118,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"></span>
+                            <span class="fw-semibold d-block"><?php echo $_SESSION['useremail']?></span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
