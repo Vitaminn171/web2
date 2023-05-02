@@ -1,4 +1,5 @@
 <?php 
+require_once("connection.php"); 
 function get_all_email_customer() {
     $query = "SELECT email FROM customer";
     return $query;

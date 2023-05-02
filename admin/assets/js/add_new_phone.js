@@ -82,7 +82,7 @@ const refresh = (colorID) => {
                                           name="file"
                                           accept="image/png, image/jpeg, image/jpg"
                                         />
-                                        <label for="upload_${item.colorID}" class="btn btn-primary me-3" onclick="uploadImage(${item.colorID})">
+                                        <label for="upload_${item.colorID}" class="btn btn-primary" onclick="uploadImage(${item.colorID})">
                                           <i class="bx bx-upload"></i>   
                                         </label>
                   </td>
@@ -131,7 +131,7 @@ const insertTableColor = ({color, colorID}
                                           name="file"
                                           accept="image/png, image/jpeg, image/jpg"
                                         />
-                                        <label for="upload_${colorID}" class="btn btn-primary me-3" onclick="uploadImage(${colorID})">
+                                        <label for="upload_${colorID}" class="btn btn-primary" onclick="uploadImage(${colorID})">
                                           <i class="bx bx-upload"></i>   
                                         </label>
                   </td>

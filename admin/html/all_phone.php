@@ -189,7 +189,7 @@
                       <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                         Brand
                       </button>
-                      <?php require_once("template/connection.php"); 
+                      <?php 
                       require("../SQL/sql_admin.php"); 
                       
                       $result = mysqli_query($con,get_category_id_name());?>

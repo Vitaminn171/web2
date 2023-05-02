@@ -21,7 +21,7 @@
 
     if($id != 0){
         mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
-        mysqli_query($con,insert_phone_spec($id,$psec,));
+        mysqli_query($con,insert_phone_spec($id,$spec,));
 
         $dataColor = $_POST['dataColor'];
         foreach ($dataColor as $item_color){
