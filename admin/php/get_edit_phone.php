@@ -41,7 +41,16 @@ while($row = mysqli_fetch_array($result_image)){
     array_push($image,$row);
 } 
 
-$all = array("phone" => [$phone],"spec" => [$spec],"variant" => [$variant], "color" => [$color], "image" => [$image]);
+//get variant sold
+$variant_sold = array();
+foreach($variant as $item){
+    $result_variant_sold = mysqli_query($con, get_variant_in_orderDetail_sizeID($id,$item['sizeID']));
+    while($row = mysqli_fetch_array($result_variant_sold)){
+        array_push($variant_sold,$row);
+    } 
+}
+
+$all = array("phone" => [$phone],"spec" => [$spec],"variant" => [$variant], "color" => [$color], "image" => [$image], "variant_sold" => [$variant_sold]);
 
 
 // send data back to js

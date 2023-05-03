@@ -201,7 +201,7 @@
                                     <label class="form-label" for="brand">Brand</label>
                                     <select id="brand" class="select2 form-select" name="brand" >
                                       <option value="0">Select</option>
-                                      <?php require_once("template/connection.php"); 
+                                      <?php 
                                       require("../SQL/sql_admin.php"); 
                                       
                                       $result = mysqli_query($con,get_category_id_name());

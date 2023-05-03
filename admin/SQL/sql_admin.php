@@ -73,7 +73,7 @@ function get_phone_spec_by_id($phoneID){
 }
 
 function get_phone_variant_by_id($phoneID){
-    $query = "SELECT DISTINCT size,price FROM variant WHERE phoneID =".$phoneID;
+    $query = "SELECT DISTINCT sizeID,size,price FROM variant WHERE phoneID =".$phoneID;
     return $query;
 }
 
@@ -84,6 +84,14 @@ function get_phone_color_by_id($phoneID){
 
 function get_phone_image_by_id($phoneID){
     $query = "SELECT colorID,image FROM image WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+function get_variant_in_orderDetail_sizeID($phoneID,$sizeID){
+    $query = "SELECT variant.sizeID AS sizeID, variant.phoneID AS phoneID, variant.colorID AS colorID
+    FROM variant
+    INNER JOIN orderdetail ON variant.id = orderdetail.variantID
+    WHERE variant.phoneID = ".$phoneID." AND variant.sizeID = ".$sizeID;
     return $query;
 }
 
@@ -123,8 +131,8 @@ function update_phone_spec($id,$spec) {
     return $query;
 }
 
-function update_variant($id,$phoneID,$size,$colorID,$price) {
-    $query = "UPDATE variant SET size='".$size."', price='".$price."' WHERE phoneID='".$phoneID."' && size='".$size."'";
+function update_variant($sizeID,$phoneID,$size,$colorID,$price) {
+    $query = "UPDATE variant SET sizeID='".$sizeID."', size='".$size."', price='".$price."' WHERE phoneID='".$phoneID."' && sizeID='".$sizeID."'";
     return $query;
 }
 
@@ -138,7 +146,20 @@ function update_image($phoneID,$colorID,$image) {
     return $query;
 }
 
+function update($table_name, $data, $where) {
+	$set = [];
+	foreach ($data as $field => $value) {
+		if (is_null($value)) {
+			$set[] = $field . " = NULL";
+		} else {
+			$set[] = $field . " = '" . $value . "'";
+		}
+	}
 
+	$query = "UPDATE {$table_name} SET " . implode(", ", $set) . " WHERE {$where}";
+
+	return $query;
+}
 
 
 
@@ -149,8 +170,7 @@ function insert_phone($id,$name,$brand,$date) {
     return $query;
 }
 
-function insert_phone_spec($id, $spec
-) {
+function insert_phone_spec($id,array $spec) {
     $query = "INSERT INTO spec VALUES('".$id."',
     '".$spec['chipset']."',
     '".$spec['cpu']."',
@@ -165,14 +185,15 @@ function insert_phone_spec($id, $spec
     '".$spec['fcamera']."',
     '".$spec['bcamera']."',
     '".$spec['camera_feature']."',
+    '".$spec['battery']."',
     '".$spec['sim']."',
     '".$spec['network']."',
     '".$spec['wifi']."',
-    '".$spec['misc']."'";
+    '".$spec['misc']."')";
     return $query;
 }
-function insert_variant($phoneID,$size,$colorID,$price) {
-    $query = "INSERT INTO variant VALUES('','".$phoneID."','".$size."','".$colorID."','".$price."','')";
+function insert_variant($phoneID,$sizeID,$size,$colorID,$price) {
+    $query = "INSERT INTO variant VALUES('','".$phoneID."','".$sizeID."','".$size."','".$colorID."','".$price."','')";
     return $query;
 }
 
@@ -186,11 +207,28 @@ function insert_image($id,$colorID,$image) {
     return $query;
 }
 
+function insert($table_name, $data) {
+    foreach($data as $field => $value) {
+		$fields[] = $field;
+		$values[] = $value;
+	}
+
+	// Tạo câu lệnh SQL
+	$query = "INSERT INTO ".$table_name." (".implode(",", $fields).") VALUES ('".implode("', '", $values)."')";
+
+    return $query;
+}
 
 
 
+//----------------------- DELETE -----------------------
 
+function delete_data($table_name, $condition) {
+	// Tạo câu lệnh SQL
+	$query = "DELETE FROM ".$table_name." WHERE ".$condition;
 
+    return $query;
+}
 
 
 

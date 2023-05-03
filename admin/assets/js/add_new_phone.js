@@ -2,7 +2,7 @@
  * The function inserts a new row into a table with a given size and a remove button.
  */
 
-
+let isize = 1;
 var items_variant = []
 const insertTable = ({size,price}
   
@@ -34,13 +34,14 @@ const insertTable = ({size,price}
   
   if ($("#size").val() != "" && $("#price").val() != null && isValidateVariantSize($("#size").val())) {
       let variant = {
+          sizeID: isize,
           size: $("#size").val(),
           price: $("#price").val()
       }
     //   const number = parseInt($("#price").val()).toLocaleString('en-US')
       !items_variant.find(e => e.size == variant.size) && items_variant.push(variant);
       $("#table_variant").text("")
-      
+      isize++;
       items_variant.forEach(variant => insertTable(variant))
       
   }

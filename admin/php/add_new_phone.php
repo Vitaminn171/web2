@@ -8,8 +8,7 @@
     $date = str_replace('/', '-', $_POST['phone']["date"]);
     $new_date = date('Y-m-d', strtotime($date));
 
-    $spec = $_POST['spec'];
-
+    // $spec = $_POST['spec'];
     // get latest id
     $id = 0;
     $result = mysqli_query($con, get_latest_phone_id());
@@ -20,28 +19,76 @@
     } 
 
     if($id != 0){
-        mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
-        mysqli_query($con,insert_phone_spec($id,$spec,));
+        $data_phone = array(
+            "id" => $id,
+            "name" => $name,
+            "category" => $brand,
+            "date" => $new_date,
+            "visible" => 1
+        );
+        $spec = array(
+            "phoneID " => $id,
+            "chipset" => $_POST['spec']['chipset'],
+            "cpuType" => $_POST['spec']['cpu'],
+            "bodySize" => $_POST['spec']['dimensions'],
+            "bodyWeight" => $_POST['spec']['weight'],
+            "screenFeature" => $_POST['spec']['display_feature'],
+            "screenResolution" => $_POST['spec']['resolution'],
+            "screenSize" => $_POST['spec']['display_size'],
+            "screenTech" => $_POST['spec']['technology'],
+            "os" => $_POST['spec']['os'],
+            "videoCapture" => $_POST['spec']['video'],
+            "cameraFront" => $_POST['spec']['fcamera'],
+            "cameraBack" => $_POST['spec']['bcamera'],
+            "cameraFeature" => $_POST['spec']['camera_feature'],
+            "battery" => $_POST['spec']['battery'],
+            "sim" => $_POST['spec']['sim'],
+            "networkSupport" => $_POST['spec']['network'],
+            "wifi" => $_POST['spec']['wifi'],
+            "misc" =>  $_POST['spec']['misc']
+        );
+        //mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
+        //mysqli_query($con,insert_phone_spec($id,$spec));
+        $result1 = mysqli_query($con,insert(" phone ",$data_phone));// insert to phone table
+        $result = mysqli_query($con, insert(" spec ",$spec));
+        if (!$result || !$result1) {
+            die('Error: ' . mysqli_error($con));
+        }
 
         $dataColor = $_POST['dataColor'];
         foreach ($dataColor as $item_color){
-
-            $colorID = $item_color['colorID'];
-            $color = $item_color['color'];
-            mysqli_query($con, insert_color($id, $colorID, $color));
+            $temp_color = array(
+                "phoneID" => $id,
+                "colorID" => $item_color['colorID'],
+                "color" => $item_color['color'],
+            );
+            // $colorID = $item_color['colorID'];
+            // $color = $item_color['color'];
+            mysqli_query($con, insert(" color ", $temp_color));
 
             $dataVariant = $_POST['dataVariant'];
             foreach ($dataVariant as $item_variant){
-                $size = $item_variant['size'];
-                $price = $item_variant['price'];
-                str_replace(",","",$price);
-                mysqli_query($con, insert_variant($id, $size, $colorID, $price));
+                $temp_variant = array(
+                    "phoneID" => $id,
+                    "sizeID" => $item_variant['sizeID'],
+                    "size" => $item_variant['size'],
+                    "colorID" => $item_color['colorID'],
+                    "price" => $item_variant['price']
+                );
+                mysqli_query($con, insert(" variant ",$temp_variant));
             }
 
             $dataImage = $_POST['dataImage'];
             foreach ($dataImage as $item_image){
-                $image = $item_image['fileName'];
-                mysqli_query($con, insert_image($id, $colorID, $image));
+                $temp_image = array(
+                    "phoneID" => $id,
+                    "colorID" => $item_image['colorID'],
+                    "image" => $item_image['fileName']
+                );
+                
+                if($item_image['colorID'] == $item_color['colorID']){
+                    mysqli_query($con, insert(" image ", $temp_image));
+                }
             }
         }
     }

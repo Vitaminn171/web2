@@ -247,23 +247,23 @@
                         <td class="col-1">
                           <?php 
                           if($row["visible"] == 1){
-                            echo "<img src='../../phone_image/".$row['image']."' style='width: 110%'>";
+                            echo "<img src='../../phone_image/".$row['image']."' style='width: 150%'>";
                           }
                           else {
-                            echo "<div class='card'>
-                            <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='opacity: 0.3'>
-                            <div class='card-img-overlay'>
-                              <img class='card-img justify-content-left' src='../assets/img/elements/visible.png' style='width: 100%'></img>
-                              
-                            </div>
-                          </div>";
+                            echo "<div class='card' id='allphone'>
+                                    <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='width: 150%; opacity: 0.3'>
+                                    <div class='card-img-overlay'>
+                                      <img class='card-img' src='../assets/img/elements/visible.png' style='width: 25px'></img>
+                                      
+                                    </div>
+                                  </div>";
                           }
 
                           ?>
                       
                           
                       </td>
-                        <td class="col-3"><strong><?= $row['name'] ?></strong></td>
+                        <td class="col-3 ps-4"><strong><?= $row['name'] ?></strong></td>
                         <td class="col-3">
                           <?=$row['cac_mau'] ?>
                           <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
