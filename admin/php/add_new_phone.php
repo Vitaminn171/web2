@@ -93,6 +93,7 @@
         }
     }
     
+    
     //mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
 
     // foreach ($_POST['dataColor'] as $item_color){

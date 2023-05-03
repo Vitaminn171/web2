@@ -370,8 +370,9 @@ submit && submit.addEventListener("click", (e) => {
           url: "../php/add_new_phone.php",
           data: { phone: phone , spec: spec, dataColor: items_color, dataVariant: items_variant, dataImage: items_image}
         }).done(function( response ) {
-          document.location.href = `../html/all_phone.php`
-          alert(response); // hiển thị dữ liệu phản hồi trả về từ server
+          var message = "Add new product success!";
+          document.location.href = `../html/all_phone.php?message=` + message 
+          //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
         });
       }
       

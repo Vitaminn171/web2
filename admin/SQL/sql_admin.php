@@ -95,6 +95,14 @@ function get_variant_in_orderDetail_sizeID($phoneID,$sizeID){
     return $query;
 }
 
+function get_variant_in_orderDetail($phoneID){
+    $query = "SELECT variant.id AS variantID
+    FROM variant
+    INNER JOIN orderdetail ON variant.id = orderdetail.variantID
+    WHERE variant.phoneID = ".$phoneID;
+    return $query;
+}
+
 // ----------------------- CAL FUNC -----------------------
 function count_item($categoryID){
     $countSql = "";

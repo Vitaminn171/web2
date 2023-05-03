@@ -529,8 +529,9 @@ submit && submit.addEventListener("click", (e) => {
           url: "../php/update_phone.php",
           data: { phone: phone , spec: spec, dataColor: data.color[0], dataVariant: data.variant[0], dataImage: data.image[0]}
         }).done(function( response ) {
-          document.location.href = `../html/all_phone.php`
-          alert(response); // hiển thị dữ liệu phản hồi trả về từ server
+          var message = "Edit product success!";
+          document.location.href = `../html/all_phone.php?message=` + message 
+          //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
         });
       }
       

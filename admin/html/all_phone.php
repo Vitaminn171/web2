@@ -315,7 +315,7 @@
                               <a class="dropdown-item text-primary" href="form_edit_phone.php?phoneID=<?= $row["phoneID"] ?>"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item text-danger" href="javascript:void(0);"
+                              <a class="dropdown-item text-danger" href="#" onclick="deletePhone(<?= $row['phoneID'] ?>)"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -325,6 +325,20 @@
                       </tr>
                       
                       <?php } 
+                      
+                      if(isset($_GET['message'])){
+                        if($_GET['message'] == "Delete success!"){
+                          echo '<div id="alert" class="alert alert-primary"><i class="bx bxs-like">   '.urldecode($_GET['message']).'</i></div>';
+                        }else if($_GET['message'] == "Can't delete product!"){
+                          echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   '.urldecode($_GET['message']).'</i></div>';
+                        }else if($_GET['message'] == "Add new product success!"){
+                          echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   '.urldecode($_GET['message']).'</i></div>';
+                        }
+                        else if($_GET['message'] == "Edit product success!"){
+                          echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-circle">   '.urldecode($_GET['message']).'</i></div>';
+                        }
+                      }
+                      
                         mysqli_close($con);
                     
 

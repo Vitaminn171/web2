@@ -62,7 +62,7 @@
             $temp_color = array(
                 "phoneID" => $id,
                 "colorID" => $item_color['colorID'],
-                "color" => $item_color['color'],
+                "color" => $item_color['color']
             );
             $table_color = " color ";
             if(isset($item_color['action'])){
