@@ -1,5 +1,5 @@
 <?php 
-require_once("../html/template/connection.php"); 
+require("connection.php"); 
 
 
 // ----------------------- GET -----------------------
@@ -107,6 +107,38 @@ function set_visible($phoneID,$visible){
     $query = "UPDATE phone SET visible = ".$visible." WHERE id =".$phoneID;
     return $query;
 }
+
+function update_phone($id,$name,$brand,$date) {
+    $query = "UPDATE phone SET name='".$name."', category='".$brand."', date='".$date."' WHERE id='".$id."'";
+    return $query;
+}
+
+function update_phone_spec($id,$spec) {
+    $query = "UPDATE spec SET chipset='".$spec['chipset']."', cpuType='".$spec['cpu']."', bodySize='".$spec['dimensions']."',
+    bodyWeight='".$spec['weight']."', screenFeature='".$spec['display_feature']."', screenResolution='".$spec['resolution']."',
+    screenSize='".$spec['display_size']."', screenTech='".$spec['technology']."', os='".$spec['os']."',
+    videoCapture='".$spec['video']."', cameraFront='".$spec['fcamera']."', cameraBack='".$spec['bcamera']."',
+    cameraFeature='".$spec['camera_feature']."', sim='".$spec['sim']."', networkSupport='".$spec['network']."',
+            wifi='".$spec['wifi']."', misc='".$spec['misc']."' WHERE id='".$id."'";
+    return $query;
+}
+
+function update_variant($id,$phoneID,$size,$colorID,$price) {
+    $query = "UPDATE variant SET size='".$size."', price='".$price."' WHERE phoneID='".$phoneID."' && size='".$size."'";
+    return $query;
+}
+
+function update_color($phoneID,$colorID,$color) {
+    $query = "UPDATE color SET color='".$color."' WHERE phoneID='".$phoneID."'&& colorID='".$colorID."'";
+    return $query;
+}
+
+function update_image($phoneID,$colorID,$image) {
+    $query = "UPDATE image SET image='".$image."' WHERE phoneID='".$phoneID."'&& colorID='".$colorID."'";
+    return $query;
+}
+
+
 
 
 

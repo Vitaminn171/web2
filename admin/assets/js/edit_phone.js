@@ -274,12 +274,13 @@ const insertTable = ({ size, price }
   ) => {
     const number = parseInt(price).toLocaleString('en-US'); // format to currency 10000 -> 10,000
     const tr = `<tr>
-                        <td class="text-center">${size}</td>
+                        <td class="text-center" onclick="changeSize(${size})" id="${size}">${size}</td>
                         <td class="text-center">${number} VND</td>
-                        <td>
+                        <td> 
+                            <button id="editVariant" class="text-primary btn-light border-0" size="${size}" name="new_size"><a> <i class='bx bx-edit' ></i>
+                            </a></button>
                             <button id="removeVariant" class="text-danger btn-light border-0 removeItem" size="${size}" name="new_size"><a> <i class='bx bx-trash' ></i>
                             </a></button>
-                            <input type="hidden" name="variant['size']" value="${size}"> 
                         </td>
                     </tr>`
 
@@ -312,6 +313,43 @@ const insertTable = ({ size, price }
   $(document).ready(() => {
     $(document).on("click", "button[id=removeVariant]", (e) => removeItem(e))
   })
+
+  // const editItem = (e) => {
+  //   e.preventDefault();
+  //   let size = e.target.closest("button").getAttribute("size")
+  //   data.variant[0].splice(data.variant[0].indexOf(data.variant[0].find(ele => ele.size == size)), 1)
+  //   const inputSize = `<input
+  //                       class="form-control"
+  //                       type="text"
+  //                       id="` + size + `"
+  //                       name="` + size + `"
+  //                       placeholder="Size"
+                        
+  //                       />`;
+  //                       console.log(size)
+  //   $("td#" + size).text("");
+    
+  //   // $("#" + size).append(inputSize);
+  // }
+  // $(document).ready(() => {
+  //   $(document).on("click", "button[id=editVariant]", (e) => editItem(e))
+  // })
+  const editButton = document.getElementById('editVariant');
+  editButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    let size = event.target.closest("button").getAttribute("size")
+    const input = `<input
+                      class="form-control"
+                      type="text"
+                      id="` + $size + `"
+                      name="` + $size + `"
+                      placeholder="Size"
+                      
+                      />`;
+    $("#" + size).append("");
+  });
+  
+
 
 
   function isDateBeforeToday(date) {
