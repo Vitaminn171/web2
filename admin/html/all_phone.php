@@ -190,7 +190,7 @@
                         Brand
                       </button>
                       <?php require_once("template/connection.php"); 
-                      require("../SQL/sql.php"); 
+                      require("../SQL/sql_admin.php"); 
                       
                       $result = mysqli_query($con,get_category_id_name());?>
                       
@@ -312,7 +312,7 @@
                               >
                               
                               
-                              <a class="dropdown-item text-primary" href="javascript:void(0);"
+                              <a class="dropdown-item text-primary" href="form_edit_phone.php?phoneID=<?= $row["phoneID"] ?>"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
                               <a class="dropdown-item text-danger" href="javascript:void(0);"

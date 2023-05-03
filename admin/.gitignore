@@ -58,4 +58,4 @@ gulpfile.tmp.*
 /html-demo
 /html-starter-demo
 
-/admin/html/template/connection.php
+connection.php

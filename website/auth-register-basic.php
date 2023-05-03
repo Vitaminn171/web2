@@ -66,7 +66,7 @@
 
   <body>
     <?php require_once("template/connection.php"); 
-      require("../SQL/sql.php");                     
+      require("../SQL/sql_client.php");                     
       $result = mysqli_query($con,get_all_email_customer());
       $fetchResult = mysqli_fetch_all($result);
       $id = count($fetchResult) + 1;

@@ -120,13 +120,45 @@
 }
 
 .menu-item:hover{ 
-	padding-left: 15px;
+	padding-left: 15px
+}
+
+
+button#addColor, button#addVariant{
+  width: 60px;
+  text-align: center;
 }
 
 /* table {
   table-layout: fixed;
 } */
-/* td img {
-  max-width: 100%;
+.flex-item img{
+  width: 90px;
   height: auto;
+} 
+
+
+
+/* Mặc định ban đầu */
+.flex-item{
+  position: relative; /*Đánh dấu vị trí cho nút delete*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 5px;
+  
+
+}
+/* .d-flex.flex-wrap{
+  border-collapse: collapse;
 } */
+
+.btn.btn-sm.text-danger {
+  position: absolute;
+   /*Đặt nút delete phía bên dưới*/
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  margin: 5px; 
+}

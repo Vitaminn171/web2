@@ -61,6 +61,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <style>
+      
+    </style>
   </head>
 
   <body>
@@ -74,7 +77,7 @@
         <div class="layout-page">
           <!-- Navbar -->
 
-          <nav
+          <!-- <nav
             class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
           >
@@ -82,11 +85,11 @@
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
               </a>
-            </div>
+            </div> -->
 
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+            <!-- <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse"> -->
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
+              <!-- <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
@@ -96,11 +99,11 @@
                     aria-label="Search..."
                   />
                 </div>
-              </div>
+              </div> -->
               <!-- /Search -->
 
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Place this tag where you want the button to render. -->
+              <!-- Place this tag where you want the button to render. -->
+              <!-- <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <li class="nav-item lh-1 me-3">
                   <a
                     class="github-button"
@@ -111,10 +114,10 @@
                     aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
                     >Star</a
                   >
-                </li>
+                </li> -->
 
                 <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <!-- <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
                       <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
@@ -164,16 +167,16 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="auth-login-basic.php">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
                     </li>
                   </ul>
-                </li>
+                </li> -->
                 <!--/ User -->
-              </ul>
-            </div>
+              <!-- </ul> -->
+            <!-- </div> -->
           </nav>
 
           <!-- / Navbar -->
@@ -183,23 +186,62 @@
             <!-- Content -->
 
             <div class="container-fluid flex-grow-1 container-p-y">
-              <!-- Layout Demo -->
-              <div class="layout-demo-wrapper">
-                <div class="layout-demo-placeholder">
-                  <img
-                    src="../assets/img/layouts/layout-fluid-light.png"
-                    class="img-fluid"
-                    alt="Layout fluid"
-                    data-app-light-img="layouts/layout-fluid-light.png"
-                    data-app-dark-img="layouts/layout-fluid-dark.png"
-                  />
-                </div>
-                <div class="layout-demo-info">
-                  <h4>Layout fluid</h4>
-                  <p>Fluid layout sets a <code>100% width</code> at each responsive breakpoint.</p>
-                </div>
-              </div>
-              <!--/ Layout Demo -->
+                <main role="main">
+                    <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
+                    <div class="container mt-4">
+                        <div id="thongbao" class="alert alert-danger d-none face" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+
+                        <h1 class="text-center">Giỏ hàng</h1>
+                        <div class="row">
+                            <div class="col col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Customer ID</th>
+                                            <th>Employee Email</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Tổng cộng</th>
+                                            <th>Trạng thái</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="datarow">
+                                        <tr>
+                                            <td>1</td>
+                                            <td>
+                                                <img src="../assets/img/product/ipad4.png" class="hinhdaidien">
+                                            </td>
+                                            <td>Apple Ipad 4 Wifi 16GB</td>
+                                            <td class="text-right">2</td>
+                                            <td class="text-right">11,800,000.00</td>
+                                            <td class="text-right">23,600,000</td>
+                                              <td class="text-right">VLB , BC , TPHCM</td>
+                                            <td>
+                                                <!-- Nút xóa, bấm vào sẽ xóa thông tin dựa vào khóa chính `sp_ma` -->
+                                                <a id="delete_1" data-sp-ma="2" class="btn btn-danger btn-delete-sanpham">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Xóa
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- <a href="../index.html" class="btn btn-warning btn-md"><i class="fa fa-arrow-left"
+                                        aria-hidden="true"></i>&nbsp;Quay
+                                    về trang chủ</a>
+                                <a href="checkout.html" class="btn btn-primary btn-md"><i
+                                        class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Thanh toán</a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End block content -->
+                </main>
             </div>
             <!-- / Content -->
 
@@ -212,25 +254,8 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Tan Dat</a>
                 </div>
-                <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
                 </div>
               </div>
             </footer>
@@ -248,14 +273,14 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
+    <!-- <div class="buy-now">
       <a
         href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
         target="_blank"
         class="btn btn-danger btn-buy-now"
         >Upgrade to Pro</a
       >
-    </div>
+    </div> -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

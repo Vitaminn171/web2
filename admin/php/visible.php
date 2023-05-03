@@ -1,6 +1,6 @@
 <?php 
     require_once("../html/template/connection.php"); 
-    require("../SQL/sql.php");
+    require("../SQL/sql_admin.php");
     if($_GET["visible"] == 0){
         // if item is invisible 0
         // set item into visible 1

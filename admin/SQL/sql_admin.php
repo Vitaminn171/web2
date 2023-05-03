@@ -1,6 +1,8 @@
-<!-- store sql querry and function about sql -->
 <?php 
+require_once("../html/template/connection.php"); 
 
+
+// ----------------------- GET -----------------------
 function get_all_item($limit,$offset){
     $querry_get_name_color_size = "SELECT phoneID, name, cac_mau, size, image, visible
                                                       FROM (
@@ -55,7 +57,37 @@ function get_category_id_name(){
     $querry_get_category_id_name = "SELECT id, name FROM category";
     return $querry_get_category_id_name;
 }
+function get_latest_phone_id(){
+    $query = "SELECT id FROM phone ORDER BY id DESC LIMIT 1";
+    return $query;
+}
 
+function get_phone_by_id($phoneID){
+    $query = "SELECT name,category,date FROM phone WHERE id =".$phoneID;
+    return $query;
+}
+
+function get_phone_spec_by_id($phoneID){
+    $query = "SELECT * FROM spec WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+function get_phone_variant_by_id($phoneID){
+    $query = "SELECT DISTINCT size,price FROM variant WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+function get_phone_color_by_id($phoneID){
+    $query = "SELECT colorID,color FROM color WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+function get_phone_image_by_id($phoneID){
+    $query = "SELECT colorID,image FROM image WHERE phoneID =".$phoneID;
+    return $query;
+}
+
+// ----------------------- CAL FUNC -----------------------
 function count_item($categoryID){
     $countSql = "";
     if($categoryID == "0"){
@@ -67,31 +99,60 @@ function count_item($categoryID){
 }
 
 
+
+
+
+// ----------------------- SET -----------------------
 function set_visible($phoneID,$visible){
     $query = "UPDATE phone SET visible = ".$visible." WHERE id =".$phoneID;
     return $query;
 }
 
-function get_all_email_customer() {
-    $query = "SELECT email FROM customer";
+
+
+
+//----------------------- INSERT -----------------------
+function insert_phone($id,$name,$brand,$date) {
+    $query = "INSERT INTO phone VALUES ('".$id."','".$name."','".$brand."','".$date."','','1')";
     return $query;
 }
 
-function get_all_account_customer() {
-    $query = "SELECT email,password FROM customer";
+function insert_phone_spec($id, $spec
+) {
+    $query = "INSERT INTO spec VALUES('".$id."',
+    '".$spec['chipset']."',
+    '".$spec['cpu']."',
+    '".$spec['dimensions']."',
+    '".$spec['weight']."',
+    '".$spec['display_feature']."',
+    '".$spec['resolution']."',
+    '".$spec['display_size']."',
+    '".$spec['technology']."',
+    '".$spec['os']."',
+    '".$spec['video']."',
+    '".$spec['fcamera']."',
+    '".$spec['bcamera']."',
+    '".$spec['camera_feature']."',
+    '".$spec['sim']."',
+    '".$spec['network']."',
+    '".$spec['wifi']."',
+    '".$spec['misc']."'";
+    return $query;
+}
+function insert_variant($phoneID,$size,$colorID,$price) {
+    $query = "INSERT INTO variant VALUES('','".$phoneID."','".$size."','".$colorID."','".$price."','')";
     return $query;
 }
 
-function get_all_email_employee() {
-    $query = "SELECT email FROM employee";
+function insert_color($phoneID,$colorID,$color) {
+    $query = "INSERT INTO color VALUES('','".$phoneID."','".$colorID."','".$color."')";
     return $query;
 }
 
-function get_all_account_employee() {
-    $query = "SELECT email,password FROM employee";
+function insert_image($id,$colorID,$image) {
+    $query = "INSERT INTO image VALUES('','".$id."','".$colorID."','".$image."')";
     return $query;
 }
-
 
 
 

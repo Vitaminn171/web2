@@ -625,7 +625,7 @@
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/add_new_phone.js"></script>
+    <script src="../assets/js/edit_phone.js"></script>
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->
