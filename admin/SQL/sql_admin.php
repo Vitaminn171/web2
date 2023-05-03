@@ -103,6 +103,8 @@ function get_variant_in_orderDetail($phoneID){
     return $query;
 }
 
+
+
 // ----------------------- CAL FUNC -----------------------
 function count_item($categoryID){
     $countSql = "";
@@ -114,6 +116,22 @@ function count_item($categoryID){
     return $countSql;
 }
 
+function get_total_payment_order(){
+    $query = "SELECT SUM(totalPayment) AS totalMoney FROM `order`";
+    return $query;
+}
+
+function get_total_payment_brand_order(){
+    $query = "SELECT c.name AS categoryName,
+            COUNT(od.quantity) AS totalSoldProducts,
+            SUM(od.quantity * od.price) AS totalRevenue
+            FROM category AS c
+            INNER JOIN phone AS p ON c.id = p.category
+            INNER JOIN variant AS v ON p.id = v.phoneID
+            INNER JOIN orderdetail AS od ON v.id = od.variantID
+            GROUP BY c.id";
+    return $query;
+}
 
 
 
