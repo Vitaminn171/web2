@@ -1,7 +1,20 @@
 <?php 
+    if(!isset($_GET['id'])) {
+        header('Location: /admin/html/customer.php');
+    }
   include('../SQL/connection.php');
-  $sql_lietke_order = "SELECT * FROM customer";
-  $query_lietke_order = mysqli_query($con ,$sql_lietke_order);
+  $id = $_GET['id'];
+    if(isset($_GET['sort'])) {
+        $sort = $_GET['sort'];
+        if($sort == 'desc') {
+            $sql_lietke_order_detail = "SELECT * FROM orderdetail WHERE orderID = '$id' ORDER BY price DESC";
+        } else if($sort == 'asc') {
+            $sql_lietke_order_detail = "SELECT * FROM orderdetail WHERE orderID = '$id' ORDER BY price ASC";
+        }
+    } else {
+    $sql_lietke_order_detail = "SELECT * FROM orderdetail WHERE orderID = '$id'";
+  }
+  $query_lietke_order_detail = mysqli_query($con ,$sql_lietke_order_detail);
 ?>
 
 <!DOCTYPE html>
@@ -68,9 +81,12 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
     <style>
-      a {
-        color: black;
-      }
+        .text-purple {
+            color: #696CFF;
+        }
+        .select-wrapper {
+            margin-bottom: 20px;
+        }
     </style>
   </head>
 
@@ -83,6 +99,7 @@
 
         <!-- Layout container -->
         <div class="layout-page">
+         
           <!-- Navbar -->
 
           <!-- <nav
@@ -203,7 +220,25 @@
                             </button>
                         </div>
 
-                        <h1 class="text-center">THÔNG TIN KHÁCH HÀNG</h1>
+                        <h1 class="text-center text-purple">
+                            <?php 
+                                $sql_name_customer = "SELECT customer.name FROM `order` , customer WHERE `order`.customerID = customer.id";
+                                $query_name_customer = mysqli_query($con , $sql_name_customer);
+                                $row_customer = mysqli_fetch_array($query_name_customer);
+
+                                echo 'Sản phẩm đã mua của '.$row_customer['name'];
+                            ?>
+                        </h1>
+                        <div class="select-wrapper">
+                            <span>Sắp xếp : </span>
+                            <select class="select-sort" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                <option value="" selected>Sắp xếp giá</option>
+                                <option value="?id=<?php echo $id?>&sort=desc">Giá giảm dấn</option>
+                                <option value="?id=<?php echo $id?>&sort=asc">Giá tăng dần</option>
+                            </select>
+                            <!-- <span> or </span>
+                            <input type="date" class="input-sort"/> -->
+                        </div>
                         <div class="row">
                             <div class="col col-md-12">
                                 <table class="table table-bordered">
@@ -211,46 +246,26 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>PhoneNumber</th>
-                                            <th>Total Number of Products Purchased</th>
-                                            <th>Total Payment</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
                                         </tr>
                                     </thead>
                                     <tbody id="datarow">
                                       <?php
-                                      while ($row = mysqli_fetch_array($query_lietke_order)) {                          
+                                      while ($row = mysqli_fetch_array($query_lietke_order_detail)) {
                                       ?>
-                                        <tr class="cursor-pointer" />
-                                            <td><a href="./customer2.php?id=<?php echo $row['id']?>"><?php echo $row['id'] ?></a></td>
-                                            <td>
-                                              <a href="./customer2.php?id=<?php echo $row['id']?>"><?php echo $row['name'] ?></a>
-                                            </td>
-                                            <td class="text-right"><a href="./customer2.php?id=<?php echo $row['id']?>"><?php echo $row['email'] ?></a></td>
-                                            <td class="text-right"><a href="./customer2.php?id=<?php echo $row['id']?>"><?php echo $row['address'] ?></a></td>
-                                            <td class="text-right"><a href="./customer2.php?id=<?php echo $row['id']?>"><?php echo $row['phoneNumber'] ?></a></td>
-                                            <td >
-                                              <a href="./customer2.php?id=<?php echo $row['id']?>">
-                                              <?php
-                                                $id = $row['id'];
-                                                $select_order = "SELECT * FROM `order` WHERE customerID = '$id'";
-                                                $query_order = mysqli_query($con , $select_order);
-          
-                                                $tong = 0;
-                                                while ($rowOrder = mysqli_fetch_array($query_order)) {
-                                                  $tong += $rowOrder['totalPayment'];
-                                                }
-                                                if(mysqli_num_rows($query_order) > 0) {
-                                                  echo mysqli_num_rows($query_order);
-                                                } 
-                                                else {
-                                                  echo 0;
-                                                }
-                                              ?>
-                                              </a>
-                                            </td>
-                                            <td ><a href="./customer2.php?id=<?php echo $row['id']?>"><?php echo $tong ?></a></td>
+                                        <tr>
+                                            <td><?php echo $row['orderID'] ?></td>
+                                            <td class="text-right"><?php
+                                                $variantID = intval($row['variantID']);
+                                                $sql_name_phone = "SELECT phone.name FROM variant, phone WHERE variant.id = $variantID and phone.id = variant.phoneID";
+                                                $query_name_phone = mysqli_query($con , $sql_name_phone);
+                                                $row_phone = mysqli_fetch_array($query_name_phone);
+
+                                                echo $row_phone['name'];
+                                            ?></td>
+                                            <td class="text-right"><?php echo $row['quantity'] ?></td>
+                                            <td class="text-right"><?php echo $row['price'] ?></td>
                                         </tr>
                                         <?php 
                                         }
