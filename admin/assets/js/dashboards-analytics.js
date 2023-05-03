@@ -4,7 +4,18 @@
 
 'use strict';
 
-(function () {
+
+$.ajax({
+  type: "POST",
+  url: "../php/get_analytic.php",
+  success: function (response) {
+    var data = JSON.parse(response);
+    console.log(data)
+
+console.log(data);
+const func = (function () {
+
+  
   let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
   cardColor = config.colors.white;
@@ -420,6 +431,10 @@
 
   // Order Statistics Chart
   // --------------------------------------------------------------------
+
+
+  
+
   const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
     orderChartConfig = {
       chart: {
@@ -427,8 +442,14 @@
         width: 130,
         type: 'donut'
       },
-      labels: ['Electronic', 'Sports', 'Decor', 'Fashion'],
-      series: [85, 15, 50, 50],
+      labels: [data.brand[0][0]['categoryName'],
+              data.brand[0][1]['categoryName'],
+              data.brand[0][2]['categoryName'],
+              data.brand[0][3]['categoryName']],
+      series: [parseInt(data.brand[0][0]['totalSoldProducts']),
+      parseInt(data.brand[0][0]['totalSoldProducts']),
+      parseInt(data.brand[0][0]['totalSoldProducts']),
+      parseInt(data.brand[0][0]['totalSoldProducts'])],
       colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
       stroke: {
         width: 5,
@@ -483,6 +504,7 @@
         }
       }
     };
+    
   if (typeof chartOrderStatistics !== undefined && chartOrderStatistics !== null) {
     const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
     statisticsChart.render();
@@ -494,7 +516,7 @@
     incomeChartConfig = {
       series: [
         {
-          data: [24, 21, 30, 22, 42, 26, 35, 29]
+          data: [24, 21, 30, 22, 42, 26, 35, 99]
         }
       ],
       chart: {
@@ -659,4 +681,5 @@
     const weeklyExpenses = new ApexCharts(weeklyExpensesEl, weeklyExpensesConfig);
     weeklyExpenses.render();
   }
-})();
+})();  }
+})
