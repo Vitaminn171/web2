@@ -247,23 +247,23 @@
                         <td class="col-1">
                           <?php 
                           if($row["visible"] == 1){
-                            echo "<img src='../../phone_image/".$row['image']."' style='width: 110%'>";
+                            echo "<img src='../../phone_image/".$row['image']."' style='width: 150%'>";
                           }
                           else {
-                            echo "<div class='card'>
-                            <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='opacity: 0.3'>
-                            <div class='card-img-overlay'>
-                              <img class='card-img justify-content-left' src='../assets/img/elements/visible.png' style='width: 100%'></img>
-                              
-                            </div>
-                          </div>";
+                            echo "<div class='card' id='allphone'>
+                                    <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='width: 150%; opacity: 0.3'>
+                                    <div class='card-img-overlay'>
+                                      <img class='card-img' src='../assets/img/elements/visible.png' style='width: 25px'></img>
+                                      
+                                    </div>
+                                  </div>";
                           }
 
                           ?>
                       
                           
                       </td>
-                        <td class="col-3"><strong><?= $row['name'] ?></strong></td>
+                        <td class="col-3 ps-4"><strong><?= $row['name'] ?></strong></td>
                         <td class="col-3">
                           <?=$row['cac_mau'] ?>
                           <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
@@ -315,7 +315,7 @@
                               <a class="dropdown-item text-primary" href="form_edit_phone.php?phoneID=<?= $row["phoneID"] ?>"
                                 ><i class="bx bx-edit-alt me-1"></i> Edit</a
                               >
-                              <a class="dropdown-item text-danger" href="javascript:void(0);"
+                              <a class="dropdown-item text-danger" href="#" onclick="deletePhone(<?= $row['phoneID'] ?>)"
                                 ><i class="bx bx-trash me-1"></i> Delete</a
                               >
                             </div>
@@ -325,6 +325,20 @@
                       </tr>
                       
                       <?php } 
+                      
+                      if(isset($_GET['message'])){
+                        if($_GET['message'] == "Delete success!"){
+                          echo '<div id="alert" class="alert alert-primary"><i class="bx bxs-like">   '.urldecode($_GET['message']).'</i></div>';
+                        }else if($_GET['message'] == "Can't delete product!"){
+                          echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   '.urldecode($_GET['message']).'</i></div>';
+                        }else if($_GET['message'] == "Add new product success!"){
+                          echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   '.urldecode($_GET['message']).'</i></div>';
+                        }
+                        else if($_GET['message'] == "Edit product success!"){
+                          echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-circle">   '.urldecode($_GET['message']).'</i></div>';
+                        }
+                      }
+                      
                         mysqli_close($con);
                     
 

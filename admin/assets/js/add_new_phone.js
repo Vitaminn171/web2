@@ -2,7 +2,7 @@
  * The function inserts a new row into a table with a given size and a remove button.
  */
 
-
+let isize = 1;
 var items_variant = []
 const insertTable = ({size,price}
   
@@ -34,13 +34,14 @@ const insertTable = ({size,price}
   
   if ($("#size").val() != "" && $("#price").val() != null && isValidateVariantSize($("#size").val())) {
       let variant = {
+          sizeID: isize,
           size: $("#size").val(),
           price: $("#price").val()
       }
     //   const number = parseInt($("#price").val()).toLocaleString('en-US')
       !items_variant.find(e => e.size == variant.size) && items_variant.push(variant);
       $("#table_variant").text("")
-      
+      isize++;
       items_variant.forEach(variant => insertTable(variant))
       
   }
@@ -369,8 +370,9 @@ submit && submit.addEventListener("click", (e) => {
           url: "../php/add_new_phone.php",
           data: { phone: phone , spec: spec, dataColor: items_color, dataVariant: items_variant, dataImage: items_image}
         }).done(function( response ) {
-          document.location.href = `../html/all_phone.php`
-          alert(response); // hiển thị dữ liệu phản hồi trả về từ server
+          var message = "Add new product success!";
+          document.location.href = `../html/all_phone.php?message=` + message 
+          //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
         });
       }
       

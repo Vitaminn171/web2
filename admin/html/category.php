@@ -196,7 +196,7 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <?php require_once("template/connection.php");
+                    <?php
                     require("../SQL/sql_admin.php");
                     $limit = 5; // Số bản ghi hiển thị trên mỗi trang
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
@@ -353,14 +353,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
-    </div>
+    
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

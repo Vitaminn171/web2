@@ -2,64 +2,135 @@
 <?php 
     require("../SQL/sql_admin.php");
 
-    // $name = $_POST['phone']['name'];
-    // $brand = $_POST['phone']['brand'];
-
-    print_r( $_POST['dataColor']);
+    $name = $_POST['phone']['name'];
+    $brand = $_POST['phone']['brand'];
+    $id = $_POST['phone']['phoneID'];
+    
     // TODO: UPDATE DATA TO DB
 
 
-    // $date = str_replace('/', '-', $_POST['phone']["date"]);
-    // $new_date = date('Y-m-d', strtotime($date));
+    $date = str_replace('/', '-', $_POST['phone']["date"]);
+    $new_date = date('Y-m-d', strtotime($date));
 
-    // $spec = $_POST['spec'];
+    $spec = $_POST['spec'];
 
-    // get latest id
-    // $id = 0;
-    // $result = mysqli_query($con, get_latest_phone_id());
-    // if ($result && mysqli_num_rows($result) > 0) {
-    //     $row = mysqli_fetch_assoc($result);
-    //     $id = intval($row['id']);
-    //     $id += 1;
-    // } 
-
-    // if($id != 0){
-    //     mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
-    //     mysqli_query($con,insert_phone_spec($id,$psec,));
-
-    //     $dataColor = $_POST['dataColor'];
-    //     foreach ($dataColor as $item_color){
-
-    //         $colorID = $item_color['colorID'];
-    //         $color = $item_color['color'];
-    //         mysqli_query($con, insert_color($id, $colorID, $color));
-
-    //         $dataVariant = $_POST['dataVariant'];
-    //         foreach ($dataVariant as $item_variant){
-    //             $size = $item_variant['size'];
-    //             $price = $item_variant['price'];
-    //             str_replace(",","",$price);
-    //             mysqli_query($con, insert_variant($id, $size, $colorID, $price));
-    //         }
-
-    //         $dataImage = $_POST['dataImage'];
-    //         foreach ($dataImage as $item_image){
-    //             $image = $item_image['fileName'];
-    //             mysqli_query($con, insert_image($id, $colorID, $image));
-    //         }
-    //     }
-    // }
     
-    //mysqli_query($con,insert_phone($id,$name,$brand,$new_date));// insert to phone table
+    if($id != 0){
+        $data_phone = array(
+            "name" => $name,
+            "category" => $brand,
+            "date" => $new_date,
+            "visible" => 1
+        );
+        $spec = array(
+            "chipset" => $_POST['spec']['chipset'],
+            "cpuType" => $_POST['spec']['cpu'],
+            "bodySize" => $_POST['spec']['dimensions'],
+            "bodyWeight" => $_POST['spec']['weight'],
+            "screenFeature" => $_POST['spec']['display_feature'],
+            "screenResolution" => $_POST['spec']['resolution'],
+            "screenSize" => $_POST['spec']['display_size'],
+            "screenTech" => $_POST['spec']['technology'],
+            "os" => $_POST['spec']['os'],
+            "videoCapture" => $_POST['spec']['video'],
+            "cameraFront" => $_POST['spec']['fcamera'],
+            "cameraBack" => $_POST['spec']['bcamera'],
+            "cameraFeature" => $_POST['spec']['camera_feature'],
+            "battery" => $_POST['spec']['battery'],
+            "sim" => $_POST['spec']['sim'],
+            "networkSupport" => $_POST['spec']['network'],
+            "wifi" => $_POST['spec']['wifi'],
+            "misc" =>  $_POST['spec']['misc']
+        );
+        // table
+        $table_phone = " phone ";
+        $table_spec = " spec ";
+        
+        // condition 
+        $phone_condition = "id = ".$id;
+        $spec_condition = "phoneID = ".$id;
+        // query
+        $result1 = mysqli_query($con,update($table_phone,$data_phone,$phone_condition));// update to phone table
+        $result = mysqli_query($con, update($table_spec,$spec,$spec_condition));
+        if (!$result1 || !$result) {
+            die('Error: ' . mysqli_error($con));
+        }
 
-    // foreach ($_POST['dataColor'] as $item_color){
+        // color
+        $dataColor = $_POST['dataColor'];
+        foreach ($dataColor as $item_color){
+            $temp_color = array(
+                "phoneID" => $id,
+                "colorID" => $item_color['colorID'],
+                "color" => $item_color['color']
+            );
+            $table_color = " color ";
+            if(isset($item_color['action'])){
+                $action = $item_color['action'];
+                if($action == "new"){
+                    mysqli_query($con, insert($table_color, $temp_color));
+                }else if($action == "delete"){
+                    $condition = " phoneID = ".$id." && colorID = '".$item_color['colorID']."'";
+                    mysqli_query($con, delete_data($table_color, $condition));
+                }
+                
+            }else{
+                $condition = " phoneID = ".$id." && colorID = '".$item_color['colorID']."'";
+                mysqli_query($con, update($table_color, $temp_color, $condition));
+            }
+            
 
-    //     foreach ($_POST['dataVariant'] as $item_variant){
+            $dataVariant = $_POST['dataVariant'];
+            foreach ($dataVariant as $item_variant){
+                $table_variant = " variant ";
+                $temp_variant = array(
+                    "phoneID" => $id,
+                    "sizeID" => $item_variant['sizeID'],
+                    "size" => $item_variant['size'],
+                    "colorID" => $item_color['colorID'],
+                    "price" => $item_variant['price']
+                );
+                
+                if(isset($item_variant['action'])){
+                    $action = $item_variant['action'];
+                    if($action == "new"){
+                        mysqli_query($con, insert($table_variant, $temp_variant));
+                    }else if($action == "delete"){
+                        $condition = " phoneID = ".$id." && sizeID = '".$item_variant['sizeID']."'";
+                        mysqli_query($con, delete_data($table_variant, $condition));
+                    }
+                }else{
+                    $condition = " phoneID = ".$id." && sizeID = '".$item_variant['sizeID']."'";
+                    mysqli_query($con, update($table_variant, $temp_variant, $condition));
+                }
+            }
 
-    //         foreach ()
-    //     }
-    // }
-    
+            $dataImage = $_POST['dataImage'];
+            foreach ($dataImage as $item_image){
+                $temp_image = array(
+                    "phoneID" => $id,
+                    "colorID" => $item_image['colorID'],
+                    "image" => $item_image['image']
+                );
+                $table_image = " image ";
+                if($item_image['colorID'] == $item_color['colorID']){
+                    if(isset($item_image['action'])){
+                        $action = $item_image['action'];
+                        if($action == "new"){
+                            mysqli_query($con, insert($table_image, $temp_image));
+                        }else if($action == "delete"){
+                            $condition = " phoneID = ".$id." && image = '".$item_image['image']."' && colorID = '".$item_image['colorID']."'";
+                            $result = mysqli_query($con, delete_data($table_image, $condition));
+                            if (!$result) {
+                                die('Error: ' . mysqli_error($con));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     
 ?>
