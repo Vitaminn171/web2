@@ -77,6 +77,7 @@ function get_latest_phone_id(){
 }
 
 
+
 function get_phone_by_id($phoneID){
     $query = "SELECT name,category,date FROM phone WHERE id =".$phoneID;
     return $query;
@@ -131,6 +132,18 @@ function count_item($categoryID){
     return $countSql;
 }
 
+function count_data($table,$field){
+    $countSql = "SELECT COUNT(".$field.") AS total FROM `".$table."`";
+    return $countSql;
+}
+
+
+function get_order_employee_date($email){
+    $query = "SELECT count(id) AS total, date from `order` WHERE employeeEmail = ".$email." GROUP by date";
+    return $query;
+}
+
+
 function get_total_payment_order(){
     $query = "SELECT SUM(totalPayment) AS totalMoney FROM `order`";
     return $query;
@@ -145,6 +158,17 @@ function get_total_payment_brand_order(){
             INNER JOIN variant AS v ON p.id = v.phoneID
             INNER JOIN orderdetail AS od ON v.id = od.variantID
             GROUP BY c.id";
+    return $query;
+}
+
+function get_top_sold_product($limit){
+    $query = "SELECT p.name,
+                COUNT(od.quantity) AS totalSold
+                FROM phone AS p
+                INNER JOIN variant AS v ON p.id = v.phoneID
+                INNER JOIN orderdetail AS od ON v.id = od.variantID
+                GROUP by p.name
+                ORDER by totalSold DESC LIMIT ".$limit;
     return $query;
 }
 

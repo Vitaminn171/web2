@@ -277,7 +277,7 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item text-dark" href="../php/visible.php?phoneID=<?=$row["phoneID"]?>&visible=<?=$row["visible"]?>" >
+                              <a class="dropdown-item text-dark" href="../../php/phone/visible.php?phoneID=<?=$row["phoneID"]?>&visible=<?=$row["visible"]?>" >
                               
                               <i class='bx bx-low-vision me-1'></i> Visible</a
                               >

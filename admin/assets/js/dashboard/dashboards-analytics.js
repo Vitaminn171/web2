@@ -78,8 +78,14 @@ $.ajax({
     document.getElementById("totalSales").innerHTML = number + " VND Total Sales";
     document.getElementById("totalOrder").innerHTML = total[1]['totalOrder'];
 
-
-
+    var data_top_sold = new Array();
+    var top_sold_name = new Array();
+    data.top_sold.forEach( item => {
+      data_top_sold.push(parseInt(item.totalSold))
+      top_sold_name.push(item.name)
+    })
+    console.log(data_top_sold)
+    console.log(top_sold_name)
 
 
 
@@ -579,6 +585,51 @@ const func = (function () {
   if (typeof chartOrderStatistics !== undefined && chartOrderStatistics !== null) {
     const statisticsChart = new ApexCharts(chartOrderStatistics, orderChartConfig);
     statisticsChart.render();
+  }
+
+  // Profit Report Line Chart
+  // --------------------------------------------------------------------
+  const topSoldProductEL = document.querySelector('#topSoldProduct'),
+    topSoldProductConfig = {
+      series: data_top_sold,
+      labels: top_sold_name,
+       
+      
+      chart: {
+      type: 'donut',
+      width: 350
+      
+    },
+    legend: {
+      show: true,
+      position: 'left',
+      fontSize: '12px', // Đổi giá trị font size ở đây
+        itemMargin: {
+          horizontal: 1, // Khoảng cách giữa các mục ngang
+          vertical: 1, // Khoảng cách giữa các mục dọc
+        },
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 90,
+        offsetY: 10
+      }
+    },
+    grid: {
+      padding: {
+        bottom: -50,
+        left: -30
+      }
+    },
+    dataLabels: {
+      enabled: false,
+    }
+   
+    };
+  if (typeof topSoldProductEL !== undefined && topSoldProductEL !== null) {
+    const topSoldProduct = new ApexCharts(topSoldProductEL, topSoldProductConfig);
+    topSoldProduct.render();
   }
 
   // Income Chart - Area chart

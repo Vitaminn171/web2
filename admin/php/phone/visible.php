@@ -9,5 +9,5 @@ require_once("../../SQL/sql_admin.php");
         // set item into visible 0
         mysqli_query($con,set_visible($_GET["phoneID"],0));
     }
-    header("Location: ../html/all_phone.php");
+    header("Location: ../../html/phone/all_phone.php");
 ?>
