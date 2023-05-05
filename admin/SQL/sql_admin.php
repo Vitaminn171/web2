@@ -52,6 +52,18 @@ function get_all_category($limit,$offset){
     return $querry_get_category;
 }
 
+function get_all_category_1(){
+    // get category id, name and quantity for each brand
+    $querry_get_category = "SELECT name FROM category";
+    return $querry_get_category;
+}
+
+function get_category_by_id($id){
+    // get category id, name and quantity for each brand
+    $querry_get_category = "SELECT name FROM category WHERE id = ".$id;
+    return $querry_get_category;
+}
+
 function get_category_id_name(){
     // get category id, name and quantity for each brand
     $querry_get_category_id_name = "SELECT id, name FROM category";
@@ -60,7 +72,9 @@ function get_category_id_name(){
 function get_latest_phone_id(){
     $query = "SELECT id FROM phone ORDER BY id DESC LIMIT 1";
     return $query;
+
 }
+
 
 function get_phone_by_id($phoneID){
     $query = "SELECT name,category,date FROM phone WHERE id =".$phoneID;
@@ -133,8 +147,25 @@ function get_total_payment_brand_order(){
     return $query;
 }
 
+function get_total_order(){
+    $query = "SELECT COUNT(id) AS totalOrder FROM `order`";
+    return $query;
+}
 
-
+function get_total_order_month($year){
+    $query = "SELECT 
+    SUM(totalPayment) AS totalRevenue, 
+    SUM((SELECT SUM(quantity) FROM orderDetail WHERE orderID = order.id)) AS totalSold, 
+    MONTH(date) AS month 
+FROM 
+    `order` 
+WHERE 
+    orderStatus = 'COMPLETED' AND 
+    YEAR(date) = ".$year."
+GROUP BY 
+    month";
+    return $query;
+}
 
 // ----------------------- SET -----------------------
 function set_visible($phoneID,$visible){

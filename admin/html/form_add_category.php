@@ -1,7 +1,3 @@
-<?php
-// session_start();
-// $useremail = $_SESSION['useremail'];
-?>
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -61,7 +57,7 @@
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
-
+    
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
@@ -89,27 +85,11 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
-              <!-- /Search -->
+              
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-                <li class="nav-item lh-1 me-3">
-                <a href="form_add_category.php">
-                    <button class="btn btn-primary">Add new brand</button>
-                  </a>
-                </li>
+                
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -128,7 +108,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $useremail; ?></span>
+                            <span class="fw-semibold d-block">Username (Email)</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -181,145 +161,74 @@
             <!-- Content -->
 
             <div class="container-fluid flex-grow-1 container-p-y">
-              <!-- Layout Demo -->
-               <!-- Basic Bootstrap Table -->
-               <div class="card">
-               <?php
-                  if(isset($_GET['message'])){
-                          echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   '.urldecode($_GET['message']).'</i></div>';
-                        }
-                        ?>
-                <div class="table text-nowrap table-borderless">
-                  <table class="table table-borderless table-hover">
-                    <thead>
-                      <tr class="table-primary">
-                        <th>ID</th>
-                        <th class="text-center">Brand</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-center">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                    <?php
-                    require("../SQL/sql_admin.php");
-                    $limit = 5; // Số bản ghi hiển thị trên mỗi trang
-                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
-                    $offset = ($page - 1) * $limit;
-                    $array_color = array("bg-label-primary", "bg-label-danger", "bg-label-success", "bg-label-secondary", "bg-label-warning", "bg-label-info", "bg-label-dark");
-
-                    $result = mysqli_query($con, get_all_category($limit, $offset));
-
-                    
-
-
-                    $countSql = "SELECT COUNT(id) AS total FROM category";
-                    $countResult = mysqli_query($con, $countSql);
-                    $dataCount = mysqli_fetch_assoc($countResult);
-                    $totalPages = ceil($dataCount['total'] / $limit);
-       
-                    while ($row = mysqli_fetch_array($result)) {
-                        $num = rand(0, 6);
-                        
-                        ?>
-                          <tr>
-                            <td class="col-1"><strong><?= $row['id'] ?></strong></td>
-                            <td class="col-2 text-center"><a class="text-dark badge <?= $array_color[$num] ?> me-1" href="all_phone.php?category=<?= $row['id'] ?>">
-                              <?= $row['name'] ?> 
-                              </a>
-                              <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller"
-                            >
-                              <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson"
-                            >
-                              <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li> -->
-                              </ul>
-                            </td>
-                            <td class="col-1 text-center">
-                              <!-- <span class="badge bg-label-primary me-1">Active</span> -->
-                              <?= $row['quantity'] ?>
-                            </td>
-                            <!-- <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td> -->
-                            <td class="col-1 text-center">
-                              <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                  <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item text-warning" href="form_edit_category.php?brandID=<?= $row["id"] ?>"
-                                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                  >
-                                  <a class="dropdown-item text-danger" href="javascript:void(0);"
-                                    ><i class="bx bx-trash me-1"></i> Delete</a
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                      <?php }
-
-
-                   
-                    mysqli_close($con);
-                    ?>
-                    </tbody>
-                  </table>
-                  
-                </div>
+                <!-- Layout Demo -->
+                <div class="card mb-4">
+                    <h5 class="card-header">New brand</h5>
+                    <!-- Form add new phone -->
                 
-              </div>
-              <!--/ Basic Bootstrap Table -->
+
+
+                <form method="POST">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center align-items-sm-center">
+                          
+                             <img
+                            src="../assets/img/elements/all_device.jpg"
+                            alt="user-avatar"
+                            class="d-block rounded"
+                            height="100"
+                            width="100"
+                            id="uploadedAvatar"
+                            /> 
+                        </div>
+                        </div>
+                        <hr class="my-0" />
+                        <div class="card-body">
+                        
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="brandName" class="form-label">Brand Name</label>
+                                    <input
+                                    class="form-control"
+                                    type="text"
+                                    id="brandName"
+                                    name="brandName"
+                                    placeholder="Brand name"
+                                    
+                                    />
+                                </div>
+                              
+                            </div>
+                        
+                            
+
+
+                            <hr class="my-4" />
+                            <div class="mt-2">
+                            <button class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
+                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            </div>
+                        </div>        
+                    </div>
+                </form>
+                <?php 
+                if(isset($_GET['message'])){
+                    
+                    echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   '.urldecode($_GET['message']).'</i></div>';
+                        
+                    }
+                    ?>
+
+            </div>
+
+
+
+
+
               <!--/ Layout Demo -->
             </div>
             <!-- / Content -->
-            <?php
-            $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">Prev</a></li>' : '';
-            $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Next</a>' : '';
-
-            echo '<ul class="pagination justify-content-center">' . $prevLink;
-            for ($i = 1; $i <= $totalPages; $i++) {
-                $activeClass = ($i == $page) ? ' active' : '';
-                echo '<li class="page-item ' . $activeClass . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
-            }
-            echo $nextLink . '</ul>';
-
-
-            ?>
+            
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -327,7 +236,7 @@
                   ©
                   <script>
                     document.write(new Date().getFullYear());
-                </script>
+                  </script>
                   , made with ❤️ by
                   <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>
@@ -363,13 +272,13 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- / Layout wrapper -->
-
     
-
+    
+    <!-- / Layout wrapper -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
@@ -378,13 +287,16 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+  
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
-
+    <script src="../assets/js/add_new_category.js"></script>
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
   </body>
 </html>

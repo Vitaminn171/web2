@@ -172,7 +172,7 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
-                <div class="col-lg-8 mb-4 order-0">
+                <!-- <div class="col-lg-8 mb-4 order-0">
                   <div class="card">
                     <div class="d-flex align-items-end row">
                       <div class="col-sm-7">
@@ -199,8 +199,8 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-4 col-md-4 order-1">
+                </div> -->
+                <div class="col-lg-8 col-md-8 order-1">
                   <div class="row">
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
                       <div class="card">
@@ -213,7 +213,7 @@
                                 class="rounded"
                               />
                             </div>
-                            <div class="dropdown">
+                            <!-- <div class="dropdown">
                               <button
                                 class="btn p-0"
                                 type="button"
@@ -228,7 +228,7 @@
                                 <a class="dropdown-item" href="javascript:void(0);">View More</a>
                                 <a class="dropdown-item" href="javascript:void(0);">Delete</a>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
                           <span class="fw-semibold d-block mb-1">Profit</span>
                           <h3 class="card-title mb-2">$12,628</h3>
@@ -273,7 +273,7 @@
                   </div>
                 </div>
                 <!-- Total Revenue -->
-                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <!-- <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                     <div class="row row-bordered g-0">
                       <div class="col-md-8">
@@ -328,7 +328,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Total Revenue -->
                 <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
@@ -420,12 +420,12 @@
               </div>
               <div class="row">
                 <!-- Order Statistics -->
-                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <div class="col-md-8 col-lg-6 col-xl-6 order-0 mb-4">
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                       <div class="card-title mb-0">
                         <h5 class="m-0 me-2">Order Statistics</h5>
-                        <small class="text-muted">42.82k Total Sales</small>
+                        <small class="text-muted" id="totalSales"></small>
                       </div>
                       <div class="dropdown">
                         <button
@@ -448,80 +448,22 @@
                     <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex flex-column align-items-center gap-1">
-                          <h2 class="mb-2">8,258</h2>
+                          <h2 class="mb-2" id="totalOrder"></h2>
                           <span>Total Orders</span>
                         </div>
                         <div id="orderStatisticsChart"></div>
                       </div>
-                      <ul class="p-0 m-0">
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class="bx bx-mobile-alt"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Electronic</h6>
-                              <small class="text-muted">Mobile, Earbuds, TV</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">82.5k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Fashion</h6>
-                              <small class="text-muted">T-shirt, Jeans, Shoes</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">23.8k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Decor</h6>
-                              <small class="text-muted">Fine Art, Dining</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">849k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-secondary"
-                              ><i class="bx bx-football"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Sports</h6>
-                              <small class="text-muted">Football, Cricket Kit</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">99</small>
-                            </div>
-                          </div>
-                        </li>
+                      <ul class="p-0 m-0" id="list_brand_analytics">
+                        
                       </ul>
                     </div>
                   </div>
                 </div>
                 <!--/ Order Statistics -->
-
+                </div>
+              <div class="row">
                 <!-- Expense Overview -->
-                <div class="col-md-6 col-lg-4 order-1 mb-4">
+                <div class="col-md-12 col-lg-12 order-1 mb-4">
                   <div class="card h-100">
                     <div class="card-header">
                       <ul class="nav nav-pills" role="tablist">
@@ -554,9 +496,9 @@
                               <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
                             </div>
                             <div>
-                              <small class="text-muted d-block">Total Balance</small>
+                              <small class="text-muted d-block">Total Income</small>
                               <div class="d-flex align-items-center">
-                                <h6 class="mb-0 me-1">$459.10</h6>
+                                <h6 class="mb-0 me-1" id="totalIncome">$459.10</h6>
                                 <small class="text-success fw-semibold">
                                   <i class="bx bx-chevron-up"></i>
                                   42.9%
@@ -582,7 +524,7 @@
                 <!--/ Expense Overview -->
 
                 <!-- Transactions -->
-                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                <!-- <div class="col-md-6 col-lg-4 order-2 mb-4">
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="card-title m-0 me-2">Transactions</h5>
@@ -699,7 +641,7 @@
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!--/ Transactions -->
               </div>
             </div>
