@@ -31,36 +31,7 @@
 
     <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
-    
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    <?php require_once("../template/header.php") ?>
   </head>
 
   <body>
@@ -68,7 +39,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        <?php require_once("template/sidebar.php") ?>
+        <?php require_once("../template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
@@ -95,7 +66,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -104,7 +75,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -173,7 +144,7 @@
                         <div class="d-flex align-items-center align-items-sm-center">
                           
                              <img
-                            src="../assets/img/elements/all_device.jpg"
+                            src="../../assets/img/elements/all_device.jpg"
                             alt="user-avatar"
                             class="d-block rounded"
                             height="100"
@@ -202,7 +173,7 @@
                                     <select id="brand" class="select2 form-select" name="brand" >
                                       <option value="0">Select</option>
                                       <?php
-                                      require("../SQL/sql_admin.php"); 
+                                      require("../../SQL/sql_admin.php"); 
                                       
                                       $result = mysqli_query($con,get_category_id_name());
                                       while($row = mysqli_fetch_array($result)){?>
@@ -609,23 +580,8 @@
     
     
     <!-- / Layout wrapper -->
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-    <script src="../assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-  
-
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/edit_phone.js"></script>
+    <?php require_once("../template/tail.php") ?>
+    <script src="../../assets/js/phone/edit_phone.js"></script>
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->

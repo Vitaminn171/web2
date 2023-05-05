@@ -8,7 +8,7 @@ if((location.href).includes("?phoneID=")){
 var data;
 $.ajax({
   type: "POST",
-  url: "../php/get_edit_phone.php",
+  url: "../../php/phone/get_edit_phone.php",
   data: { phoneID: parameter },
   success: function (response) {
     data = JSON.parse(response);
@@ -158,7 +158,7 @@ const insertTableColor = ({ color, colorID }
 const insertTdImage = ({ image, colorID, action }) => {
   if(action != "delete" || action == undefined){
   const img = `<div class="flex-item">
-                    <img src="../../phone_image/${image}"/>
+                    <img src="../../../phone_image/${image}"/>
                     <a class="btn btn-sm text-danger" id="delete-btn" image="${image}" onclick="deleteImage('${image}',${colorID})"><i class='bx bx-trash' ></i></a>
                     </div>`;
 
@@ -185,7 +185,7 @@ const refreshImageTd = () => {
   $("#img-container").empty()
   data.image[0].forEach(item => {
     const img = `<div class="flex-item">
-              <img src="../../phone_image/${item.image}"/>
+              <img src="../../../phone_image/${item.image}"/>
               <a class="btn btn-sm text-danger" id="delete-btn" onclick="deleteImage('${item.image}',${item.colorID})"><i class='bx bx-trash' ></i></a>
               </div>`;
 
@@ -526,11 +526,11 @@ submit && submit.addEventListener("click", (e) => {
       if(flag){
         $.ajax({
           type: "POST",
-          url: "../php/update_phone.php",
+          url: "../../php/phone/update_phone.php",
           data: { phone: phone , spec: spec, dataColor: data.color[0], dataVariant: data.variant[0], dataImage: data.image[0]}
         }).done(function( response ) {
           var message = "Edit product success!";
-          document.location.href = `../html/all_phone.php?message=` + message 
+          document.location.href = `../../html/phone/all_phone.php?message=` + message 
           //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
         });
       }

@@ -1,12 +1,13 @@
 <?php 
-require_once("../SQL/sql_admin.php");
-
+require_once("../../SQL/sql_admin.php");
 $brand = $_POST['brand'];
+$id = $_POST['id'];
 $table = " category ";
 $brand_data = array(
     "name" => $brand,
 );
-$result = mysqli_query($con, insert($table,$brand_data));
+$condition = "id = " . $id ;
+$result = mysqli_query($con, update($table,$brand_data,$condition));
 if(!$result){
     die('Error: ' . mysqli_error($con));
 }

@@ -71,7 +71,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active" id="dashboard">
-              <a href="index.php" class="menu-link">
+              <a href="../dashboard/index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -90,12 +90,12 @@
 
               <ul class="menu-sub">
                 <li class="menu-item" id="all_item">
-                  <a href="all_phone.php" class="menu-link">
+                  <a href="../phone/all_phone.php" class="menu-link">
                     <div data-i18n="All_item">All Products</div>
                   </a>
                 </li>
                 <li class="menu-item" id="category">
-                  <a href="category.php" class="menu-link">
+                  <a href="../category/category.php" class="menu-link">
                     <div data-i18n="Without navbar">Category</div>
                   </a>
                 </li>

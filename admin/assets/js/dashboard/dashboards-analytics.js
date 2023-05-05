@@ -7,7 +7,7 @@
 
 $.ajax({
   type: "POST",
-  url: "../php/get_analytic.php",
+  url: "../../php/dashboard/get_analytic.php",
   success: function (response) {
     var data = JSON.parse(response);
     console.log(data)

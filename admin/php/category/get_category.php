@@ -1,6 +1,5 @@
 <?php 
-require_once("../SQL/sql_admin.php");
-
+require_once("../../SQL/sql_admin.php");
 
 
 $result = mysqli_query($con, get_all_category_1());

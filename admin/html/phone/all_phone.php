@@ -17,7 +17,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../assets/"
+  data-assets-path="../../assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -30,37 +30,8 @@
     <title>Fluid - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    
+    <?php require_once("../template/header.php") ?>
   </head>
 
   <body>
@@ -68,7 +39,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        <?php require_once("template/sidebar.php") ?>
+        <?php require_once("../template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
@@ -111,7 +82,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -120,7 +91,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -190,7 +161,7 @@
                         Brand
                       </button>
                       <?php 
-                      require("../SQL/sql_admin.php"); 
+                      require("../../SQL/sql_admin.php"); 
                       
                       $result = mysqli_query($con,get_category_id_name());?>
                       
@@ -247,13 +218,13 @@
                         <td class="col-1">
                           <?php 
                           if($row["visible"] == 1){
-                            echo "<img src='../../phone_image/".$row['image']."' style='width: 150%'>";
+                            echo "<img src='../../../phone_image/".$row['image']."' style='width: 150%'>";
                           }
                           else {
                             echo "<div class='card' id='allphone'>
-                                    <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='width: 150%; opacity: 0.3'>
+                                    <img src='../../../phone_image/".$row["image"]."' class='card-img-top' style='width: 150%; opacity: 0.3'>
                                     <div class='card-img-overlay'>
-                                      <img class='card-img' src='../assets/img/elements/visible.png' style='width: 25px'></img>
+                                      <img class='card-img' src='../../assets/img/elements/visible.png' style='width: 25px'></img>
                                       
                                     </div>
                                   </div>";
@@ -416,23 +387,9 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-    <script src="../assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
-
+    
     <!-- Page JS -->
-
+    <?php require_once("../template/tail.php") ?>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 

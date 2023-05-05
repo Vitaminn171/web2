@@ -46,9 +46,10 @@ function get_item_by_category($limit,$offset,$categoryID){
 
 function get_all_category($limit,$offset){
     // get category id, name and quantity for each brand
-    $querry_get_category = "SELECT category.id, category.name, COUNT(phone.id) AS quantity 
-                            FROM phone INNER JOIN category ON phone.category = category.id
-                            GROUP BY category.id, category.name LIMIT $limit OFFSET $offset";
+    $querry_get_category = "SELECT category.id, category.name, COUNT(phone.id) AS quantity
+    FROM category
+    LEFT JOIN phone ON phone.category = category.id
+    GROUP BY category.id, category.name LIMIT $limit OFFSET $offset";
     return $querry_get_category;
 }
 

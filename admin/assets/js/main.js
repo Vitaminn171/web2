@@ -172,12 +172,7 @@ if(url.includes("customer.php"))
 }, 3000);
 
 
-function deletePhone(phoneID){
-  if (confirm("Are you sure you want to delete this product?")) {
-      window.location.href = "../php/delete_phone.php?phoneID=" + phoneID;
-  }
-      
-}
+
 // /**
 //  * The function inserts a new row into a table with a given size and a remove button.
 //  */
