@@ -139,7 +139,7 @@ function count_data($table,$field){
 
 
 function get_order_employee_date($email){
-    $query = "SELECT count(id) AS total, date from `order` WHERE employeeEmail = ".$email." GROUP by date";
+    $query = "SELECT count(id) AS total,SUM(totalPayment) AS totalPayment, date from `order` WHERE employeeEmail = '".$email."' GROUP by date LIMIT 8";
     return $query;
 }
 

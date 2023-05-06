@@ -191,13 +191,13 @@
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                               <div class="card-title">
                                 <h5 class="text-nowrap mb-2">Profile Report</h5>
-                                <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                                <span class="badge bg-label-warning rounded-pill" id="year"></span>
                               </div>
                               <div class="mt-sm-auto">
                                 <small class="text-success text-nowrap fw-semibold"
                                   ><i class="bx bx-chevron-up"></i> 68.2%</small
                                 >
-                                <h3 class="mb-0">$84,686k</h3>
+                                <h5 class="mb-0" id="totalReport"></h5>
                               </div>
                             </div>
                             <div id="profileReportChart"></div>
@@ -215,9 +215,9 @@
                                 </div>
                                 
                               </div>
-                              <span class="fw-semibold d-block mb-1">Transactions</span>
-                              <h3 class="card-title mb-2">$14,857</h3>
-                              <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                              <span class="fw-semibold d-block mb-1">Total Customer</span>
+                              <h3 class="card-title mb-2" id="totalCustomer"></h3>
+                              <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small> -->
                             </div>
                           </div>
                         </div>
@@ -227,13 +227,13 @@
                             <div class="card-body">
                               <div class="card-title d-flex align-items-start justify-content-between">
                                 <div class="avatar flex-shrink-0">
-                                  <img src="../../assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                                  <img src="../../assets/img/icons/unicons/chart.png" alt="Credit Card" class="rounded" />
                                 </div>
                                 
                               </div>
-                              <span class="fw-semibold d-block mb-1">Transactions</span>
-                              <h3 class="card-title mb-2">$14,857</h3>
-                              <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                              <span class="fw-semibold d-block mb-1">Total Employee</span>
+                              <h3 class="card-title mb-2" id="totalEmployee"></h3>
+                              <!-- <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small> -->
                             </div>
                           </div>
                         </div>
@@ -307,11 +307,11 @@
                             <div>
                               <small class="text-muted d-block">Total Income</small>
                               <div class="d-flex align-items-center">
-                                <h6 class="mb-0 me-1" id="totalIncome">$459.10</h6>
-                                <small class="text-success fw-semibold">
+                                <h6 class="mb-0 me-1" id="totalIncome"></h6>
+                                <!-- <small class="text-success fw-semibold">
                                   <i class="bx bx-chevron-up"></i>
                                   42.9%
-                                </small>
+                                </small> -->
                               </div>
                             </div>
                           </div>

@@ -53,19 +53,20 @@ $.ajax({
 
 
     var data_chart_month = new Array();
-    var data_month = new Array();
+    //var data_month = new Array();
     data_chart_month.push(0)
     var max = 0;
+    var total_income = 0;
     data.month[0].forEach( item => {
       var totalRevenue = item.totalRevenue/1000000
+      total_income += totalRevenue
       data_chart_month.push(totalRevenue)
       max = totalRevenue > max ? totalRevenue : max
-      data_month.push((item.month) + "/" + data.year)
+      //data_month.push((item.month) + "/" + data.year)
     })
     var len = (data.month[0]).length - 1
     console.log(len)
     data_chart_month.push(data.month[0][len]['totalRevenue']/1000000)
-    console.log(data_month)
 
     var text_month = [' ','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sept','Oct','Nov','Dec']
     var temp_month = text_month.slice(0, len + 2);
@@ -86,6 +87,27 @@ $.ajax({
     })
     console.log(data_top_sold)
     console.log(top_sold_name)
+
+    var count_data = data.data_count[0]
+    document.getElementById("totalCustomer").innerHTML = count_data['customer'];
+    document.getElementById("totalEmployee").innerHTML = count_data['employee'];
+
+    document.getElementById("year").innerHTML = data.year;
+
+    document.getElementById("totalIncome").innerHTML = total_income + " mil";
+
+    var data_order_employee = new Array();
+    var date_order_employee = new Array();
+    var total_order_employee = 0;
+    var max_order_employee = 0;
+    data.order_employee.forEach(item =>{
+      data_order_employee.push(parseInt(item.total))
+      date_order_employee.push(item.date)
+      total_order_employee += parseInt(item.totalPayment)
+      max_order_employee = item.total > max_order_employee ? item.total : max_order_employee
+    })
+    console.log(date_order_employee)
+    document.getElementById("totalReport").innerHTML = total_order_employee.toLocaleString('en-US') + "$";
 
 
 
@@ -480,10 +502,12 @@ const func = (function () {
       },
       series: [
         {
-          data: [110, 270, 145, 245, 205, 285]
+          data: data_order_employee,
+          name: "Total order"
         }
       ],
       xaxis: {
+        categories: date_order_employee,
         show: false,
         lines: {
           show: false
@@ -496,7 +520,10 @@ const func = (function () {
         }
       },
       yaxis: {
-        show: false
+        show: false,
+        reversed: true,
+        max: max_order_employee + 1,
+        min: 0
       }
     };
   if (typeof profileReportChartEl !== undefined && profileReportChartEl !== null) {
