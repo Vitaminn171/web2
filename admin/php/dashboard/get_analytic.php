@@ -28,6 +28,17 @@ require_once("../../SQL/sql_admin.php");
         array_push($top_sold,$row);
     } 
 
+    $thisEmail = "lyquocan171@gmail.com";
+    $result_order_employee = mysqli_query($con, get_order_employee_date($thisEmail));
+    if (!$result_order_employee) {
+        die('Error: ' . mysqli_error($con));
+    }
+
+    $order_employee = array();
+    while($row = mysqli_fetch_array($result_order_employee)){
+        array_push($order_employee,$row);
+    } 
+    
     $result_count_customer = mysqli_query($con,count_data("customer","id"));
     $result_count_employee = mysqli_query($con,count_data("employee","email"));
     $result_count_product = mysqli_query($con,count_data("phone","id"));
@@ -43,7 +54,15 @@ require_once("../../SQL/sql_admin.php");
         $data_count = array(["customer" => $row_customer['total'],
                         "employee" => $row_employee['total'],
                         "product" => $row_product['total']]);
-        $all = array("data_total" => [$data],"brand" => [$brand], "month" => [$month], "year" => $year, "data_count" => $data_count, "top_sold" => $top_sold);
+        $all = array("data_total" => [$data],
+                        "brand" => [$brand],
+                        "month" => [$month],
+                        "year" => $year,
+                        "data_count" => $data_count,
+                        "top_sold" => $top_sold,
+                        "order_employee" => $order_employee
+                    
+                    );
 
 
         // send data back to js
