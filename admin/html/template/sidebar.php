@@ -124,12 +124,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item" id="employee">
-                  <a href="employee.php" class="menu-link">
+                  <a href="../employee/employee.php" class="menu-link">
                     <div data-i18n="Employee">Employee</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                   </a>
                 </li>
                 <li class="menu-item" id="customer">
-                  <a href="customer.php" class="menu-link">
+                  <a href="../customer/customer.php" class="menu-link">
                     <div data-i18n="Customer">Customer</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                   </a>
                 </li>

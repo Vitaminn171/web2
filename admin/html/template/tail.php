@@ -13,3 +13,4 @@
     <!-- Main JS -->
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/delete.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
