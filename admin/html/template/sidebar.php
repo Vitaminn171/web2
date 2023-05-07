@@ -135,7 +135,15 @@
                 </li>
               </ul>
             </li>
-            
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Management</span>
+            </li>
+            <li class="menu-item" id="suppler">
+              <a href="../sup/supplier.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Container">Supplier management</div> 
+              </a>
+            </li>
             </li>
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Order management</span></li>
