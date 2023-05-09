@@ -57,15 +57,18 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
+              <div class="navbar-nav align-items-center" id="top">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <!-- <i class="bx bx-search fs-4 lh-0"></i>
                   <input
-                    type="text"
+                    type="search"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
                     aria-label="Search..."
-                  />
+                    id="search"
+                    name="search"
+                    
+                  /> -->
                 </div>
               </div>
               <!-- /Search -->
@@ -147,16 +150,16 @@
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-fluid flex-grow-1 container-p-y">
+            <div class="container-fluid container-p-y" id="card">
               <!-- Layout Demo -->
                <!-- Basic Bootstrap Table -->
                <div class="card">
                 <div class="row">
-                  <div class="col-sm">
-                    <h5 class="card-header">All products</h5>
+                  <div class="col">
+                    <h5 class="card-header ps-3 pt-3 pb-0">All products</h5>
                   </div>
-                  <div class="col-sm text-end">
-                    <div class="dropdown card-header">
+                  <div class="col text-end">
+                    <div class="dropdown card-header pe-3 pt-3 pb-0" >
                       <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                         Brand
                       </button>
@@ -183,7 +186,8 @@
                 </div>
                 
                 <div class="table">
-                  <table class="table table-hover">
+                  <table class="table table-hover" id="product_table">
+                    
                     <thead>
                       <tr >
                         <th>Image</th>
@@ -195,26 +199,26 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                     <?php
-                    $limit = 5; // Số bản ghi hiển thị trên mỗi trang
+                    $limit = 200; // Số bản ghi hiển thị trên mỗi trang
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
                     $offset = ($page - 1) * $limit;
                     $result = "";
                     $countSql = "";
                     if(isset($_GET["category"])){
-                      $result = mysqli_query($con,get_item_by_category($limit,$offset,$_GET["category"]));
-                      $countSql = count_item($_GET["category"]);
+                      $result = mysqli_query($con,get_item_by_category($_GET["category"]));
+                      //$countSql = count_item($_GET["category"]);
                     }else{
-                      $result = mysqli_query($con,get_all_item($limit,$offset));
-                      $countSql = count_item("0");
+                      $result = mysqli_query($con,get_all_item());
+                      //$countSql = count_item("0");
                       }
 
-                    $countResult = mysqli_query($con, $countSql);
-                    $dataCount = mysqli_fetch_assoc($countResult);
-                    $totalPages = ceil($dataCount['total'] / $limit);
+                    // $countResult = mysqli_query($con, $countSql);
+                    // $dataCount = mysqli_fetch_assoc($countResult);
+                    // $totalPages = ceil($dataCount['total'] / $limit);
                     while($row = mysqli_fetch_array($result)){
                         
                       ?>
-                      <tr>
+                      <tr id="tr">
                         <td class="col-1">
                           <?php 
                           if($row["visible"] == 1){
@@ -237,34 +241,6 @@
                         <td class="col-3 ps-4"><strong><?= $row['name'] ?></strong></td>
                         <td class="col-3">
                           <?=$row['cac_mau'] ?>
-                          <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller"
-                            >
-                              <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson"
-                            >
-                              <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li> -->
                           </ul>
                         </td>
                         <td class="col-4">
@@ -331,15 +307,15 @@
             </div>
             <!-- / Content -->
             <?php 
-                      $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page='.($page - 1).'">Prev</a></li>' : '';
-                      $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page='.($page + 1).'">Next</a>' : '';
+                      // $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page='.($page - 1).'">Prev</a></li>' : '';
+                      // $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page='.($page + 1).'">Next</a>' : '';
                       
-                      echo '<ul class="pagination justify-content-center">' . $prevLink;
-                      for($i = 1; $i <= $totalPages; $i++) {
-                          $activeClass = ($i == $page) ? ' active' : '';
-                          echo '<li class="page-item '. $activeClass .'"><a class="page-link" href="?page=' . $i . '">' . $i .'</a></li>';
-                      }
-                      echo $nextLink . '</ul>';
+                      // echo '<ul class="pagination justify-content-center">' . $prevLink;
+                      // for($i = 1; $i <= $totalPages; $i++) {
+                      //     $activeClass = ($i == $page) ? ' active' : '';
+                      //     echo '<li class="page-item '. $activeClass .'"><a class="page-link" href="?page=' . $i . '">' . $i .'</a></li>';
+                      // }
+                      // echo $nextLink . '</ul>';
                       
                         
                   ?>
@@ -392,8 +368,20 @@
     <?php require_once("../template/tail.php") ?>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
+    
 
   
     </body>
+    <script>
+        $(document).ready(function() {
+            $('#product_table').DataTable({
+                "info": false,
+                "bLengthChange": true,
+                "dom": '<"your-search-container"f><tr><"pagination justify-content-center mt-2"p>',
+            });
+                    //$("#title_header").append(brand)
+                  //document.getElementById('title_header').innerHTML= brand;
+            // TODO: style the search
+        });
+    </script>
 </html>

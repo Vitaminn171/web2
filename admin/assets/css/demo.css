@@ -162,3 +162,13 @@ button#addColor, button#addVariant{
   height: 20px;
   margin: 5px; 
 }
+
+.dataTables_filter label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.dataTables_filter input {
+  margin-left: 5px;
+
+}

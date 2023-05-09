@@ -14,3 +14,5 @@
     <script src="../../assets/js/main.js"></script>
     <script src="../../assets/js/delete.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>

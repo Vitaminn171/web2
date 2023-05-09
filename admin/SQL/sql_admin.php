@@ -3,7 +3,7 @@ require("connection.php");
 
 
 // ----------------------- GET -----------------------
-function get_all_item($limit,$offset){
+function get_all_item(){
     $querry_get_name_color_size = "SELECT phoneID, name, cac_mau, size, image, visible
                                                       FROM (
                                                           SELECT phone.id AS phoneID, phone.name, 
@@ -17,13 +17,13 @@ function get_all_item($limit,$offset){
                                                           GROUP BY phoneID
                                                           HAVING COUNT(DISTINCT color.color) > 0 AND COUNT(DISTINCT variant.size) > 0
                                                       ) AS t1
-                                                      ORDER BY phoneID  LIMIT $limit OFFSET $offset
+                                                      ORDER BY phoneID
                                                     ";
     return $querry_get_name_color_size;
 }
 
 
-function get_item_by_category($limit,$offset,$categoryID){
+function get_item_by_category($categoryID){
     $querry_get_item_by_category = "SELECT phoneID, name, cac_mau, size, image, visible
                                                       FROM (
                                                           SELECT phone.id AS phoneID, phone.name, 
@@ -38,7 +38,7 @@ function get_item_by_category($limit,$offset,$categoryID){
                                                           GROUP BY phoneID
                                                           HAVING COUNT(DISTINCT color.color) > 0 AND COUNT(DISTINCT variant.size) > 0
                                                       ) AS t1
-                                                      ORDER BY phoneID  LIMIT $limit OFFSET $offset
+                                                      ORDER BY phoneID
                                                     ";
     return $querry_get_item_by_category;
 }
