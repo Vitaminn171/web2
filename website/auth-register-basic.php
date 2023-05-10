@@ -43,30 +43,48 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../admin/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="../admin/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../admin/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
+    <link rel="stylesheet" href="../admin/assets/vendor/css/pages/page-auth.css" />
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../admin/assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    <script src="../admin/assets/js/config.js"></script>
+    <style>
+      .group .power-container{
+          background-color: #2E424D;
+          width:100%;
+          height:5px;
+          border-radius: 5px;
+      }
+      .group .power-container #power-point{
+          background-color: #D73F40;
+          width:1%;
+          height: 100%;
+          border-radius: 5px;
+          transition: 0.5s;
+      }
+      .notice-strong-password li {
+        color: red;
+      }
+    </style>
   </head>
 
   <body>
-    <?php require_once("template/connection.php"); 
-      require("../SQL/sql_client.php");                     
+    <?php require_once("../admin/SQL/connection.php"); 
+      require("../admin/SQL/sql_client.php");                     
       $result = mysqli_query($con,get_all_email_customer());
       $fetchResult = mysqli_fetch_all($result);
       $id = count($fetchResult) + 1;
@@ -181,7 +199,7 @@
                   <label for="email" class="form-label">Email</label>
                   <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
                 </div>
-                <div class="mb-3 form-password-toggle">
+                <div class="mb-3 form-password-toggle group">
                   <label class="form-label" for="password">Password</label>
                   <div class="input-group input-group-merge">
                     <input
@@ -194,25 +212,26 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
-                </div>
-                <!-- <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                    <label class="form-check-label" for="terms-conditions">
-                      I agree to
-                      <a href="javascript:void(0);">privacy policy & terms</a>
-                    </label>
+                  <div class="power-container mt-1">
+                    <div id="power-point"></div>
                   </div>
-                </div> -->
-                <button class="btn btn-primary d-grid w-100" name="BtnSubmit" id="signup--submit">Đăng ký</button>
-              </form>
+                  <ul class="notice-strong-password mt-1">
+                    <li class="saukytu">Trên 6 ký tự (quan trọng nhất)</li>
+                    <li class="motchuhoa">Phải có 1 chữ in hoa</li>
+                    <li class="motchuthuong">Phải có 1 chữ in thường</li>
+                    <li class="motkytudacbiet">Phải có 1 ký tự đặc biệt</li>
+                    <li class="motso">Phải có ít nhất 1 số</li>
+                  </ul>
 
-              <p class="text-center">
-                <span>Bạn đã có tài khoản ?</span>
-                <a href="auth-login-basic.php">
-                  <span>Đăng nhập</span>
-                </a>
-              </p>
+                  <button class="btn btn-primary d-grid w-100" name="BtnSubmit" id="signup--submit">Đăng ký</button>
+                  <p class="text-center">
+                      <span>Bạn đã có tài khoản ?</span>
+                      <a href="auth-login-basic.php">
+                          <span>Đăng nhập</span>
+                      </a>
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
           <!-- Register Card -->
@@ -273,6 +292,71 @@
       const btnSubmit = document.getElementById('signup--submit')
       const errorNotice = document.querySelector('#error-notice')
       const form = document.querySelector('#formAuthentication')
+      const power = document.getElementById('power-point')
+      const notifyStrongPw = document.querySelector('.notice-strong-password')
+
+      const liKytu = document.querySelector('.saukytu')
+      const liSo = document.querySelector('.motso')
+      const liChuthuong = document.querySelector('.motchuthuong')
+      const liChuhoa = document.querySelector('.motchuhoa')
+      const liKytudacbiet = document.querySelector('.motkytudacbiet')
+
+      passwordInput.addEventListener('input' , (e) => {
+        let point = 0;
+        let value = e.target.value;
+        let widthPower = ['1%', '25%', '50%', '75%', '100%'];
+        let colorPower = ['#D73F40', '#DC6551', '#F2B84F', '#BDE952', '#30CEC7'];
+
+        if(value.length >= 6){
+            checkLength = true
+
+            liKytu.style.color = "green";
+
+            let arrayTest = [
+                /[0-9]/,
+                /[a-z]/,
+                /[A-Z]/,
+                /[^0-9a-zA-Z]/
+            ];
+            arrayTest.forEach(item => {
+                if(item.test(value)){
+                    point += 1;
+                }
+            });
+
+            if(arrayTest[0].test(value)) {
+              liSo.style.color = "green";
+            } else {
+              liSo.style.color = "red";
+            }
+
+            if(arrayTest[1].test(value)) {
+              liChuthuong.style.color = "green";
+            } else {
+              liChuthuong.style.color = "red";
+            }
+
+            if(arrayTest[2].test(value)) {
+              liChuhoa.style.color = "green";
+            } else {
+              liChuhoa.style.color = "red";
+            }
+
+            if(arrayTest[3].test(value)) {
+              liKytudacbiet.style.color = "green";
+            } else {
+              liKytudacbiet.style.color = "red";
+            }
+        } else {
+          liKytu.style.color = "red";
+          liSo.style.color = "red";
+          liChuthuong.style.color = "red";
+          liChuhoa.style.color = "red";
+          liKytudacbiet.style.color = "red";
+        }
+        power.style.width = widthPower[point];
+        power.style.backgroundColor = colorPower[point];
+      })
 
       let isValidEmail = false
       let isEmptyValueEmail = true
@@ -319,13 +403,17 @@
       form.addEventListener('change' , (e) => {
         if(isEmptyValuePassword || isEmptyValueEmail || isEmptyValueUsername) {
           errorNotice.innerText = "Vui lòng nhập đầy đủ các trường !"
+          btnSubmit.disabled = true
           return
         } else {
           if(isValidEmail) {
             errorNotice.innerText = "Email không đúng định dạng !"
+            btnSubmit.disabled = true
             return
           } else if(isEmailDuplicates) {
             errorNotice.innerText = "Email đã tồn tại !"
+            btnSubmit.disabled = true
+            return
           } 
           else {
             errorNotice.innerText = ""

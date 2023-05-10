@@ -1,34 +1,9 @@
 <?php 
-  require_once("template/sidebar.php");
   include('../SQL/connection.php');
-  $sql_lietke_order = "SELECT * FROM employee";
+  $sql_lietke_order = "SELECT * FROM supplier";
   $query_lietke_order = mysqli_query($con ,$sql_lietke_order);
-
-  
-  $sqlGetAllEmp = "SELECT email FROM employee";
-  $querySqlGetAllEmp = mysqli_query($con , $sqlGetAllEmp);
-  $listEmp = mysqli_fetch_all($querySqlGetAllEmp);
-
-  // function getEmployeeByEmailAndPassword($con, $email)
-  // {
-  //     $sql = "select * from employee where email='$email';";
-  //     $rs = $con->query($sql);
-  //     if ($rs->num_rows > 0) {
-  //         return $rs->fetch_assoc();
-  //     }
-  //     return null;
-  // }
-
-  // $user = getEmployeeByEmailAndPassword($con, 'lyquocan171@gmail.com');
-  // if ($user != null) {
-  //     $_SESSION['user'] = $user;
-  // }
-
-  $user = null;
-  if(isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-  }
 ?>
+
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -92,9 +67,11 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-
     <style>
-      .modal-add-employee {
+      a {
+        color: black;
+      }
+      .modal-add-supplier {
         position: fixed;
         top: 0;
         left: 0;
@@ -114,7 +91,7 @@
         background-color: white;
 
         width: 500px;
-        height: auto;
+        height: 410px;
 
         border-radius: 10px;
       }
@@ -147,37 +124,6 @@
         background-color: aqua;
         color: white;
       }
-      .position-wrapper {
-        margin: 5px 0;
-        padding: 0 20px;
-      }
-
-      .group {
-        padding: 0 20px;
-      }
-      .group input {
-        padding: 5px;
-      }
-
-      .group .add-form--input-wrapper {
-        padding: 0 0px;
-      }
-      .group .power-container{
-          background-color: #2E424D;
-          width:100%;
-          height:5px;
-          border-radius: 5px;
-      }
-      .group .power-container #power-point{
-          background-color: #D73F40;
-          width:1%;
-          height: 100%;
-          border-radius: 5px;
-          transition: 0.5s;
-      }
-      .notice-strong-password li {
-        color: red;
-      }
     </style>
   </head>
 
@@ -186,14 +132,15 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        
+        <?php require_once("template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-<!-- Navbar -->
 
-<nav
+          <!-- Navbar -->
+
+          <nav
             class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
           >
@@ -296,10 +243,11 @@
           </nav>
 
           <!-- / Navbar -->
+          </nav>
+
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          
           <div class="content-wrapper">
             <!-- Content -->
 
@@ -313,48 +261,30 @@
                             </button>
                         </div>
 
-                        <h1 class="text-center">THÔNG TIN EMPLOYEE</h1>
-                        
+                        <h1 class="text-center">THÔNG TIN NHÀ CUNG CẤP</h1>
+
                         <div>
-                          <button class="btn-show-add-form btn btn-success">Thêm nhân viên</button>
+                          <button class="btn-show-add-form btn btn-success">Thêm nhà cung cấp</button>
                         </div>
 
-                        <div class="modal-add-employee">
-                          <form class="form" action="addEmployee.php" method="POST">
+                        <div class="modal-add-supplier">
+                          <form class="form" action="addSupplier.php" method="POST">
                             <div class="add-form-wrapper">
-                              <h1>THÊM NHÂN VIÊN</h1>
+                              <h1>THÊM NHÀ CUNG CẤP</h1>
                               <p class="error-notice"></p>
                               <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập tên của employee..." name="employee-name" type="text" class="add-form-input--name">
-                              </div>                
-                              <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập email của employee..." name="employee-email" type="text" class="add-form-input--email">
+                                <input placeholder="Nhập id của supplier..." name="sup-id" type="text" class="add-form-input--id">
                               </div>
                               <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập số điện thoại của employee..." name="employee-phoneNumber" type="text" class="add-form-input--phoneNumber">
+                                <input placeholder="Nhập tên của supplier..." name="sup-name" type="text" class="add-form-input--name">
                               </div>
-                              <div class="group">
-                                <div class="add-form--input-wrapper">
-                                  <input placeholder="Nhập mật khẩu của employee..." name="employee-password" type="password" class="add-form-input--password">
-                                </div>
-                                <div class="power-container mt-1 mb-1">
-                                  <div id="power-point"></div>
-                                </div>
-                                  <ul class="notice-strong-password mt-1">
-                                    <li class="saukytu">Trên 6 ký tự (quan trọng nhất!)</li>
-                                    <li class="motchuhoa">Phải có 1 chữ in hoa</li>
-                                    <li class="motchuthuong">Phải có 1 chữ in thường</li>
-                                    <li class="motkytudacbiet">Phải có 1 ký tự đặc biệt</li>
-                                    <li class="motso">Phải có ít nhất 1 số</li>
-                                  </ul>
+                              <div class="add-form--input-wrapper">
+                                <input placeholder="Nhập email của supplier..." name="sup-email" type="text" class="add-form-input--email">
                               </div>
-                              <div class="position-wrapper">
-                                <select name="employee-position" class="add-form-input--position form-select">
-                                  <option value="admin">admin</option>
-                                  <option value="user" selected>user</option>
-                                </select>
+                              <div class="add-form--input-wrapper">
+                                <input placeholder="Nhập số điện thoại của supplier..." name="sup-phoneNumber" type="text" class="add-form-input--phoneNumber">
                               </div>
-                              <div class="btn-wrapper"><button type="submit" name="themEmployee" class="btn--submit btn btn-success">THÊM</button></div>
+                              <div class="btn-wrapper"><button type="submit" name="them" class="btn--submit btn btn-success">THÊM</button></div>
                             </div>
                           </form>
                         </div>
@@ -364,11 +294,10 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>PhoneNumber</th>
-                                            <th>Position</th>
-                                            <th>Block</th>
                                             <th>Hành động</th>>
                                         </tr>
                                     </thead>
@@ -377,32 +306,15 @@
                                       while ($row = mysqli_fetch_array($query_lietke_order)) {                          
                                       ?>
                                         <tr/>
-                                            <td><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['id'] ?></td>
                                             <td>
-                                              <?php echo $row['email'] ?>
+                                              <?php echo $row['name'] ?>
                                             </td>
+                                            <td class="text-right"><?php echo $row['email'] ?></td>
                                             <td class="text-right"><?php echo $row['phoneNumber'] ?></td>
-                                            <td class="text-right"><?php echo $row['position'] ?></td>
-                                            <td class="text-right">
-                                            <?php
-                                              $email = $row['email'];
-                                              if($user != null && $user['position'] == "admin") {
-                                                if($row['block'] == '0'){
-                                                  echo '<a class="btn btn-danger" href="/admin/html/blockEmployee.php?email='.$email.'">Khóa</a>';
-                                                } else {
-                                                  echo '<a class="btn btn-success" href="/admin/html/unBlockEmployee.php?email='.$email.'">Mở khóa</a>';
-                                                }
-                                              } else {
-                                                if($row['block'] == '0'){
-                                                  echo '<p class="text-success">Chưa bị khóa</p>';
-                                                } else {
-                                                  echo '<p class="text-danger">Đã bị khóa</p>';
-                                                }
-                                              }
-                                            ?>
-                                             </td>
                                             <td>
-                                              <a class="btn btn-primary" href="/admin/html/editEmployee.php?email=<?php echo $row['email'] ?>">Sửa</a>
+                                              <a class="btn btn-primary" href="/admin/html/editSupplier.php?id=<?php echo $row['id'] ?>">Sửa</a>
+                                              <a class="btn btn-danger" href="/admin/html/deleteSupplier.php?id=<?php echo $row['id'] ?>">Xóa</a>
                                             </td>
                                         </tr>
                                         <?php 
@@ -433,25 +345,8 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                  <a href="" target="_blank" class="footer-link fw-bolder">Tan Dat</a>
                 </div>
-                <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
                 </div>
               </div>
             </footer>
@@ -469,14 +364,14 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
+    <!-- <div class="buy-now">
       <a
         href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
         target="_blank"
         class="btn btn-danger btn-buy-now"
         >Upgrade to Pro</a
       >
-    </div>
+    </div> -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -508,95 +403,16 @@
         return /^\d+$/.test(phoneNumber);
       };
 
-      const checkStrengthPassword = (password) => {
-        return String(password)
-          .match(
-            /((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))/
-          );
-      }
-
-      const checkEmailDuplicates = (email) => {
-        let emailList = <?php echo json_encode($listEmp) ?>;
-
-        for(let e of emailList) {
-          if(e[0] === email) {
-            return true
-          }
-        }
-        return false
-      }
-
-      const form = document.querySelector('.form')
-      const addForm = document.querySelector('.modal-add-employee')
+      const form = document.querySelector('form')
+      const addForm = document.querySelector('.modal-add-supplier')
       const addFormWrapper = document.querySelector('.add-form-wrapper')
       const btnShowAddForm = document.querySelector('.btn-show-add-form')
       const btnSubmit = document.querySelector('.btn--submit')
       const errorNotice = document.querySelector('.error-notice')
+      const idInput = document.querySelector('.add-form-input--id')
       const nameInput = document.querySelector('.add-form-input--name')
       const emailInput = document.querySelector('.add-form-input--email')
       const phoneNumberInput = document.querySelector('.add-form-input--phoneNumber')
-      const passwordInput = document.querySelector('.add-form-input--password')
-      const power = document.getElementById('power-point')
-
-      const liKytu = document.querySelector('.saukytu')
-      const liSo = document.querySelector('.motso')
-      const liChuthuong = document.querySelector('.motchuthuong')
-      const liChuhoa = document.querySelector('.motchuhoa')
-      const liKytudacbiet = document.querySelector('.motkytudacbiet')
-
-      passwordInput.addEventListener('input' , (e) => {
-        let point = 0;
-        let value = e.target.value;
-        let widthPower = ['1%', '25%', '50%', '75%', '100%'];
-        let colorPower = ['#D73F40', '#DC6551', '#F2B84F', '#BDE952', '#30CEC7'];
-
-        if(value.length >= 6){
-            let arrayTest = [
-                /[0-9]/,
-                /[a-z]/,
-                /[A-Z]/,
-                /[^0-9a-zA-Z]/
-            ];
-            arrayTest.forEach(item => {
-                if(item.test(value)){
-                    point += 1;
-                }
-            });
-
-            liKytu.style.color = "green";
-            if(arrayTest[0].test(value)) {
-              liSo.style.color = "green";
-            } else {
-              liSo.style.color = "red";
-            }
-
-            if(arrayTest[1].test(value)) {
-              liChuthuong.style.color = "green";
-            } else {
-              liChuthuong.style.color = "red";
-            }
-
-            if(arrayTest[2].test(value)) {
-              liChuhoa.style.color = "green";
-            } else {
-              liChuhoa.style.color = "red";
-            }
-
-            if(arrayTest[3].test(value)) {
-              liKytudacbiet.style.color = "green";
-            } else {
-              liKytudacbiet.style.color = "red";
-            }
-        }else {
-          liKytu.style.color = "red";
-          liSo.style.color = "red";
-          liChuthuong.style.color = "red";
-          liChuhoa.style.color = "red";
-          liKytudacbiet.style.color = "red";
-        }
-        power.style.width = widthPower[point];
-        power.style.backgroundColor = colorPower[point];
-      })
 
       btnShowAddForm.addEventListener('click' , (e) => {
         addForm.style.display = 'flex'
@@ -614,7 +430,6 @@
 
       let isValidEmail = false
       let isEmptyValueEmail = true
-      let isEmailDuplicates = false
       emailInput.addEventListener('change' , (e) => {
         if(!validateEmail(e.target.value)) {
           isValidEmail = true
@@ -627,11 +442,14 @@
         } else {
           isEmptyValueEmail = false
         }
+      })
 
-        if(checkEmailDuplicates(e.target.value)) {
-          isEmailDuplicates = true
+      let isEmptyValueId = true
+      idInput.addEventListener('change' , (e) => {
+        if(e.target.value === "") {
+          isEmptyValueId = true
         } else {
-          isEmailDuplicates = false
+          isEmptyValueId = false
         }
       })
 
@@ -660,38 +478,14 @@
         }
       })
 
-      let isEmptyValuePassword = true
-      let isStrengthPassword = false
-      passwordInput.addEventListener('change' , (e) => {
-        if(e.target.value === "") {
-          isEmptyValuePassword = true
-        } else {
-          isEmptyValuePassword = false
-        }
-
-        if(checkStrengthPassword(e.target.value)) {
-          isStrengthPassword = true
-        } else {
-          isStrengthPassword = false
-        }
-      })
-
       form.addEventListener('change' , (e) => {
-        if(isEmptyPhoneNumber || isEmptyValueEmail || isEmptyValueName || isEmptyValuePassword) {
+        if(isEmptyPhoneNumber || isEmptyValueEmail || isEmptyValueId || isEmptyValueName) {
           errorNotice.innerText = "Vui lòng nhập đầy đủ các trường !"
           btnSubmit.disabled = true
           return
         } else {
           if(isValidEmail) {
             errorNotice.innerText = "Email không đúng định dạng !"
-            btnSubmit.disabled = true
-            return
-          }  else if (!isStrengthPassword) {
-            errorNotice.innerText = "Password chưa đủ mạnh !"
-            btnSubmit.disabled = true
-            return
-          }else if(isEmailDuplicates) {
-            errorNotice.innerText = "Email đã tồn tại !"
             btnSubmit.disabled = true
             return
           } else if(isValidPhoneNumber) {
@@ -705,9 +499,11 @@
           }
         }
       })
+
       btnSubmit.addEventListener('click' , (e) => {
         alert("Thêm thành công !")
       })
+
     </script>
   </body>
 </html>

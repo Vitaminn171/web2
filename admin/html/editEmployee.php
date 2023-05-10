@@ -1,5 +1,4 @@
 <?php 
-  require_once("template/sidebar.php");
   include('../SQL/connection.php');
   $sql_lietke_order = "SELECT * FROM employee";
   $query_lietke_order = mysqli_query($con ,$sql_lietke_order);
@@ -8,26 +7,25 @@
   $sqlGetAllEmp = "SELECT email FROM employee";
   $querySqlGetAllEmp = mysqli_query($con , $sqlGetAllEmp);
   $listEmp = mysqli_fetch_all($querySqlGetAllEmp);
+?>
+<?php 
+  include('../SQL/connection.php');
 
-  // function getEmployeeByEmailAndPassword($con, $email)
-  // {
-  //     $sql = "select * from employee where email='$email';";
-  //     $rs = $con->query($sql);
-  //     if ($rs->num_rows > 0) {
-  //         return $rs->fetch_assoc();
-  //     }
-  //     return null;
-  // }
+  $email = $_GET['email'];
 
-  // $user = getEmployeeByEmailAndPassword($con, 'lyquocan171@gmail.com');
-  // if ($user != null) {
-  //     $_SESSION['user'] = $user;
-  // }
+  if(isset($_POST["suaEmployee"])) {
+        $name = $_POST["employee-name"];
+        $phoneNumber = $_POST["employee-phoneNumber"];
+        $position = $_POST["employee-position"];
+        $password = $_POST["employee-password"];
+        $block = $_POST["employee-block"];
 
-  $user = null;
-  if(isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-  }
+        if($position != "" && $name != "" && $email != "" && $phoneNumber != "" && $block != "" && $password != "") {
+            $sql = "UPDATE employee SET name='$name' , email='$email' , phoneNumber = '$phoneNumber' ,position = '$position',`password`= md5('$password'), `block`='$block' WHERE email = '$email' ";
+            $query = mysqli_query($con , $sql);
+            header("location: /admin/html/employee.php");
+        }
+    }
 ?>
 <!DOCTYPE html>
 
@@ -107,16 +105,24 @@
         justify-content: center;
 
         background-color: rgba(0, 0, 0, 0.1);
-
-        display: none;
       }
       .add-form-wrapper {
+        position: relative;
         background-color: white;
 
         width: 500px;
         height: auto;
 
         border-radius: 10px;
+      }
+      .exit-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        padding: 5px;
+        font-size: 18px;
+        font-weight: bold;
       }
       .add-form-wrapper h1 {
         padding: 20px 0 10px 0;
@@ -151,7 +157,6 @@
         margin: 5px 0;
         padding: 0 20px;
       }
-
       .group {
         padding: 0 20px;
       }
@@ -186,12 +191,11 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        
+        <?php require_once("template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-<!-- Navbar -->
 
 <nav
             class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -296,7 +300,6 @@
           </nav>
 
           <!-- / Navbar -->
-          <!-- / Navbar -->
 
           <!-- Content wrapper -->
           
@@ -314,33 +317,39 @@
                         </div>
 
                         <h1 class="text-center">THÔNG TIN EMPLOYEE</h1>
-                        
+
                         <div>
                           <button class="btn-show-add-form btn btn-success">Thêm nhân viên</button>
                         </div>
+                        <?php 
+                            $sql = "SELECT * FROM employee WHERE email = '$email'";
+                            $query = mysqli_query($con , $sql);
+                            $rows = mysqli_fetch_array($query);
+                        ?>
 
                         <div class="modal-add-employee">
-                          <form class="form" action="addEmployee.php" method="POST">
+                          <form class="form" action="" method="POST">
                             <div class="add-form-wrapper">
-                              <h1>THÊM NHÂN VIÊN</h1>
+                              <a href="./employee.php" class="exit-btn">X</a>
+                              <h1>SỬA NHÂN VIÊN</h1>
                               <p class="error-notice"></p>
                               <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập tên của employee..." name="employee-name" type="text" class="add-form-input--name">
+                                <input placeholder="Nhập tên của employee..." name="employee-name" type="text" class="add-form-input--name" value="<?php echo $rows['name']?>">
                               </div>                
                               <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập email của employee..." name="employee-email" type="text" class="add-form-input--email">
+                                <input placeholder="Nhập email của employee..." name="employee-email" type="text" class="add-form-input--email" disabled value="<?php echo $rows['email']?>">
                               </div>
                               <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập số điện thoại của employee..." name="employee-phoneNumber" type="text" class="add-form-input--phoneNumber">
+                                <input placeholder="Nhập số điện thoại của employee..." name="employee-phoneNumber" type="text" class="add-form-input--phoneNumber" value="<?php echo $rows['phoneNumber']?>">
                               </div>
                               <div class="group">
                                 <div class="add-form--input-wrapper">
-                                  <input placeholder="Nhập mật khẩu của employee..." name="employee-password" type="password" class="add-form-input--password">
+                                  <input placeholder="Nhập mật khẩu của employee..." name="employee-password" type="password" class="add-form-input--password" value="">
                                 </div>
                                 <div class="power-container mt-1 mb-1">
                                   <div id="power-point"></div>
                                 </div>
-                                  <ul class="notice-strong-password mt-1">
+                                <ul class="notice-strong-password mt-1">
                                     <li class="saukytu">Trên 6 ký tự (quan trọng nhất!)</li>
                                     <li class="motchuhoa">Phải có 1 chữ in hoa</li>
                                     <li class="motchuthuong">Phải có 1 chữ in thường</li>
@@ -349,12 +358,34 @@
                                   </ul>
                               </div>
                               <div class="position-wrapper">
-                                <select name="employee-position" class="add-form-input--position form-select">
-                                  <option value="admin">admin</option>
-                                  <option value="user" selected>user</option>
+                                <select name="employee-block" class="add-form-input--position form-select">
+                                <?php
+                                    $block = $rows['block'];
+                                    if($rows['block'] == '1'){
+                                        echo '<option value="0">0</option>
+                                        <option value="1" selected>1</option>';
+                                    } else {
+                                        echo '<option value="0" selected>0</option>
+                                        <option value="1">1</option>';
+                                    }
+                                ?>
                                 </select>
                               </div>
-                              <div class="btn-wrapper"><button type="submit" name="themEmployee" class="btn--submit btn btn-success">THÊM</button></div>
+                              <div class="position-wrapper">
+                                <select name="employee-position" class="add-form-input--position form-select">
+                                    <?php
+                                        $position = $rows['position'];
+                                        if($rows['position'] == 'admin'){
+                                            echo '<option value="user">user</option>
+                                            <option value="admin" selected>admin</option>';
+                                        } else {
+                                            echo '<option value="user" selected>user</option>
+                                            <option value="admin">admin</option>';
+                                        }
+                                    ?>
+                                </select>
+                              </div>
+                              <div class="btn-wrapper"><button type="submit" name="suaEmployee" class="btn--submit btn btn-success">SỬA</button></div>
                             </div>
                           </form>
                         </div>
@@ -386,18 +417,10 @@
                                             <td class="text-right">
                                             <?php
                                               $email = $row['email'];
-                                              if($user != null && $user['position'] == "admin") {
-                                                if($row['block'] == '0'){
-                                                  echo '<a class="btn btn-danger" href="/admin/html/blockEmployee.php?email='.$email.'">Khóa</a>';
-                                                } else {
-                                                  echo '<a class="btn btn-success" href="/admin/html/unBlockEmployee.php?email='.$email.'">Mở khóa</a>';
-                                                }
+                                              if($row['block'] == '0'){
+                                                echo '<a class="btn btn-danger" href="/admin/html/blockEmployee.php?email='.$email.'">Khóa</a>';
                                               } else {
-                                                if($row['block'] == '0'){
-                                                  echo '<p class="text-success">Chưa bị khóa</p>';
-                                                } else {
-                                                  echo '<p class="text-danger">Đã bị khóa</p>';
-                                                }
+                                                echo '<a class="btn btn-success" href="/admin/html/unBlockEmployee.php?email='.$email.'">Mở khóa</a>';
                                               }
                                             ?>
                                              </td>
@@ -587,7 +610,7 @@
             } else {
               liKytudacbiet.style.color = "red";
             }
-        }else {
+        } else {
           liKytu.style.color = "red";
           liSo.style.color = "red";
           liChuthuong.style.color = "red";
@@ -602,6 +625,7 @@
         addForm.style.display = 'flex'
       })
       addForm.addEventListener('click' , (e) => {
+        document.querySelector('.exit-btn').click()
         addForm.style.display = 'none'
         errorNotice.innerText = ""
         form.reset()
@@ -613,7 +637,7 @@
       btnSubmit.disabled = true
 
       let isValidEmail = false
-      let isEmptyValueEmail = true
+      let isEmptyValueEmail = false
       let isEmailDuplicates = false
       emailInput.addEventListener('change' , (e) => {
         if(!validateEmail(e.target.value)) {
@@ -635,7 +659,7 @@
         }
       })
 
-      let isEmptyValueName = true
+      let isEmptyValueName = false
       nameInput.addEventListener('change' , (e) => {
         if(e.target.value === "") {
           isEmptyValueName = true
@@ -644,7 +668,7 @@
         }
       })
 
-      let isEmptyPhoneNumber = true
+      let isEmptyPhoneNumber = false
       let isValidPhoneNumber = false
       phoneNumberInput.addEventListener('change' , (e) => {
         if(!validatePhoneNumber(e.target.value)) {
@@ -660,8 +684,8 @@
         }
       })
 
-      let isEmptyValuePassword = true
-      let isStrengthPassword = false
+      let isEmptyValuePassword = false
+      let isStrengthPassword = true
       passwordInput.addEventListener('change' , (e) => {
         if(e.target.value === "") {
           isEmptyValuePassword = true
@@ -706,7 +730,7 @@
         }
       })
       btnSubmit.addEventListener('click' , (e) => {
-        alert("Thêm thành công !")
+        alert("Sửa thành công !")
       })
     </script>
   </body>
