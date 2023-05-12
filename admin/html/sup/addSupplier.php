@@ -10,7 +10,7 @@
         if($id != "" && $name != "" && $email != "" && $phoneNumber != "") {
             $sql = "INSERT INTO supplier(id,`name`,email,phoneNumber) VALUES('$id','$name','$email','$phoneNumber')";
             $query = mysqli_query($con , $sql);
-            header("location: supplier.php");
+            header("location: /admin/html/sup/supplier.php");
         }
     }
 ?>

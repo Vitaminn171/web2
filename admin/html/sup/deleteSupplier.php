@@ -6,6 +6,6 @@
 
         $sql = "DELETE FROM supplier WHERE id=$id";
         $query = mysqli_query($con , $sql);
-        header("location: supplier.php");
+        header("location: /admin/html/sup/supplier.php");
     }
 ?>
