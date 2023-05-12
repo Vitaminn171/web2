@@ -7,5 +7,5 @@
 
     $sql = "UPDATE employee SET `block`= 1 WHERE email = '$email' ";
     $query = mysqli_query($con , $sql);
-    header("location: employee.php");
+    header("location: /admin/html/employee/employee.php");
 ?>
