@@ -7,14 +7,111 @@
 
 $.ajax({
   type: "POST",
-  url: "../php/get_analytic.php",
+  url: "../../php/dashboard/get_analytic.php",
   success: function (response) {
     var data = JSON.parse(response);
     console.log(data)
+    
+    var data_brand = data.brand[0];
+    var labels = new Array();
+    data_brand.forEach( item => {
+      labels.push(item.categoryName)
+    })
 
-console.log(data);
+    const colors = ["primary", "secondary", "success", "danger", "warning", "info"];
+    const chosenColors = [];
+    while (chosenColors.length < data_brand.length) {
+      const colorIndex = Math.floor(Math.random() * colors.length);
+      const color = colors[colorIndex];
+      chosenColors.push(color);
+    }
+    console.log(chosenColors)
+
+
+    // set data to order chart 
+    var labels_data = new Array();
+    for(var i = 0; i<data_brand.length; i++ ){
+      labels_data.push(parseInt(data_brand[i]['totalSoldProducts']))
+      const li = `<li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <span class="avatar-initial rounded bg-label-` + chosenColors[i] + `"
+                              ><i class="bx bx-mobile-alt"></i
+                            ></span>
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <h5 class="mb-0">` + data_brand[i]['categoryName'] + `</h5>
+                              <small class="text-muted">Mobile</small>
+                            </div>
+                            <div class="user-progress">
+                              <small class="badge bg-label-` + chosenColors[i] + `" style="font-size: 14px">` + parseInt(data_brand[i]['totalRevenue']).toLocaleString('en-US') + ` VND</small>
+                            </div>
+                          </div>
+                        </li>`
+    $("#list_brand_analytics").append(li);
+    }
+
+
+    var data_chart_month = new Array();
+    //var data_month = new Array();
+    data_chart_month.push(0)
+    var max = 0;
+    var total_income = 0;
+    data.month[0].forEach( item => {
+      var totalRevenue = item.totalRevenue/1000000
+      total_income += totalRevenue
+      data_chart_month.push(totalRevenue)
+      max = totalRevenue > max ? totalRevenue : max
+      //data_month.push((item.month) + "/" + data.year)
+    })
+    var len = (data.month[0]).length - 1
+    console.log(len)
+    data_chart_month.push(data.month[0][len]['totalRevenue']/1000000)
+
+    var text_month = [' ','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sept','Oct','Nov','Dec']
+    var temp_month = text_month.slice(0, len + 2);
+    temp_month.push('Continue...')
+    // TODO: set data to totalIncome
+
+
+    var total = data.data_total[0]
+    const number = parseInt(total[0]['totalMoney']).toLocaleString('en-US');
+    document.getElementById("totalSales").innerHTML = number + " VND Total Sales";
+    document.getElementById("totalOrder").innerHTML = total[1]['totalOrder'];
+
+    var data_top_sold = new Array();
+    var top_sold_name = new Array();
+    data.top_sold.forEach( item => {
+      data_top_sold.push(parseInt(item.totalSold))
+      top_sold_name.push(item.name)
+    })
+    console.log(data_top_sold)
+    console.log(top_sold_name)
+
+    var count_data = data.data_count[0]
+    document.getElementById("totalCustomer").innerHTML = count_data['customer'];
+    document.getElementById("totalEmployee").innerHTML = count_data['employee'];
+
+    document.getElementById("year").innerHTML = data.year;
+
+    document.getElementById("totalIncome").innerHTML = total_income + " mil";
+
+    var data_order_employee = new Array();
+    var date_order_employee = new Array();
+    var total_order_employee = 0;
+    var max_order_employee = 0;
+    data.order_employee.forEach(item =>{
+      data_order_employee.push(parseInt(item.total))
+      date_order_employee.push(item.date)
+      total_order_employee += parseInt(item.totalPayment)
+      max_order_employee = item.total > max_order_employee ? item.total : max_order_employee
+    })
+    console.log(date_order_employee)
+    document.getElementById("totalReport").innerHTML = total_order_employee.toLocaleString('en-US') + "$";
+
+
+
 const func = (function () {
-
   
   let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
@@ -89,7 +186,7 @@ const func = (function () {
         }
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: [' ','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',' '],
         labels: {
           style: {
             fontSize: '13px',
@@ -405,10 +502,12 @@ const func = (function () {
       },
       series: [
         {
-          data: [110, 270, 145, 245, 205, 285]
+          data: data_order_employee,
+          name: "Total order"
         }
       ],
       xaxis: {
+        categories: date_order_employee,
         show: false,
         lines: {
           show: false
@@ -421,7 +520,10 @@ const func = (function () {
         }
       },
       yaxis: {
-        show: false
+        show: false,
+        reversed: true,
+        max: max_order_employee + 1,
+        min: 0
       }
     };
   if (typeof profileReportChartEl !== undefined && profileReportChartEl !== null) {
@@ -431,34 +533,31 @@ const func = (function () {
 
   // Order Statistics Chart
   // --------------------------------------------------------------------
-
-
+  
   
 
   const chartOrderStatistics = document.querySelector('#orderStatisticsChart'),
     orderChartConfig = {
       chart: {
         height: 165,
-        width: 130,
+        width: 175,
         type: 'donut'
       },
-      labels: [data.brand[0][0]['categoryName'],
-              data.brand[0][1]['categoryName'],
-              data.brand[0][2]['categoryName'],
-              data.brand[0][3]['categoryName']],
-      series: [parseInt(data.brand[0][0]['totalSoldProducts']),
-      parseInt(data.brand[0][0]['totalSoldProducts']),
-      parseInt(data.brand[0][0]['totalSoldProducts']),
-      parseInt(data.brand[0][0]['totalSoldProducts'])],
+      labels: labels,
+      series: labels_data,
       colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
       stroke: {
-        width: 5,
-        colors: cardColor
+        width: 3
       },
       dataLabels: {
         enabled: false,
         formatter: function (val, opt) {
-          return parseInt(val) + '%';
+          var total = 0;
+          data_brand.forEach(item => {
+            total += parseInt(item.totalSoldProducts);
+          });
+          var percent = (val / total) * 100;
+          return percent.toFixed(2) + '%';
         }
       },
       legend: {
@@ -483,7 +582,12 @@ const func = (function () {
                 color: headingColor,
                 offsetY: -15,
                 formatter: function (val) {
-                  return parseInt(val) + '%';
+                  var total = 0;
+                  data_brand.forEach(item => {
+                    total += parseInt(item.totalSoldProducts);
+                  });
+                  var percent = parseFloat(val / total) * 100;
+                  return percent.toFixed(2) + '%';
                 }
               },
               name: {
@@ -494,9 +598,9 @@ const func = (function () {
                 show: true,
                 fontSize: '0.8125rem',
                 color: axisColor,
-                label: 'Weekly',
+                label: '',
                 formatter: function (w) {
-                  return '38%';
+                  return '%';
                 }
               }
             }
@@ -510,13 +614,61 @@ const func = (function () {
     statisticsChart.render();
   }
 
-  // Income Chart - Area chart
+  // Profit Report Line Chart
   // --------------------------------------------------------------------
+  const topSoldProductEL = document.querySelector('#topSoldProduct'),
+    topSoldProductConfig = {
+      series: data_top_sold,
+      labels: top_sold_name,
+       
+      
+      chart: {
+      type: 'donut',
+      width: 350
+      
+    },
+    legend: {
+      show: true,
+      position: 'left',
+      fontSize: '12px', // Đổi giá trị font size ở đây
+        itemMargin: {
+          horizontal: 1, // Khoảng cách giữa các mục ngang
+          vertical: 1, // Khoảng cách giữa các mục dọc
+        },
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 90,
+        offsetY: 10
+      }
+    },
+    grid: {
+      padding: {
+        bottom: -50,
+        left: -30
+      }
+    },
+    dataLabels: {
+      enabled: false,
+    }
+   
+    };
+  if (typeof topSoldProductEL !== undefined && topSoldProductEL !== null) {
+    const topSoldProduct = new ApexCharts(topSoldProductEL, topSoldProductConfig);
+    topSoldProduct.render();
+  }
+
+  // Income Chart - Area chart
+  // --------------------------------------------------------------------\
+
+  
   const incomeChartEl = document.querySelector('#incomeChart'),
     incomeChartConfig = {
       series: [
         {
-          data: [24, 21, 30, 22, 42, 26, 35, 99]
+          data: data_chart_month,
+          name: "Income"
         }
       ],
       chart: {
@@ -575,12 +727,12 @@ const func = (function () {
         padding: {
           top: -20,
           bottom: -8,
-          left: -10,
-          right: 8
+          left: -80,  
+          right: -80
         }
       },
       xaxis: {
-        categories: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: temp_month,
         axisBorder: {
           show: false
         },
@@ -600,7 +752,7 @@ const func = (function () {
           show: false
         },
         min: 10,
-        max: 50,
+        max: max + 100,
         tickAmount: 4
       }
     };

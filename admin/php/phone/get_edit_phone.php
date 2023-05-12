@@ -1,6 +1,5 @@
 <?php 
-require_once("../SQL/sql_admin.php");
-
+require_once("../../SQL/sql_admin.php");
 $id = $_POST['phoneID'];
 
 // get phone 

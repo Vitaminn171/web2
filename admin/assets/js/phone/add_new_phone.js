@@ -159,7 +159,7 @@ const insertTableColor = ({color, colorID}
 
 const insertTdImage = ({fileName, colorID}) => {
   const img = `<div class="flex-item">
-                  <img src="../../phone_image/${fileName}"/>
+                  <img src="../../../phone_image/${fileName}"/>
                   <a class="btn btn-sm text-danger" id="delete-btn" image="${fileName}" onclick="deleteImage('${fileName}',${colorID})"><i class='bx bx-trash' ></i></a>
                   </div>`;
 
@@ -367,11 +367,11 @@ submit && submit.addEventListener("click", (e) => {
       if(flag){
         $.ajax({
           type: "POST",
-          url: "../php/add_new_phone.php",
+          url: "../../php/phone/add_new_phone.php",
           data: { phone: phone , spec: spec, dataColor: items_color, dataVariant: items_variant, dataImage: items_image}
         }).done(function( response ) {
           var message = "Add new product success!";
-          document.location.href = `../html/all_phone.php?message=` + message 
+          document.location.href = `../../html/phone/all_phone.php?message=` + message 
           //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
         });
       }

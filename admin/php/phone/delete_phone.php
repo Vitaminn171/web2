@@ -1,10 +1,10 @@
 <?php 
-    require("../SQL/sql_admin.php");
+require_once("../../SQL/sql_admin.php");    
     $id = $_GET["phoneID"];
     $result = mysqli_query($con, get_variant_in_orderDetail($id));
     if($result && mysqli_num_rows($result) > 0){
         $message = urlencode("Can't delete product!");
-        header("Location: ../html/all_phone.php?message=".$message);
+        header("Location: ../../html/phone/all_phone.php?message=".$message);
 
     }else{
         $result1 = mysqli_query($con, delete_data(" spec "," phoneID = ".$id));
@@ -31,7 +31,7 @@
             die('Error: ' . mysqli_error($con));
         }
         $message = urlencode("Delete success!");
-        header("Location: ../html/all_phone.php?message=".$message);
+        header("Location: ../../html/phone/all_phone.php?message=".$message);
        
     }
 

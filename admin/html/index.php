@@ -1,7 +1,3 @@
-<?php 
-  session_start();
-  $useremail = $_SESSION['useremail'];
-?>
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -118,7 +114,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $_SESSION['useremail']?></span>
+                            <span class="fw-semibold d-block">Dat</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>

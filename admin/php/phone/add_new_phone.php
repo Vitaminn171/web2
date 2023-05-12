@@ -1,6 +1,6 @@
 
 <?php 
-    require("../SQL/sql_admin.php");
+require_once("../../SQL/sql_admin.php");
 
     $name = $_POST['phone']['name'];
     $brand = $_POST['phone']['brand'];

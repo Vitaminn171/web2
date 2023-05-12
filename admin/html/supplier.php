@@ -1,6 +1,26 @@
 <?php 
+  require_once("template/sidebar.php");
   include('../SQL/connection.php');
-  $sql_lietke_order = "SELECT * FROM supplier";
+  if(isset($_GET['page'])) {
+    $page = $_GET['page'];
+  } else {
+    $page = '1';
+  }
+
+  $tukhoa = '';
+  if(isset($_GET['tukhoa'])) {
+    $tukhoa = $_GET['tukhoa'];
+    $sql_lietke_order = "SELECT * FROM supplier WHERE supplier.`name` LIKE '%".$tukhoa."%'";
+  } else {
+    if($page == '' || $page == 1) {
+      $begin = 0;
+      $sql_lietke_order = "SELECT * FROM supplier LIMIT 0,7";
+    } else {
+      $begin = ($page * 7) - 7;
+      $sql_lietke_order = "SELECT * FROM supplier LIMIT $begin,7";
+    }
+  }
+  
   $query_lietke_order = mysqli_query($con ,$sql_lietke_order);
 ?>
 
@@ -132,12 +152,9 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        <?php require_once("template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
-          <!-- Navbar -->
-
           <!-- Navbar -->
 
           <nav
@@ -152,18 +169,22 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
-              <!-- /Search -->
+                <form action="/admin/html/supplier.php?tukhoa=tukhoa" method="GET" class="navbar-nav align-items-center">
+                  <div class="navbar-nav align-items-center">
+                    <div class="nav-item d-flex align-items-center">
+                      <i class="bx bx-search fs-4 lh-0"></i>
+                      <input
+                        type="text"
+                        class="form-control border-0 shadow-none"
+                        placeholder="Tìm kiếm theo tên..."
+                        aria-label="Search..."
+                        name="tukhoa"
+                      />
+                    </div>
+                    <button class="btn btn-secondary" type="submit">Tìm kiếm</button>
+                  </div>
+                </form>
+                <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
@@ -243,28 +264,19 @@
           </nav>
 
           <!-- / Navbar -->
-          </nav>
-
-          <!-- / Navbar -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-fluid flex-grow-1 container-p-y">
+            <div class="container-fluid flex-grow-1 p-3">
                 <main role="main">
                     <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
-                    <div class="container mt-4">
+                    <div class="container-fluid mt-4">
                         <div id="thongbao" class="alert alert-danger d-none face" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
-                        </div>
-
-                        <h1 class="text-center">THÔNG TIN NHÀ CUNG CẤP</h1>
-
-                        <div>
-                          <button class="btn-show-add-form btn btn-success">Thêm nhà cung cấp</button>
                         </div>
 
                         <div class="modal-add-supplier">
@@ -289,16 +301,28 @@
                           </form>
                         </div>
                         
-                        <div class="row">
+                        <div class="row card">
                             <div class="col col-md-12">
-                                <table class="table table-bordered">
+                                <div class="d-flex">
+                                  <div class="col-sm">
+                                    <h3 class="card-header">
+                                    THÔNG TIN NHÀ CUNG CẤP
+                                    </h3>
+                                  </div>
+                                  <div class="col-sm card-header text-end">
+                                    <div>
+                                      <button class="btn-show-add-form btn btn-success">Thêm nhà cung cấp</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>PhoneNumber</th>
-                                            <th>Hành động</th>>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody id="datarow">
@@ -323,11 +347,29 @@
                                     </tbody>
                                 </table>
 
-                                <!-- <a href="../index.html" class="btn btn-warning btn-md"><i class="fa fa-arrow-left"
-                                        aria-hidden="true"></i>&nbsp;Quay
-                                    về trang chủ</a>
-                                <a href="checkout.html" class="btn btn-primary btn-md"><i
-                                        class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Thanh toán</a> -->
+                                <div class="pagination d-flex justify-content-center p-3">
+                                  <ul class="pagination justify-content-center">
+                                    <?php
+                                      $sql_getAll = "SELECT * FROM supplier";
+                                      $query_getAll = mysqli_query($con , $sql_getAll);
+
+                                      if(isset($_GET['tukhoa'])) {
+                                        echo '';
+                                      } else {
+                                        $row_count = mysqli_num_rows($query_getAll); 
+                                        $all_page = ceil($row_count / 7);
+                                        for($i = 1 ; $i <= $all_page ; $i++) {
+                                          if($i == $page) {
+                                            echo '<li class="page-item active" ><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>' ;
+                                          } 
+                                          else {
+                                            echo '<li class="page-item" ><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>' ;
+                                          }
+                                        }
+                                      }
+                                    ?>
+                                  </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -400,10 +442,10 @@
       };
       
       const validatePhoneNumber = (phoneNumber) => {
-        return /^\d+$/.test(phoneNumber);
+        return /^[0-9]{10}$/.test(phoneNumber);
       };
 
-      const form = document.querySelector('form')
+      const form = document.querySelector('.form')
       const addForm = document.querySelector('.modal-add-supplier')
       const addFormWrapper = document.querySelector('.add-form-wrapper')
       const btnShowAddForm = document.querySelector('.btn-show-add-form')
@@ -436,7 +478,6 @@
         } else {
           isValidEmail = false
         }
-
         if(e.target.value === "") {
           isEmptyValueEmail = true
         } else {
