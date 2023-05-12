@@ -68,7 +68,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        <?php require_once("template/sidebar.php") ?>
+        <?php require_once("../template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
