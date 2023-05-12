@@ -44,12 +44,12 @@ function get_item_by_category($categoryID){
 }
 
 
-function get_all_category($limit,$offset){
+function get_all_category(){
     // get category id, name and quantity for each brand
     $querry_get_category = "SELECT category.id, category.name, COUNT(phone.id) AS quantity
     FROM category
     LEFT JOIN phone ON phone.category = category.id
-    GROUP BY category.id, category.name LIMIT $limit OFFSET $offset";
+    GROUP BY category.id, category.name";
     return $querry_get_category;
 }
 

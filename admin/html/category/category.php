@@ -170,7 +170,7 @@
                   }
                         ?>
                 <div class="table text-nowrap table-borderless">
-                  <table class="table table-borderless table-hover">
+                  <table class="table table-borderless table-hover" id="brand_table">
                     <thead>
                       <tr class="table-primary">
                         <th>ID</th>
@@ -183,20 +183,9 @@
                     <?php
                     require("../../SQL/sql_admin.php");
                     $limit = 10; // Số bản ghi hiển thị trên mỗi trang
-                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
-                    $offset = ($page - 1) * $limit;
                     $array_color = array("bg-label-primary", "bg-label-danger", "bg-label-success", "bg-label-secondary", "bg-label-warning", "bg-label-info", "bg-label-dark");
 
-                    $result = mysqli_query($con, get_all_category($limit, $offset));
-
-                    
-
-
-                    $countSql = "SELECT COUNT(id) AS total FROM category";
-                    $countResult = mysqli_query($con, $countSql);
-                    $dataCount = mysqli_fetch_assoc($countResult);
-                    $totalPages = ceil($dataCount['total'] / $limit);
-       
+                    $result = mysqli_query($con, get_all_category());       
                     while ($row = mysqli_fetch_array($result)) {
                         $num = rand(0, 6);
                         
@@ -287,19 +276,7 @@
               <!--/ Layout Demo -->
             </div>
             <!-- / Content -->
-            <?php
-            $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">Prev</a></li>' : '';
-            $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Next</a>' : '';
-
-            echo '<ul class="pagination justify-content-center">' . $prevLink;
-            for ($i = 1; $i <= $totalPages; $i++) {
-                $activeClass = ($i == $page) ? ' active' : '';
-                echo '<li class="page-item ' . $activeClass . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
-            }
-            echo $nextLink . '</ul>';
-
-
-            ?>
+            
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -353,4 +330,16 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
+  <script>
+        $(document).ready(function() {
+            $('#brand_table').DataTable({
+                "info": false,
+                "bLengthChange": true,
+                "dom": '<"your-search-container"f><tr><"pagination justify-content-center mt-2"p>',
+            });
+                    //$("#title_header").append(brand)
+                  //document.getElementById('title_header').innerHTML= brand;
+            // TODO: style the search
+        });
+    </script>
 </html>
