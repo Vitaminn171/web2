@@ -6,13 +6,13 @@
         $email = $_POST["employee-email"];
         $phoneNumber = $_POST["employee-phoneNumber"];
         $position = $_POST["employee-position"];
-        $password = $_POST["employee-password"];// TODO: hash password
+        $password = $_POST["employee-password"];
         $block = 0;
 
         if($position != "" && $name != "" && $email != "" && $phoneNumber != "" && $block != "" && $password != "") {
             $sql = "INSERT INTO employee(`name`,email,phoneNumber,position,`password`,`block`) VALUES('$name','$email','$phoneNumber','$position',md5('$password'),'$block')";
             $query = mysqli_query($con , $sql);
-            header("location: employee.php");
+            header("location: /admin/html/employee/employee.php");
         }
     }
 ?>
