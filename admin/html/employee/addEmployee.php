@@ -1,5 +1,5 @@
 <?php
-    require('../SQL/connection.php');
+    require('../../SQL/connection.php');
 
     if(isset($_POST["themEmployee"])) {
         $name = $_POST["employee-name"];
@@ -12,7 +12,7 @@
         if($position != "" && $name != "" && $email != "" && $phoneNumber != "" && $block != "" && $password != "") {
             $sql = "INSERT INTO employee(`name`,email,phoneNumber,position,`password`,`block`) VALUES('$name','$email','$phoneNumber','$position',md5('$password'),'$block')";
             $query = mysqli_query($con , $sql);
-            header("location: /admin/html/employee.php");
+            header("location: /admin/html/employee/employee.php");
         }
     }
 ?>

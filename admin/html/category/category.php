@@ -21,7 +21,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../assets/"
+  data-assets-path="../../assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -35,36 +35,7 @@
 
     <meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    <?php require_once("../template/header.php") ?>
   </head>
 
   <body>
@@ -72,7 +43,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        <?php require_once("template/sidebar.php") ?>
+        <?php require_once("../template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
@@ -106,16 +77,16 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                  <button
-                    class="btn btn-primary"
-                    href="#">Add new brand</button>
+                <a href="form_add_category.php">
+                    <button class="btn btn-primary">Add new brand</button>
+                  </a>
                 </li>
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -124,7 +95,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -184,7 +155,20 @@
               <!-- Layout Demo -->
                <!-- Basic Bootstrap Table -->
                <div class="card">
-                
+               <?php
+                  if(isset($_GET['message'])){
+                    if($_GET['message'] == "Delete brand success!"){
+                      echo '<div id="alert" class="alert alert-primary"><i class="bx bxs-like">   '.urldecode($_GET['message']).'</i></div>';
+                    }else if($_GET['message'] == "Can't delete brand!"){
+                      echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   '.urldecode($_GET['message']).'</i></div>';
+                    }else if($_GET['message'] == "Add brand success!"){
+                      echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   '.urldecode($_GET['message']).'</i></div>';
+                    }
+                    else if($_GET['message'] == "Edit brand success!"){
+                      echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-circle">   '.urldecode($_GET['message']).'</i></div>';
+                    }
+                  }
+                        ?>
                 <div class="table text-nowrap table-borderless">
                   <table class="table table-borderless table-hover">
                     <thead>
@@ -197,24 +181,29 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                     <?php
-                    require("../SQL/sql_admin.php");
-                    $limit = 5; // Số bản ghi hiển thị trên mỗi trang
+                    require("../../SQL/sql_admin.php");
+                    $limit = 10; // Số bản ghi hiển thị trên mỗi trang
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
                     $offset = ($page - 1) * $limit;
                     $array_color = array("bg-label-primary", "bg-label-danger", "bg-label-success", "bg-label-secondary", "bg-label-warning", "bg-label-info", "bg-label-dark");
 
                     $result = mysqli_query($con, get_all_category($limit, $offset));
+
+                    
+
+
                     $countSql = "SELECT COUNT(id) AS total FROM category";
                     $countResult = mysqli_query($con, $countSql);
                     $dataCount = mysqli_fetch_assoc($countResult);
                     $totalPages = ceil($dataCount['total'] / $limit);
+       
                     while ($row = mysqli_fetch_array($result)) {
                         $num = rand(0, 6);
-
+                        
                         ?>
                           <tr>
                             <td class="col-1"><strong><?= $row['id'] ?></strong></td>
-                            <td class="col-2 text-center"><a class="text-dark badge <?= $array_color[$num] ?> me-1" href="all_phone.php?category=<?= $row['id'] ?>">
+                            <td class="col-2 text-center"><a class="text-dark badge <?= $array_color[$num] ?> me-1" href="../phone/all_phone.php?category=<?= $row['id'] ?>">
                               <?= $row['name'] ?> 
                               </a>
                               <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
@@ -272,10 +261,10 @@
                                   <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                  <a class="dropdown-item text-warning" href="javascript:void(0);"
+                                  <a class="dropdown-item text-warning" href="form_edit_category.php?brandID=<?= $row["id"] ?>"
                                     ><i class="bx bx-edit-alt me-1"></i> Edit</a
                                   >
-                                  <a class="dropdown-item text-danger" href="javascript:void(0);"
+                                  <a class="dropdown-item text-danger" onclick="deleteBrand(<?= $row['id'] ?>,<?= $row['quantity'] ?>)"
                                     ><i class="bx bx-trash me-1"></i> Delete</a
                                   >
                                 </div>
@@ -283,6 +272,9 @@
                             </td>
                           </tr>
                       <?php }
+
+
+                   
                     mysqli_close($con);
                     ?>
                     </tbody>
@@ -355,21 +347,7 @@
 
     
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-    <script src="../assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
-
+    <?php require_once("../template/tail.php") ?>
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->

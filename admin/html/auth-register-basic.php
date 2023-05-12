@@ -65,10 +65,11 @@
   </head>
 
   <body>
-    <?php require_once("../SQL/connection.php"); 
+    <?php require_once("template/connection.php"); 
       require("../SQL/sql_client.php");                     
       $result = mysqli_query($con,get_all_email_customer());
       $fetchResult = mysqli_fetch_all($result);
+      $id = count($fetchResult) + 1;
 
       if(isset($_POST['BtnSubmit'])) {
         $username = $_POST['username'];
@@ -76,8 +77,8 @@
         $password = $_POST['password'];
 
         if(!empty($username) && !empty($email) && !empty($password)) {
-          $sql = "INSERT INTO `employee` (`name`, `email`, `phoneNumber`, `position`, `password`, `block`) VALUES
-          ('$username', '$email', '', 'user', md5('$password'), 0)";
+          $sql = "INSERT INTO `customer` (`id`, `name`, `email`, `password`, `address`, `phoneNumber`) VALUES
+          ('$id', '$username', '$email', md5('$password'), '', '')";
 
           $resultRegister = $con->query($sql);
 
@@ -100,7 +101,7 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.php" class="app-brand-link gap-2">
+                <a href="index.html" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <svg
                       width="25"
@@ -265,13 +266,6 @@
         }
         return false
       }
-      // 1 ky tu , 1 chu hoa , 1 chu thuong va so
-      const checkStrengthPassword = (password) => {
-        return String(password)
-          .match(
-            /((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))/
-          );
-};
 
       const emailInput = document.getElementById('email')
       const passwordInput = document.getElementById('password')
@@ -304,18 +298,11 @@
       })
 
       let isEmptyValuePassword = true
-      let isStrengthPassword = false
       passwordInput.addEventListener('change' , (e) => {
         if(e.target.value === "") {
           isEmptyValuePassword = true
         } else {
           isEmptyValuePassword = false
-        }
-
-        if(checkStrengthPassword(e.target.value)) {
-          isStrengthPassword = true
-        } else {
-          isStrengthPassword = false
         }
       })
 
@@ -339,9 +326,7 @@
             return
           } else if(isEmailDuplicates) {
             errorNotice.innerText = "Email đã tồn tại !"
-          } else if (!isStrengthPassword) {
-            errorNotice.innerText = "Password chưa đủ mạnh !"
-          }
+          } 
           else {
             errorNotice.innerText = ""
             btnSubmit.disabled = false

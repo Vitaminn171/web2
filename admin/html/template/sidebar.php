@@ -6,6 +6,7 @@
     $user = $_SESSION['user'];
   }
 ?>
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.php" class="app-brand-link">
@@ -77,7 +78,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active" id="dashboard">
-              <a href="index.php" class="menu-link">
+              <a href="../dashboard/index.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -92,6 +93,7 @@
                 <span class="menu-header-text">Product Management</span>
               </li>
   
+              <!-- Layouts -->
               <li class="menu-item" id="product">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                   <i class="menu-icon tf-icons bx bx-devices"></i>
@@ -100,12 +102,12 @@
   
                 <ul class="menu-sub">
                   <li class="menu-item" id="all_item">
-                    <a href="all_phone.php" class="menu-link">
+                    <a href="../phone/all_phone.php" class="menu-link">
                       <div data-i18n="All_item">All Products</div>
                     </a>
                   </li>
                   <li class="menu-item" id="category">
-                    <a href="category.php" class="menu-link">
+                    <a href="../category/category.php" class="menu-link">
                       <div data-i18n="Without navbar">Category</div>
                     </a>
                   </li>
@@ -115,7 +117,7 @@
               <li class="menu-item" id="inventory">
                 <a href="inventory.php" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-package"></i>
-                  <div data-i18n="Container">Inventory</div>
+                  <div data-i18n="Container">Inventory</div> <!-- ai lam phan nay thi tu doi lai duong dan -->
                 </a>
               </li>
   
@@ -129,35 +131,35 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item" id="employee">
-                    <a href="employee.php" class="menu-link">
-                      <div data-i18n="Employee">Employee</div>
+                    <a href="../employee/employee.php" class="menu-link">
+                      <div data-i18n="Employee">Employee</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                     </a>
                   </li>
                   <li class="menu-item" id="customer">
-                    <a href="customer.php" class="menu-link">
-                      <div data-i18n="Customer">Customer</div>
+                    <a href="../customer/customer.php" class="menu-link">
+                      <div data-i18n="Customer">Customer</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                     </a>
                   </li>
                 </ul>
               </li>
-  
               <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Management</span>
               </li>
               <li class="menu-item" id="suppler">
-                <a href="supplier.php" class="menu-link">
+                <a href="../sup/supplier.php" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-package"></i>
                   <div data-i18n="Container">Supplier management</div> 
                 </a>
               </li>
-              
               </li>
+              <!-- Components -->
               <li class="menu-header small text-uppercase"><span class="menu-header-text">Order management</span></li>
+              <!-- Cards -->
               <li class="menu-item">
-                <a href="layouts-fluid.html" class="menu-link">
+                <a href="layouts-fluid.html" class="menu-link"><!-- ai lam phan nay thi tu doi lai duong dan -->
                   <i class="menu-icon tf-icons bx bx-file"></i>
                   
-                  <div data-i18n="Order">Order</div>
+                  <div data-i18n="Order">Order</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                 </a>
               </li>
               <li class="menu-item">
@@ -169,10 +171,6 @@
                 ';
               }
             ?>
-
-            
-
-            
             <!-- User interface -->
             <!-- <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -346,7 +344,7 @@
             </li> -->
             <!-- Tables -->
             <!-- <li class="menu-item">
-              <a href="tables-basic.php" class="menu-link">
+              <a href="tables-basic.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Tables</div>
               </a>

@@ -1,5 +1,5 @@
 <?php 
-  include('../SQL/connection.php');
+  include('../../SQL/connection.php');
   if(isset($_GET['page'])) {
     $page = $_GET['page'];
   } else {
@@ -9,47 +9,35 @@
   $tukhoa = '';
   if(isset($_GET['tukhoa'])) {
     $tukhoa = $_GET['tukhoa'];
-    $sql_lietke_order = "SELECT * FROM employee WHERE employee.`name` LIKE '%".$tukhoa."%'";
+    $sql_lietke_order = "SELECT * FROM supplier WHERE supplier.`name` LIKE '%".$tukhoa."%'";
   } else {
     if($page == '' || $page == 1) {
       $begin = 0;
-      $sql_lietke_order = "SELECT * FROM employee LIMIT 0,3";
+      $sql_lietke_order = "SELECT * FROM supplier LIMIT 0,7";
     } else {
-      $begin = ($page * 3) - 3;
-      $sql_lietke_order = "SELECT * FROM employee LIMIT $begin,3";
+      $begin = ($page * 7) - 7;
+      $sql_lietke_order = "SELECT * FROM supplier LIMIT $begin,7";
     }
   }
-  $query_lietke_order = mysqli_query($con ,$sql_lietke_order);
   
-  $sqlGetAllEmp = "SELECT email FROM employee";
-  $querySqlGetAllEmp = mysqli_query($con , $sqlGetAllEmp);
-  $listEmp = mysqli_fetch_all($querySqlGetAllEmp);
+  $query_lietke_order = mysqli_query($con ,$sql_lietke_order);
 
-  $user = null;
-  if(isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-  }
-?>
-<?php 
-  include('../SQL/connection.php');
+  $id = $_GET['id'];
 
-  $email = $_GET['email'];
+  if(isset($_POST["sua"])) {
+        $name = $_POST["sup-name"];
+        $email = $_POST["sup-email"];
+        $phoneNumber = $_POST["sup-phoneNumber"];
 
-  if(isset($_POST["suaEmployee"])) {
-        $name = $_POST["employee-name"];
-        $phoneNumber = $_POST["employee-phoneNumber"];
-        $position = $_POST["employee-position"];
-        $password = $_POST["employee-password"];
-        $block = $_POST["employee-block"];
-
-        if($position != "" && $name != "" && $email != "" && $phoneNumber != "" && $block != "" && $password != "") {
-            $sql = "UPDATE employee SET name='$name' , email='$email' , phoneNumber = '$phoneNumber' ,position = '$position',`password`= md5('$password'), `block`='$block' WHERE email = '$email' ";
+        if($id != "" && $name != "" && $email != "" && $phoneNumber != "") {
+            $sql = "UPDATE supplier SET id='$id' , name='$name' , email='$email' , phoneNumber = '$phoneNumber' WHERE id = $id ";
             $query = mysqli_query($con , $sql);
-            header("location: /admin/html/employee.php");
+            header("location: /admin/html/sup/supplier.php");
         }
     }
-  require_once("template/sidebar.php");
+    require_once("../template/sidebar.php");
 ?>
+
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -69,7 +57,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../assets/"
+  data-assets-path="../../assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -84,7 +72,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -95,27 +83,29 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../../assets/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
-
+    <script src="../../assets/js/config.js"></script>
     <style>
-      .modal-add-employee {
+      a {
+        color: black;
+      }
+      .modal-add-supplier {
         position: fixed;
         top: 0;
         left: 0;
@@ -134,10 +124,11 @@
         background-color: white;
 
         width: 500px;
-        height: auto;
+        height: 410px;
 
         border-radius: 10px;
       }
+
       .exit-btn {
         position: absolute;
         top: 10px;
@@ -176,36 +167,6 @@
         background-color: aqua;
         color: white;
       }
-      .position-wrapper {
-        margin: 5px 0;
-        padding: 0 20px;
-      }
-      .group {
-        padding: 0 20px;
-      }
-      .group input {
-        padding: 5px;
-      }
-
-      .group .add-form--input-wrapper {
-        padding: 0 0px;
-      }
-      .group .power-container{
-          background-color: #2E424D;
-          width:100%;
-          height:5px;
-          border-radius: 5px;
-      }
-      .group .power-container #power-point{
-          background-color: #D73F40;
-          width:1%;
-          height: 100%;
-          border-radius: 5px;
-          transition: 0.5s;
-      }
-      .notice-strong-password li {
-        color: red;
-      }
     </style>
   </head>
 
@@ -219,7 +180,7 @@
         <div class="layout-page">
           <!-- Navbar -->
 
-<nav
+          <nav
             class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
           >
@@ -231,7 +192,7 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <form action="/admin/html/employee.php?tukhoa=tukhoa" method="GET" class="navbar-nav align-items-center">
+              <form action="/admin/html/supplier.php?tukhoa=tukhoa" method="GET" class="navbar-nav align-items-center">
                   <div class="navbar-nav align-items-center">
                     <div class="nav-item d-flex align-items-center">
                       <i class="bx bx-search fs-4 lh-0"></i>
@@ -266,7 +227,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -275,7 +236,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -328,7 +289,6 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          
           <div class="content-wrapper">
             <!-- Content -->
 
@@ -343,70 +303,30 @@
                         </div>
 
                         <?php 
-                            $sql = "SELECT * FROM employee WHERE email = '$email'";
+                            $sql = "SELECT * FROM supplier WHERE id = $id";
                             $query = mysqli_query($con , $sql);
                             $rows = mysqli_fetch_array($query);
                         ?>
 
-                        <div class="modal-add-employee">
+                        <div class="modal-add-supplier">
                           <form class="form" action="" method="POST">
                             <div class="add-form-wrapper">
-                              <a href="./employee.php" class="exit-btn">X</a>
-                              <h1>SỬA NHÂN VIÊN</h1>
+                              <a href="./supplier.php" class="exit-btn">X</a>
+                              <h1>SỬA NHÀ CUNG CẤP</h1>
                               <p class="error-notice"></p>
                               <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập tên của employee..." name="employee-name" type="text" class="add-form-input--name" value="<?php echo $rows['name']?>">
-                              </div>                
-                              <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập email của employee..." name="employee-email" type="text" class="add-form-input--email" disabled value="<?php echo $rows['email']?>">
+                                <input placeholder="Nhập id của supplier..." name="sup-id" type="text" class="add-form-input--id" value="<?php echo $rows['id']?>" disabled>
                               </div>
                               <div class="add-form--input-wrapper">
-                                <input placeholder="Nhập số điện thoại của employee..." name="employee-phoneNumber" type="text" class="add-form-input--phoneNumber" value="<?php echo $rows['phoneNumber']?>">
+                                <input placeholder="Nhập tên của supplier..." name="sup-name" type="text" class="add-form-input--name" value="<?php echo $rows['name']?>">
                               </div>
-                              <div class="group">
-                                <div class="add-form--input-wrapper">
-                                  <input placeholder="Nhập mật khẩu của employee..." name="employee-password" type="password" class="add-form-input--password" value="">
-                                </div>
-                                <div class="power-container mt-1 mb-1">
-                                  <div id="power-point"></div>
-                                </div>
-                                <ul class="notice-strong-password mt-1">
-                                    <li class="saukytu">Trên 6 ký tự (quan trọng nhất!)</li>
-                                    <li class="motchuhoa">Phải có 1 chữ in hoa</li>
-                                    <li class="motchuthuong">Phải có 1 chữ in thường</li>
-                                    <li class="motkytudacbiet">Phải có 1 ký tự đặc biệt</li>
-                                    <li class="motso">Phải có ít nhất 1 số</li>
-                                  </ul>
+                              <div class="add-form--input-wrapper">
+                                <input placeholder="Nhập email của supplier..." name="sup-email" type="text" class="add-form-input--email" value="<?php echo $rows['email']?>">
                               </div>
-                              <div class="position-wrapper">
-                                <select name="employee-block" class="add-form-input--position form-select">
-                                <?php
-                                    $block = $rows['block'];
-                                    if($rows['block'] == '1'){
-                                        echo '<option value="0">0</option>
-                                        <option value="1" selected>1</option>';
-                                    } else {
-                                        echo '<option value="0" selected>0</option>
-                                        <option value="1">1</option>';
-                                    }
-                                ?>
-                                </select>
+                              <div class="add-form--input-wrapper">
+                                <input placeholder="Nhập số điện thoại của supplier..." name="sup-phoneNumber" type="text" class="add-form-input--phoneNumber" value="<?php echo $rows['phoneNumber']?>">
                               </div>
-                              <div class="position-wrapper">
-                                <select name="employee-position" class="add-form-input--position form-select">
-                                    <?php
-                                        $position = $rows['position'];
-                                        if($rows['position'] == 'admin'){
-                                            echo '<option value="user">user</option>
-                                            <option value="admin" selected>admin</option>';
-                                        } else {
-                                            echo '<option value="user" selected>user</option>
-                                            <option value="admin">admin</option>';
-                                        }
-                                    ?>
-                                </select>
-                              </div>
-                              <div class="btn-wrapper"><button type="submit" name="suaEmployee" class="btn--submit btn btn-success">SỬA</button></div>
+                              <div class="btn-wrapper"><button type="submit" name="sua" class="btn--submit btn btn-success">SỬA</button></div>
                             </div>
                           </form>
                         </div>
@@ -416,23 +336,22 @@
                                 <div class="d-flex">
                                   <div class="col-sm">
                                     <h3 class="card-header">
-                                    THÔNG TIN EMPLOYEE
+                                    THÔNG TIN NHÀ CUNG CẤP
                                     </h3>
                                   </div>
                                   <div class="col-sm card-header text-end">
                                     <div>
-                                      <button class="btn-show-add-form btn btn-success mb-2">Thêm nhân viên</button>
+                                      <button class="btn-show-add-form btn btn-success">Thêm nhà cung cấp</button>
                                     </div>
                                   </div>
                                 </div>
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>PhoneNumber</th>
-                                            <th>Position</th>
-                                            <th>Block</th>
                                             <th>Hành động</th>
                                         </tr>
                                     </thead>
@@ -441,32 +360,15 @@
                                       while ($row = mysqli_fetch_array($query_lietke_order)) {                          
                                       ?>
                                         <tr/>
-                                            <td><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['id'] ?></td>
                                             <td>
-                                              <?php echo $row['email'] ?>
+                                              <?php echo $row['name'] ?>
                                             </td>
+                                            <td class="text-right"><?php echo $row['email'] ?></td>
                                             <td class="text-right"><?php echo $row['phoneNumber'] ?></td>
-                                            <td class="text-right"><?php echo $row['position'] ?></td>
-                                            <td class="text-right">
-                                            <?php
-                                              $email = $row['email'];
-                                              if($user != null && $user['position'] == "admin") {
-                                                if($row['block'] == '0'){
-                                                  echo '<a class="btn btn-danger" href="/admin/html/blockEmployee.php?email='.$email.'">Khóa</a>';
-                                                } else {
-                                                  echo '<a class="btn btn-success" href="/admin/html/unBlockEmployee.php?email='.$email.'">Mở khóa</a>';
-                                                }
-                                              } else {
-                                                if($row['block'] == '0'){
-                                                  echo '<p class="text-success">Chưa bị khóa</p>';
-                                                } else {
-                                                  echo '<p class="text-danger">Đã bị khóa</p>';
-                                                }
-                                              }
-                                            ?>
-                                             </td>
                                             <td>
-                                              <a class="btn btn-primary" href="/admin/html/editEmployee.php?email=<?php echo $row['email'] ?>">Sửa</a>
+                                              <a class="btn btn-primary" href="/admin/html/sup/editSupplier.php?id=<?php echo $row['id'] ?>">Sửa</a>
+                                              <a class="btn btn-danger" href="/admin/html/sup/deleteSupplier.php?id=<?php echo $row['id'] ?>">Xóa</a>
                                             </td>
                                         </tr>
                                         <?php 
@@ -478,14 +380,14 @@
                                 <div class="pagination d-flex justify-content-center p-3">
                                   <ul class="pagination justify-content-center">
                                     <?php
-                                      $sql_getAll = "SELECT * FROM employee";
+                                      $sql_getAll = "SELECT * FROM supplier";
                                       $query_getAll = mysqli_query($con , $sql_getAll);
 
                                       if(isset($_GET['tukhoa'])) {
                                         echo '';
                                       } else {
                                         $row_count = mysqli_num_rows($query_getAll); 
-                                        $all_page = ceil($row_count / 3);
+                                        $all_page = ceil($row_count / 7);
                                         for($i = 1 ; $i <= $all_page ; $i++) {
                                           if($i == $page) {
                                             echo '<li class="page-item active" ><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>' ;
@@ -515,25 +417,8 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                  <a href="" target="_blank" class="footer-link fw-bolder">Tan Dat</a>
                 </div>
-                <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
                 </div>
               </div>
             </footer>
@@ -551,29 +436,29 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
+    <!-- <div class="buy-now">
       <a
         href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
         target="_blank"
         class="btn btn-danger btn-buy-now"
         >Upgrade to Pro</a
       >
-    </div>
+    </div> -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="../../assets/js/main.js"></script>
 
     <!-- Page JS -->
 
@@ -590,95 +475,16 @@
         return /^[0-9]{10}$/.test(phoneNumber);
       };
 
-      const checkStrengthPassword = (password) => {
-        return String(password)
-          .match(
-            /((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))/
-          );
-      }
-
-      const checkEmailDuplicates = (email) => {
-        let emailList = <?php echo json_encode($listEmp) ?>;
-
-        for(let e of emailList) {
-          if(e[0] === email) {
-            return true
-          }
-        }
-        return false
-      }
-
       const form = document.querySelector('.form')
-      const addForm = document.querySelector('.modal-add-employee')
+      const addForm = document.querySelector('.modal-add-supplier')
       const addFormWrapper = document.querySelector('.add-form-wrapper')
       const btnShowAddForm = document.querySelector('.btn-show-add-form')
       const btnSubmit = document.querySelector('.btn--submit')
       const errorNotice = document.querySelector('.error-notice')
+      const idInput = document.querySelector('.add-form-input--id')
       const nameInput = document.querySelector('.add-form-input--name')
       const emailInput = document.querySelector('.add-form-input--email')
       const phoneNumberInput = document.querySelector('.add-form-input--phoneNumber')
-      const passwordInput = document.querySelector('.add-form-input--password')
-      const power = document.getElementById('power-point')
-
-      const liKytu = document.querySelector('.saukytu')
-      const liSo = document.querySelector('.motso')
-      const liChuthuong = document.querySelector('.motchuthuong')
-      const liChuhoa = document.querySelector('.motchuhoa')
-      const liKytudacbiet = document.querySelector('.motkytudacbiet')
-
-      passwordInput.addEventListener('input' , (e) => {
-        let point = 0;
-        let value = e.target.value;
-        let widthPower = ['1%', '25%', '50%', '75%', '100%'];
-        let colorPower = ['#D73F40', '#DC6551', '#F2B84F', '#BDE952', '#30CEC7'];
-
-        if(value.length >= 6){
-            let arrayTest = [
-                /[0-9]/,
-                /[a-z]/,
-                /[A-Z]/,
-                /[^0-9a-zA-Z]/
-            ];
-            arrayTest.forEach(item => {
-                if(item.test(value)){
-                    point += 1;
-                }
-            });
-
-            liKytu.style.color = "green";
-            if(arrayTest[0].test(value)) {
-              liSo.style.color = "green";
-            } else {
-              liSo.style.color = "red";
-            }
-
-            if(arrayTest[1].test(value)) {
-              liChuthuong.style.color = "green";
-            } else {
-              liChuthuong.style.color = "red";
-            }
-
-            if(arrayTest[2].test(value)) {
-              liChuhoa.style.color = "green";
-            } else {
-              liChuhoa.style.color = "red";
-            }
-
-            if(arrayTest[3].test(value)) {
-              liKytudacbiet.style.color = "green";
-            } else {
-              liKytudacbiet.style.color = "red";
-            }
-        } else {
-          liKytu.style.color = "red";
-          liSo.style.color = "red";
-          liChuthuong.style.color = "red";
-          liChuhoa.style.color = "red";
-          liKytudacbiet.style.color = "red";
-        }
-        power.style.width = widthPower[point];
-        power.style.backgroundColor = colorPower[point];
-      })
 
       btnShowAddForm.addEventListener('click' , (e) => {
         addForm.style.display = 'flex'
@@ -697,7 +503,6 @@
 
       let isValidEmail = false
       let isEmptyValueEmail = false
-      let isEmailDuplicates = false
       emailInput.addEventListener('change' , (e) => {
         if(!validateEmail(e.target.value)) {
           isValidEmail = true
@@ -710,11 +515,14 @@
         } else {
           isEmptyValueEmail = false
         }
+      })
 
-        if(checkEmailDuplicates(e.target.value)) {
-          isEmailDuplicates = true
+      let isEmptyValueId = false
+      idInput.addEventListener('change' , (e) => {
+        if(e.target.value === "") {
+          isEmptyValueId = true
         } else {
-          isEmailDuplicates = false
+          isEmptyValueId = false
         }
       })
 
@@ -743,38 +551,14 @@
         }
       })
 
-      let isEmptyValuePassword = true
-      let isStrengthPassword = true
-      passwordInput.addEventListener('change' , (e) => {
-        if(e.target.value === "") {
-          isEmptyValuePassword = true
-        } else {
-          isEmptyValuePassword = false
-        }
-
-        if(checkStrengthPassword(e.target.value)) {
-          isStrengthPassword = true
-        } else {
-          isStrengthPassword = false
-        }
-      })
-
       form.addEventListener('change' , (e) => {
-        if(isEmptyPhoneNumber || isEmptyValueEmail || isEmptyValueName || isEmptyValuePassword) {
+        if(isEmptyPhoneNumber || isEmptyValueEmail || isEmptyValueId || isEmptyValueName) {
           errorNotice.innerText = "Vui lòng nhập đầy đủ các trường !"
           btnSubmit.disabled = true
           return
         } else {
           if(isValidEmail) {
             errorNotice.innerText = "Email không đúng định dạng !"
-            btnSubmit.disabled = true
-            return
-          }  else if (!isStrengthPassword) {
-            errorNotice.innerText = "Password chưa đủ mạnh !"
-            btnSubmit.disabled = true
-            return
-          }else if(isEmailDuplicates) {
-            errorNotice.innerText = "Email đã tồn tại !"
             btnSubmit.disabled = true
             return
           } else if(isValidPhoneNumber) {
@@ -788,9 +572,11 @@
           }
         }
       })
+
       btnSubmit.addEventListener('click' , (e) => {
         alert("Sửa thành công !")
       })
+
     </script>
   </body>
 </html>

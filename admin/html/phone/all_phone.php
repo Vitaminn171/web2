@@ -17,7 +17,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../assets/"
+  data-assets-path="../../assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -30,37 +30,8 @@
     <title>Fluid - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    
+    <?php require_once("../template/header.php") ?>
   </head>
 
   <body>
@@ -68,7 +39,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
-        <?php require_once("template/sidebar.php") ?>
+        <?php require_once("../template/sidebar.php") ?>
 
         <!-- Layout container -->
         <div class="layout-page">
@@ -86,15 +57,18 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
+              <div class="navbar-nav align-items-center" id="top">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <!-- <i class="bx bx-search fs-4 lh-0"></i>
                   <input
-                    type="text"
+                    type="search"
                     class="form-control border-0 shadow-none"
                     placeholder="Search..."
                     aria-label="Search..."
-                  />
+                    id="search"
+                    name="search"
+                    
+                  /> -->
                 </div>
               </div>
               <!-- /Search -->
@@ -111,7 +85,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -120,7 +94,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="../../assets/img/avatars/cowboy.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -176,21 +150,21 @@
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-fluid flex-grow-1 container-p-y">
+            <div class="container-fluid container-p-y" id="card">
               <!-- Layout Demo -->
                <!-- Basic Bootstrap Table -->
                <div class="card">
                 <div class="row">
-                  <div class="col-sm">
-                    <h5 class="card-header">All products</h5>
+                  <div class="col">
+                    <h5 class="card-header ps-3 pt-3 pb-0">All products</h5>
                   </div>
-                  <div class="col-sm text-end">
-                    <div class="dropdown card-header">
+                  <div class="col text-end">
+                    <div class="dropdown card-header pe-3 pt-3 pb-0" >
                       <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                         Brand
                       </button>
                       <?php 
-                      require("../SQL/sql_admin.php"); 
+                      require("../../SQL/sql_admin.php"); 
                       
                       $result = mysqli_query($con,get_category_id_name());?>
                       
@@ -212,7 +186,8 @@
                 </div>
                 
                 <div class="table">
-                  <table class="table table-hover">
+                  <table class="table table-hover" id="product_table">
+                    
                     <thead>
                       <tr >
                         <th>Image</th>
@@ -224,36 +199,36 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                     <?php
-                    $limit = 5; // Số bản ghi hiển thị trên mỗi trang
+                    $limit = 200; // Số bản ghi hiển thị trên mỗi trang
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
                     $offset = ($page - 1) * $limit;
                     $result = "";
                     $countSql = "";
                     if(isset($_GET["category"])){
-                      $result = mysqli_query($con,get_item_by_category($limit,$offset,$_GET["category"]));
-                      $countSql = count_item($_GET["category"]);
+                      $result = mysqli_query($con,get_item_by_category($_GET["category"]));
+                      //$countSql = count_item($_GET["category"]);
                     }else{
-                      $result = mysqli_query($con,get_all_item($limit,$offset));
-                      $countSql = count_item("0");
+                      $result = mysqli_query($con,get_all_item());
+                      //$countSql = count_item("0");
                       }
 
-                    $countResult = mysqli_query($con, $countSql);
-                    $dataCount = mysqli_fetch_assoc($countResult);
-                    $totalPages = ceil($dataCount['total'] / $limit);
+                    // $countResult = mysqli_query($con, $countSql);
+                    // $dataCount = mysqli_fetch_assoc($countResult);
+                    // $totalPages = ceil($dataCount['total'] / $limit);
                     while($row = mysqli_fetch_array($result)){
                         
                       ?>
-                      <tr>
+                      <tr id="tr">
                         <td class="col-1">
                           <?php 
                           if($row["visible"] == 1){
-                            echo "<img src='../../phone_image/".$row['image']."' style='width: 150%'>";
+                            echo "<img src='../../../phone_image/".$row['image']."' style='width: 150%'>";
                           }
                           else {
                             echo "<div class='card' id='allphone'>
-                                    <img src='../../phone_image/".$row["image"]."' class='card-img-top' style='width: 150%; opacity: 0.3'>
+                                    <img src='../../../phone_image/".$row["image"]."' class='card-img-top' style='width: 150%; opacity: 0.3'>
                                     <div class='card-img-overlay'>
-                                      <img class='card-img' src='../assets/img/elements/visible.png' style='width: 25px'></img>
+                                      <img class='card-img' src='../../assets/img/elements/visible.png' style='width: 25px'></img>
                                       
                                     </div>
                                   </div>";
@@ -269,6 +244,7 @@
                           </ul>
                         </td>
                         <td class="col-4">
+                          <!-- <span class="badge bg-label-primary me-1">Active</span> -->
                           <?= $row['size'] ?>
                         </td>
                         <td class="col-1 text-center">
@@ -277,7 +253,7 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item text-dark" href="../php/visible.php?phoneID=<?=$row["phoneID"]?>&visible=<?=$row["visible"]?>" >
+                              <a class="dropdown-item text-dark" href="../../php/phone/visible.php?phoneID=<?=$row["phoneID"]?>&visible=<?=$row["visible"]?>" >
                               
                               <i class='bx bx-low-vision me-1'></i> Visible</a
                               >
@@ -331,15 +307,15 @@
             </div>
             <!-- / Content -->
             <?php 
-                      $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page='.($page - 1).'">Prev</a></li>' : '';
-                      $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page='.($page + 1).'">Next</a>' : '';
+                      // $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page='.($page - 1).'">Prev</a></li>' : '';
+                      // $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page='.($page + 1).'">Next</a>' : '';
                       
-                      echo '<ul class="pagination justify-content-center">' . $prevLink;
-                      for($i = 1; $i <= $totalPages; $i++) {
-                          $activeClass = ($i == $page) ? ' active' : '';
-                          echo '<li class="page-item '. $activeClass .'"><a class="page-link" href="?page=' . $i . '">' . $i .'</a></li>';
-                      }
-                      echo $nextLink . '</ul>';
+                      // echo '<ul class="pagination justify-content-center">' . $prevLink;
+                      // for($i = 1; $i <= $totalPages; $i++) {
+                      //     $activeClass = ($i == $page) ? ' active' : '';
+                      //     echo '<li class="page-item '. $activeClass .'"><a class="page-link" href="?page=' . $i . '">' . $i .'</a></li>';
+                      // }
+                      // echo $nextLink . '</ul>';
                       
                         
                   ?>
@@ -387,27 +363,25 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-    <script src="../assets/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
-
+    
     <!-- Page JS -->
-
+    <?php require_once("../template/tail.php") ?>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
+    
 
   
     </body>
+    <script>
+        $(document).ready(function() {
+            $('#product_table').DataTable({
+                "info": false,
+                "bLengthChange": true,
+                "dom": '<"your-search-container"f><tr><"pagination justify-content-center mt-2"p>',
+            });
+                    //$("#title_header").append(brand)
+                  //document.getElementById('title_header').innerHTML= brand;
+            // TODO: style the search
+        });
+    </script>
 </html>
