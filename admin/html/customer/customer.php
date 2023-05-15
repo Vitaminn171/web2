@@ -10,15 +10,23 @@
   $tukhoa = '';
   if(isset($_GET['tukhoa'])) {
     $tukhoa = $_GET['tukhoa'];
-    $sql_lietke_order = "SELECT * FROM customer WHERE customer.`name` LIKE '%".$tukhoa."%'";
-  } else {
+    // $sql_lietke_order = "SELECT * FROM customer WHERE customer.`name` LIKE '%".$tukhoa."%'";
+
     if($page == '' || $page == 1) {
       $begin = 0;
-      $sql_lietke_order = "SELECT * FROM customer LIMIT 0,7";
+      $sql_lietke_order = "SELECT * FROM customer WHERE customer.`name` LIKE '%".$tukhoa."%' LIMIT 0,7";
     } else {
       $begin = ($page * 7) - 7;
-      $sql_lietke_order = "SELECT * FROM customer LIMIT $begin,7";
+      $sql_lietke_order = "SELECT * FROM customer WHERE customer.`name` LIKE '%".$tukhoa."%' LIMIT $begin,7";
     }
+  } else {
+      if($page == '' || $page == 1) {
+        $begin = 0;
+        $sql_lietke_order = "SELECT * FROM customer LIMIT 0,7";
+      } else {
+        $begin = ($page * 7) - 7;
+        $sql_lietke_order = "SELECT * FROM customer LIMIT $begin,7";
+      }
   }
   
   $query_lietke_order = mysqli_query($con ,$sql_lietke_order);
@@ -394,7 +402,18 @@
                                       $query_getAll = mysqli_query($con , $sql_getAll);
 
                                       if(isset($_GET['tukhoa'])) {
-                                        echo '';
+                                        $sql_search = "SELECT * FROM customer WHERE customer.`name` LIKE '%".$tukhoa."%'";
+                                        $query_search_getAll = mysqli_query($con , $sql_search);
+                                        $row_count = mysqli_num_rows($query_search_getAll); 
+                                        $all_page = ceil($row_count / 7);
+                                        for($i = 1 ; $i <= $all_page ; $i++) {
+                                          if($i == $page) {
+                                            echo '<li class="page-item active" ><a class="page-link" href="?tukhoa='.$tukhoa.'&page='.$i.'">'.$i.'</a></li>' ;
+                                          } 
+                                          else {
+                                            echo '<li class="page-item" ><a class="page-link" href="?tukhoa='.$tukhoa.'&page='.$i.'">'.$i.'</a></li>' ;
+                                          }
+                                        }
                                       } else {
                                         $row_count = mysqli_num_rows($query_getAll); 
                                         $all_page = ceil($row_count / 7);

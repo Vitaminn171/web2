@@ -162,12 +162,7 @@
                   <div data-i18n="Order">Order</div><!-- ai lam phan nay thi tu doi lai duong dan -->
                 </a>
               </li>
-              <li class="menu-item">
-                <a href="layouts-fluid.html" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-export" ></i>
-                  <div data-i18n="Order">Export Order Statistics</div>
-                </a>
-              </li>
+              
                 ';
               }
             ?>
