@@ -423,7 +423,7 @@
                                             ?>
                                              </td>
                                             <td>
-                                              <a class="btn btn-primary" href="/admin/html/employee/editEmployee.php?email=<?php echo $row['email'] ?>">Sửa</a>
+                                              <a class="btn btn-primary" href="editEmployee.php?email=<?php echo $row['email'] ?>">Sửa</a>
                                             </td>
                                         </tr>
                                         <?php 

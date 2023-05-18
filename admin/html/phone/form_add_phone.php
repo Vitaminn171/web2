@@ -516,8 +516,10 @@
 
                             <hr class="my-4" />
                             <div class="mt-2">
-                            <button class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
-                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                              <button class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
+                              <a href="all_phone.php">
+                                  <button class="btn btn-secondary">Cancel</button>
+                              </a>
                             </div>
                         </div>        
                     </div>

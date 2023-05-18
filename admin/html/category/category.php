@@ -60,22 +60,8 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
-              <!-- /Search -->
-
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Place this tag where you want the button to render. -->
+                <!-- Add new brand -->
                 <li class="nav-item lh-1 me-3">
                 <a href="form_add_category.php">
                     <button class="btn btn-primary">Add new brand</button>
@@ -114,24 +100,6 @@
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
-                    <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li> -->
                     <li>
                       <a class="dropdown-item" href="auth-login-basic.html">
                         <i class="bx bx-power-off me-2"></i>
@@ -155,22 +123,25 @@
               <!-- Layout Demo -->
                <!-- Basic Bootstrap Table -->
                <div class="card">
+                <!-- Message Receive -->
                <?php
-                  if(isset($_GET['message'])){
-                    if($_GET['message'] == "Delete brand success!"){
-                      echo '<div id="alert" class="alert alert-primary"><i class="bx bxs-like">   '.urldecode($_GET['message']).'</i></div>';
-                    }else if($_GET['message'] == "Can't delete brand!"){
-                      echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   '.urldecode($_GET['message']).'</i></div>';
-                    }else if($_GET['message'] == "Add brand success!"){
-                      echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   '.urldecode($_GET['message']).'</i></div>';
-                    }
-                    else if($_GET['message'] == "Edit brand success!"){
-                      echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-circle">   '.urldecode($_GET['message']).'</i></div>';
-                    }
-                  }
-                        ?>
+               if (isset($_GET['message'])) {
+                 if ($_GET['message'] == "Delete brand success!") {
+                   echo '<div id="alert" class="alert alert-primary"><i class="bx bxs-like">   ' . urldecode($_GET['message']) . '</i></div>';
+                 } else if ($_GET['message'] == "Can't delete brand!") {
+                   echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   ' . urldecode($_GET['message']) . '</i></div>';
+                 } else if ($_GET['message'] == "Add brand success!") {
+                   echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   ' . urldecode($_GET['message']) . '</i></div>';
+                 } else if ($_GET['message'] == "Edit brand success!") {
+                   echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-circle">   ' . urldecode($_GET['message']) . '</i></div>';
+                 }
+               }
+               ?>
+               <!-- End Message Receive -->
+
+               <!-- Table brand -->
                 <div class="table text-nowrap table-borderless">
-                  <table class="table table-borderless table-hover">
+                  <table class="table table-borderless table-hover" id="brand_table">
                     <thead>
                       <tr class="table-primary">
                         <th>ID</th>
@@ -182,104 +153,50 @@
                     <tbody class="table-border-bottom-0">
                     <?php
                     require("../../SQL/sql_admin.php");
-                    $limit = 10; // Số bản ghi hiển thị trên mỗi trang
-                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
-                    $offset = ($page - 1) * $limit;
+
                     $array_color = array("bg-label-primary", "bg-label-danger", "bg-label-success", "bg-label-secondary", "bg-label-warning", "bg-label-info", "bg-label-dark");
 
-                    $result = mysqli_query($con, get_all_category($limit, $offset));
-
-                    
-
-
-                    $countSql = "SELECT COUNT(id) AS total FROM category";
-                    $countResult = mysqli_query($con, $countSql);
-                    $dataCount = mysqli_fetch_assoc($countResult);
-                    $totalPages = ceil($dataCount['total'] / $limit);
-       
+                    $result = mysqli_query($con, get_all_category());
                     while ($row = mysqli_fetch_array($result)) {
-                        $num = rand(0, 6);
-                        
-                        ?>
-                          <tr>
-                            <td class="col-1"><strong><?= $row['id'] ?></strong></td>
-                            <td class="col-2 text-center"><a class="text-dark badge <?= $array_color[$num] ?> me-1" href="../phone/all_phone.php?category=<?= $row['id'] ?>">
-                              <?= $row['name'] ?> 
-                              </a>
-                              <!-- <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Lilian Fuller"
-                            >
-                              <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Sophia Wilkerson"
-                            >
-                              <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                            </li>
-                            <li
-                              data-bs-toggle="tooltip"
-                              data-popup="tooltip-custom"
-                              data-bs-placement="top"
-                              class="avatar avatar-xs pull-up"
-                              title="Christina Parker"
-                            >
-                              <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                            </li> -->
-                              </ul>
-                            </td>
-                            <td class="col-1 text-center">
-                              <!-- <span class="badge bg-label-primary me-1">Active</span> -->
-                              <?= $row['quantity'] ?>
-                            </td>
-                            <!-- <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td> -->
-                            <td class="col-1 text-center">
-                              <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                  <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item text-warning" href="form_edit_category.php?brandID=<?= $row["id"] ?>"
-                                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                  >
-                                  <a class="dropdown-item text-danger" onclick="deleteBrand(<?= $row['id'] ?>,<?= $row['quantity'] ?>)"
-                                    ><i class="bx bx-trash me-1"></i> Delete</a
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
+                      $num = rand(0, 6);
+
+                      ?>
+                                <tr>
+                                  <td class="col-1"><strong><?= $row['id'] ?></strong></td>
+                                  <td class="col-2 text-center"><a class="text-dark badge <?= $array_color[$num] ?> me-1" href="../phone/all_phone.php?category=<?= $row['id'] ?>">
+                                    <?= $row['name'] ?> 
+                                    </a>
+                                    </ul>
+                                  </td>
+                                  <td class="col-1 text-center">
+                                    <?= $row['quantity'] ?>
+                                  </td>
+                              
+
+                            <!-- Dropdown button -->
+                                  <td class="col-1 text-center">
+                                    <div class="dropdown">
+                                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                      </button>
+                                      <div class="dropdown-menu">
+                                        <a class="dropdown-item text-warning" href="form_edit_category.php?brandID=<?= $row["id"] ?>"
+                                          ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                        >
+                                        <a class="dropdown-item text-danger" onclick="deleteBrand(<?= $row['id'] ?>,<?= $row['quantity'] ?>)"
+                                          ><i class="bx bx-trash me-1"></i> Delete</a
+                                        >
+                                      </div>
+                                    </div>
+                                  </td>
+                            <!-- End Dropdown button -->
+                                </tr>
                       <?php }
-
-
-                   
                     mysqli_close($con);
                     ?>
                     </tbody>
                   </table>
-                  
+                  <!-- End Table brand -->
                 </div>
                 
               </div>
@@ -287,19 +204,9 @@
               <!--/ Layout Demo -->
             </div>
             <!-- / Content -->
-            <?php
-            $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">Prev</a></li>' : '';
-            $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Next</a>' : '';
-
-            echo '<ul class="pagination justify-content-center">' . $prevLink;
-            for ($i = 1; $i <= $totalPages; $i++) {
-                $activeClass = ($i == $page) ? ' active' : '';
-                echo '<li class="page-item ' . $activeClass . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
-            }
-            echo $nextLink . '</ul>';
 
 
-            ?>
+
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -307,7 +214,7 @@
                   ©
                   <script>
                     document.write(new Date().getFullYear());
-                </script>
+                  </script>
                   , made with ❤️ by
                   <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>
@@ -352,5 +259,15 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+
+      $(document).ready(function () {
+        $('#brand_table').DataTable({
+          "info": false,
+          "bLengthChange": true,
+          "dom": '<"your-search-container"f><tr><"pagination justify-content-center mt-2"p>',
+        });
+      });
+    </script>
   </body>
 </html>
