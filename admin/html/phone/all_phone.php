@@ -30,7 +30,7 @@
     <title>Fluid - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
-    
+    <link rel="stylesheet" href="../../assets/css/all_phone.css" />
     <?php require_once("../template/header.php") ?>
   </head>
 
@@ -56,22 +56,7 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center" id="top">
-                <div class="nav-item d-flex align-items-center">
-                  <!-- <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="search"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                    id="search"
-                    name="search"
-                    
-                  /> -->
-                </div>
-              </div>
-              <!-- /Search -->
+              
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
@@ -113,24 +98,6 @@
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
-                    <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li> -->
                     <li>
                       <a class="dropdown-item" href="auth-login-basic.html">
                         <i class="bx bx-power-off me-2"></i>
@@ -149,11 +116,124 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
+           <!-- The Modal -->
+            <div id="myModal" class="modal">
 
+            <!-- Modal content -->
+              <div class="modal-content" id="modal-content">
+                <div id="spec_detail">
+                  <div class="modal-header bg-dark">
+                    <h3 style="margin-bottom:10px; color: white">Specifications</h3>
+                  </div>
+                  <div class="modal-body">
+                    <h5 style="margin-bottom:-6px;font-weight:bold;">Processor</h5>
+                    <div id="spec_group" class="mt-2 mb-3">
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Chipset:</div>
+                        <div class="col" id="chipset"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4" style="font-weight:bold;">CPU:</div>
+                        <div class="col" id="cpu"></div>
+                      </div>
+                    </div>
+
+
+                    <h5 style="margin-bottom:-6px;font-weight:bold;">Display</h5>
+                    <div id="spec_group" class="mt-2 mb-3">
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Screen size:</div>
+                        <div class="col" id="size"></div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Screen panel:</div>
+                        <div class="col" id="panel"></div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Type:</div>
+                        <div class="col" id="type"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4" style="font-weight:bold;">Resolution:</div>
+                        <div class="col" id="res"></div>
+                      </div>
+                    </div>
+
+                    <h5 style="margin-bottom:-6px;font-weight:bold;">Camera</h5>
+                    <div id="spec_group" class="mt-2 mb-3">
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Front camera:</div>
+                        <div class="col" id="fcam"></div>
+                      </div>
+                      <div class="row mb-2"> 
+                        <div class="col-lg-4" style="font-weight:bold;">Back camera:</div>
+                        <div class="col" id="bcam"></div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Camera Feature:</div>
+                        <div class="col" id="feature"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4" style="font-weight:bold;">Video capture:</div>
+                        <div class="col" id="video"></div>
+                      </div>
+                    </div>
+
+                    <h5 style="margin-bottom:-6px;font-weight:bold;">Design & Weight</h5>
+                    <div id="spec_group" class="mt-2 mb-3">
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Dimensions:</div>
+                        <div class="col" id="dimensions"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4" style="font-weight:bold;">Weight:</div>
+                        <div class="col" id="weight"></div>
+                      </div>
+                    </div> 
+
+
+                    <h5 style="margin-bottom:-6px;font-weight:bold;">Misc</h5>
+                    <div id="spec_group" class="mt-2">
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">OS:</div>
+                        <div class="col" id="os"></div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Battery:</div>
+                        <div class="col" id="battery"></div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Sim:</div>
+                        <div class="col" id="sim"></div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Wifi:</div>
+                        <div class="col" id="wifi"></div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-lg-4" style="font-weight:bold;">Mobile Network:</div>
+                        <div class="col" id="network_support"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4" style="font-weight:bold;">Other:</div>
+                        <div class="col" id="other"></div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div> 
+              </div>  
+              <!-- End The Modal -->
+            </div>
+
+                          
+                        
             <div class="container-fluid container-p-y" id="card">
+              
               <!-- Layout Demo -->
                <!-- Basic Bootstrap Table -->
-               <div class="card">
+              <div class="card">
                 <div class="row">
                   <div class="col">
                     <h5 class="card-header ps-3 pt-3 pb-0">All products</h5>
@@ -163,29 +243,24 @@
                       <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                         Brand
                       </button>
-                      <?php 
-                      require("../../SQL/sql_admin.php"); 
-                      
-                      $result = mysqli_query($con,get_category_id_name());?>
-                      
-                      
+                      <?php
+                      require("../../SQL/sql_admin.php");
 
-
+                      $result = mysqli_query($con, get_category_id_name()); ?>
                       <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="all_phone.php">All</a></li>
-                      <?php 
-                        while($row = mysqli_fetch_array($result)){
-                      ?>
-                        <li><a class="dropdown-item" href="all_phone.php?category=<?=$row["id"]?>"><?=$row["name"]?></a></li>
+                      <?php
+                      while ($row = mysqli_fetch_array($result)) {
+                        ?>
+                                <li><a class="dropdown-item" href="all_phone.php?category=<?= $row["id"] ?>"><?= $row["name"] ?></a></li>
                         <?php } ?>
                       </ul>
                     </div>
                   </div>
-                  
-
                 </div>
-                
+
                 <div class="table">
+                  <!-- Table product -->
                   <table class="table table-hover" id="product_table">
                     
                     <thead>
@@ -199,126 +274,100 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                     <?php
-                    $limit = 200; // Số bản ghi hiển thị trên mỗi trang
-                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // Lấy số trang đang được hiển thị
-                    $offset = ($page - 1) * $limit;
                     $result = "";
-                    $countSql = "";
-                    if(isset($_GET["category"])){
-                      $result = mysqli_query($con,get_item_by_category($_GET["category"]));
+                    if (isset($_GET["category"])) {
+                      $result = mysqli_query($con, get_item_by_category($_GET["category"]));
                       //$countSql = count_item($_GET["category"]);
-                    }else{
-                      $result = mysqli_query($con,get_all_item());
+                    } else {
+                      $result = mysqli_query($con, get_all_item());
                       //$countSql = count_item("0");
-                      }
+                    }
+                    while ($row = mysqli_fetch_array($result)) {
 
-                    // $countResult = mysqli_query($con, $countSql);
-                    // $dataCount = mysqli_fetch_assoc($countResult);
-                    // $totalPages = ceil($dataCount['total'] / $limit);
-                    while($row = mysqli_fetch_array($result)){
-                        
                       ?>
-                      <tr id="tr">
-                        <td class="col-1">
-                          <?php 
-                          if($row["visible"] == 1){
-                            echo "<img src='../../../phone_image/".$row['image']."' style='width: 150%'>";
-                          }
-                          else {
-                            echo "<div class='card' id='allphone'>
-                                    <img src='../../../phone_image/".$row["image"]."' class='card-img-top' style='width: 150%; opacity: 0.3'>
+                      
+
+
+
+                      
+                              <tr id="tr">
+                                <td class="col-1">
+                                  <?php
+                                  if ($row["visible"] == 1) {
+                                    echo "<img src='../../../phone_image/" . $row['image'] . "' style='width: 150%'>";
+                                  } else {
+                                    echo "<div class='card' id='allphone'>
+                                    <img src='../../../phone_image/" . $row["image"] . "' class='card-img-top' style='width: 150%; opacity: 0.3'>
                                     <div class='card-img-overlay'>
                                       <img class='card-img' src='../../assets/img/elements/visible.png' style='width: 25px'></img>
                                       
                                     </div>
                                   </div>";
-                          }
+                                  }
 
-                          ?>
+                                  ?>
                       
                           
-                      </td>
-                        <td class="col-3 ps-4"><strong><?= $row['name'] ?></strong></td>
-                        <td class="col-3">
-                          <?=$row['cac_mau'] ?>
-                          </ul>
-                        </td>
-                        <td class="col-4">
-                          <!-- <span class="badge bg-label-primary me-1">Active</span> -->
-                          <?= $row['size'] ?>
-                        </td>
-                        <td class="col-1 text-center">
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item text-dark" href="../../php/phone/visible.php?phoneID=<?=$row["phoneID"]?>&visible=<?=$row["visible"]?>" >
+                              </td>
+                                <td class="col-3 ps-4"><a onclick="show_detail_phone(<?= $row['phoneID'] ?>)" href="javascript:void(0);" class="hover-underline-animation"><strong><?= $row['name'] ?></strong></a></td>
+                                <td class="col-3">
+                                  <?= $row['cac_mau'] ?>
+                                  </ul>
+                                </td>
+                                <td class="col-4">
+                                  <!-- <span class="badge bg-label-primary me-1">Active</span> -->
+                                  <?= $row['size'] ?>
+                                </td>
+                                <td class="col-1 text-center">
+                                  <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                      <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item text-dark" href="../../php/phone/visible.php?phoneID=<?= $row["phoneID"] ?>&visible=<?= $row["visible"] ?>" >
                               
-                              <i class='bx bx-low-vision me-1'></i> Visible</a
-                              >
+                                      <i class='bx bx-low-vision me-1'></i> Visible</a
+                                      >
                               
                               
-                              <a class="dropdown-item text-primary" href="form_edit_phone.php?phoneID=<?= $row["phoneID"] ?>"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item text-danger" href="#" onclick="deletePhone(<?= $row['phoneID'] ?>)"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td>
+                                      <a class="dropdown-item text-primary" href="form_edit_phone.php?phoneID=<?= $row["phoneID"] ?>"
+                                        ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                      >
+                                      <a class="dropdown-item text-danger" href="#" onclick="deletePhone(<?= $row['phoneID'] ?>)"
+                                        ><i class="bx bx-trash me-1"></i> Delete</a
+                                      >
+                                    </div>
+                                  </div>
+                                </td>
                         
-                      </tr>
-                      
-                      <?php } 
-                      
-                      if(isset($_GET['message'])){
-                        if($_GET['message'] == "Delete success!"){
-                          echo '<div id="alert" class="alert alert-primary"><i class="bx bxs-like">   '.urldecode($_GET['message']).'</i></div>';
-                        }else if($_GET['message'] == "Can't delete product!"){
-                          echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   '.urldecode($_GET['message']).'</i></div>';
-                        }else if($_GET['message'] == "Add new product success!"){
-                          echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   '.urldecode($_GET['message']).'</i></div>';
-                        }
-                        else if($_GET['message'] == "Edit product success!"){
-                          echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-circle">   '.urldecode($_GET['message']).'</i></div>';
-                        }
+                              </tr>
+                              <!-- Message Receive -->
+                      <?php }
+
+                    if (isset($_GET['message'])) {
+                      if ($_GET['message'] == "Delete success!") {
+                        echo '<div id="alert" class="alert alert-primary"><i class="bx bxs-like">   ' . urldecode($_GET['message']) . '</i></div>';
+                      } else if ($_GET['message'] == "Can't delete product!") {
+                        echo '<div id="alert" class="alert alert-danger"><i class="bx bx-error-alt">   ' . urldecode($_GET['message']) . '</i></div>';
+                      } else if ($_GET['message'] == "Add new product success!") {
+                        echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-double">   ' . urldecode($_GET['message']) . '</i></div>';
+                      } else if ($_GET['message'] == "Edit product success!") {
+                        echo '<div id="alert" class="alert alert-primary"><i class="bx bx-check-circle">   ' . urldecode($_GET['message']) . '</i></div>';
                       }
-                      
-                        mysqli_close($con);
-                    
-
-
-                        ?>
-                    </tbody>
-                    
+                    }
+                    mysqli_close($con);
+                    ?>
+                        <!-- End Message Receive -->
+                    </tbody>                   
                   </table>
-                        <!--  -->
-                        
-
-
+                  <!-- End Table product -->
                 </div>
-          
-                
               </div>
+            </div>
+            
               <!--/ Basic Bootstrap Table -->
               <!--/ Layout Demo -->
-            </div>
-            <!-- / Content -->
-            <?php 
-                      // $prevLink = ($page > 1) ? '<li class="page-item"><a class="page-link" href="?page='.($page - 1).'">Prev</a></li>' : '';
-                      // $nextLink = ($page < $totalPages) ? '<li class="page-item"><a class="page-link" href="?page='.($page + 1).'">Next</a>' : '';
-                      
-                      // echo '<ul class="pagination justify-content-center">' . $prevLink;
-                      // for($i = 1; $i <= $totalPages; $i++) {
-                      //     $activeClass = ($i == $page) ? ' active' : '';
-                      //     echo '<li class="page-item '. $activeClass .'"><a class="page-link" href="?page=' . $i . '">' . $i .'</a></li>';
-                      // }
-                      // echo $nextLink . '</ul>';
-                      
-                        
-                  ?>
+          </div>
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-fluid d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -354,6 +403,7 @@
 
             <div class="content-backdrop fade"></div>
           </div>
+                      
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -373,15 +423,14 @@
   
     </body>
     <script>
-        $(document).ready(function() {
-            $('#product_table').DataTable({
-                "info": false,
-                "bLengthChange": true,
-                "dom": '<"your-search-container"f><tr><"pagination justify-content-center mt-2"p>',
-            });
-                    //$("#title_header").append(brand)
-                  //document.getElementById('title_header').innerHTML= brand;
-            // TODO: style the search
+
+      $(document).ready(function () {
+        $('#product_table').DataTable({
+          "info": false,
+          "bLengthChange": true,
+          "dom": '<"your-search-container"f><tr><"pagination justify-content-center mt-2"p>',
         });
+      });
     </script>
+    <script src="../../assets/js/phone/all_phone.js"></script>
 </html>
