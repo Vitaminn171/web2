@@ -18,6 +18,13 @@ $.ajax({
   })
 
 
+$("#cancel").on("click", function(e) {
+  e.preventDefault();
+  if(confirm("Are you sure you want to cancel?")){
+    window.location.href = "category.php";
+  }
+})
+
   const submit = document.querySelector("#submit")
   // when submit push data to add_new_phone.php 
   submit && submit.addEventListener("click", (e) => {
@@ -25,7 +32,7 @@ $.ajax({
       // console.log('ok')
       var brand = data.brand[0];
       var new_brand = $("#brandName").val();
-      if(!brand.find(e => e.name == new_brand) && new_brand != ""){
+      if(!brand.find(e => e.name == new_brand) && new_brand != "" && confirm("Are you sure you want to edit this brand?")){
           $.ajax({
                     type: "POST",
                     url: "../../php/category/edit_category.php",

@@ -428,7 +428,12 @@ const insertTable = ({ size, price , sizeID}
     $(document).on("click", "button[id=editVariant]", (e) => editItem(e))
   })
   
-  
+  $("#cancel").on("click", function(e) {
+    e.preventDefault();
+    if(confirm("Are you sure you want to cancel?")){
+      window.location.href = "all_phone.php";
+    }
+  })
 
 
 
@@ -480,19 +485,34 @@ submit && submit.addEventListener("click", (e) => {
         alert("Date selected must before today!")
         flag = false
     }
-    // if(isValidateBodyDimen($("#dimensions").val())){
-    //     flag = true
-    // }else{
-    //     alert("Invalid dimensions!")
-    //     flag = false
-    // }
+    if(isValidateBodyDimen($("#dimensions").val())){
+        flag = true
+    }else{
+        alert("Invalid dimensions!")
+        flag = false
+    }
    
-    // if(isValidateDisplayResolution($("#resolution").val())){
-    //     flag = true
-    // }else{
-    //     alert("Invalid resolution!")
-    //     flag = false
-    // }
+    if(isValidateDisplayResolution($("#resolution").val())){
+        flag = true
+    }else{
+        alert("Invalid resolution!")
+        flag = false
+    }
+
+    if(items_image.length < 1){
+      flag = false
+      alert("Empty image!")
+    }
+
+    if(items_color.length < 1){
+      flag = false
+      alert("Empty color!")
+    }
+
+    if(items_variant.length < 1){
+      flag = false
+      alert("Empty ram & internal storage!")
+    }
 
     
         // console.log(items)
@@ -523,16 +543,22 @@ submit && submit.addEventListener("click", (e) => {
         wifi: $("#wifi").val(),
         misc: $("#misc").val()
       };
-      if(flag){
-        $.ajax({
-          type: "POST",
-          url: "../../php/phone/update_phone.php",
-          data: { phone: phone , spec: spec, dataColor: data.color[0], dataVariant: data.variant[0], dataImage: data.image[0]}
-        }).done(function( response ) {
-          var message = "Edit product success!";
-          document.location.href = `../../html/phone/all_phone.php?message=` + message 
-          //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
-        });
+      if(flag && confirm("Are you sure you want to edit this new product?")){
+        if (Object.values(phone).includes('') || Object.values(phone).includes(null) || Object.values(phone).includes(undefined) ||
+            Object.values(spec).includes('') || Object.values(spec).includes(null) || Object.values(spec).includes(undefined)) {
+          alert('There is an empty value in the fields');
+        } else {
+          console.log('All values in the phone object are non-empty');
+          $.ajax({
+            type: "POST",
+            url: "../../php/phone/update_phone.php",
+            data: { phone: phone , spec: spec, dataColor: data.color[0], dataVariant: data.variant[0], dataImage: data.image[0]}
+          }).done(function( response ) {
+            var message = "Edit product success!";
+            document.location.href = `../../html/phone/all_phone.php?message=` + message 
+            //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
+          });
+        }
       }
       
     })

@@ -165,12 +165,12 @@
                                     id="phoneName"
                                     name="phoneName"
                                     placeholder="Device name"
-                                    
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="brand">Brand</label>
-                                    <select id="brand" class="select2 form-select" name="brand" >
+                                    <select id="brand" class="select2 form-select" name="brand" required>
                                       <option value="0">Select</option>
                                       <?php 
                                       require("../../SQL/sql_admin.php"); 
@@ -190,7 +190,7 @@
                                     type="date"
                                     id="date"
                                     name="date"
-                                    
+                                    required
                                     />
                                 </div>
                               
@@ -206,7 +206,7 @@
                                     id="chipset"
                                     name="chipset"
                                     placeholder="Chipset"
-                                     
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -217,7 +217,7 @@
                                     id="cpu"
                                     name="cpu"
                                     placeholder="Cpu name"
-                                    
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -230,7 +230,7 @@
                                           name="dimensions"
                                           class="form-control"
                                           placeholder="example: 146.3 x 70.9 x 7.6 mm"
-                                        
+                                          required
                                       />
                                       <span class="input-group-text"> mm</span>
                                 </div>
@@ -244,7 +244,7 @@
                                       id="weight"
                                       name="weight"
                                       placeholder="Weight"    
-                                      
+                                      required
                                       />
                                       <span class="input-group-text"> g</span>
                                     </div>
@@ -262,7 +262,7 @@
                                       id="resolution"
                                       name="resolution"
                                       placeholder="Display resolution"    
-                                       
+                                      required
                                       />
                                       <span class="input-group-text"> pixels</span>
                                     </div>
@@ -276,7 +276,7 @@
                                       id="display_size"
                                       name="display_size"
                                       placeholder="Display size"    
-                                      
+                                      required
                                       />
                                       <span class="input-group-text"> inches</span>
                                     </div>
@@ -289,7 +289,7 @@
                                     id="technology"
                                     name="technology"
                                     placeholder="Technology"   
-                                    
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -300,7 +300,7 @@
                                     id="os"
                                     name="os"
                                     placeholder="OS"    
-                                   
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -311,7 +311,7 @@
                                     id="video"
                                     name="video"
                                     placeholder="Video capture"  
-                                    
+                                    required
                                     />
                                 </div>        
                                 <div class="mb-3 col-md-6">
@@ -322,7 +322,7 @@
                                     id="fcamera"
                                     name="fcamera"
                                     placeholder="Front camera"   
-                                   
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -333,7 +333,7 @@
                                     id="bcamera"
                                     name="bcamera"
                                     placeholder="Back camera"    
-                                    
+                                    required
                                     />
                                 </div>        
                                 <div class="mb-3 col-md-6">
@@ -344,7 +344,7 @@
                                     id="camera_feature"
                                     name="camera_feature"
                                     placeholder="Camera feature"   
-                                    
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -356,7 +356,7 @@
                                       id="battery"
                                       name="battery"
                                       placeholder="Battery"    
-                                      
+                                      required
                                       />
                                       <span class="input-group-text"> mAh</span>
                                     </div>
@@ -369,7 +369,7 @@
                                     id="sim"
                                     name="sim"
                                     placeholder="Nano sim, eSim, ..."   
-                                    
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -380,7 +380,7 @@
                                     id="network"
                                     name="network"
                                     placeholder="5G, 4G, ..."  
-                                     
+                                    required
                                     />
                                 </div>    
                                 <div class="mb-3 col-md-6">
@@ -391,7 +391,7 @@
                                     id="wifi"
                                     name="wifi"
                                     placeholder="Wifi support"
-                                      
+                                    required
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
@@ -402,7 +402,7 @@
                                     id="misc"
                                     name="misc"
                                     placeholder="Misc"  
-                                  
+                                    required
                                     />
                                 </div>        
 
@@ -517,9 +517,7 @@
                             <hr class="my-4" />
                             <div class="mt-2">
                               <button class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
-                              <a href="all_phone.php">
-                                  <button class="btn btn-secondary">Cancel</button>
-                              </a>
+                              <button class="btn btn-outline-secondary" type="reset" id="cancel">Cancel</button>
                             </div>
                         </div>        
                     </div>

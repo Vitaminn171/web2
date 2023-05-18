@@ -134,7 +134,7 @@
             <div class="container-fluid flex-grow-1 container-p-y">
                 <!-- Layout Demo -->
                 <div class="card mb-4">
-                    <h5 class="card-header">New product</h5>
+                    <h5 class="card-header">Edit product</h5>
                     <!-- Form add new phone -->
                 
 
@@ -517,7 +517,7 @@
                             <hr class="my-4" />
                             <div class="mt-2">
                             <button class="btn btn-primary me-2" name="submit" id="submit">Save changes</button>
-                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            <button type="reset" class="btn btn-outline-secondary" type="reset" id="cancel">Cancel</button>
                             </div>
                         </div>        
                     </div>

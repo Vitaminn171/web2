@@ -31,8 +31,8 @@ const insertTable = ({size,price}
  //Onclick thêm vào table
  $("#addVariant").on("click", function(e) {
   e.preventDefault();
-  
-  if ($("#size").val() != "" && $("#price").val() != null && isValidateVariantSize($("#size").val())) {
+  var price = parseInt($("#price").val());
+  if ($("#size").val() != "" && price != null && price > 1000 && isValidateVariantSize($("#size").val())) {
       let variant = {
           sizeID: isize,
           size: $("#size").val(),
@@ -44,6 +44,8 @@ const insertTable = ({size,price}
       isize++;
       items_variant.forEach(variant => insertTable(variant))
       
+  }else{
+    alert("Wrong Ram & Internal Storage size!")
   }
 })
 const removeItem = (e) => {
@@ -280,7 +282,13 @@ function uploadImage(color_id){
 
 }
 
-      
+  $("#cancel").on("click", function(e) {
+    e.preventDefault();
+    if(confirm("Are you sure you want to cancel?")){
+      window.location.href = "all_phone.php";
+    }
+    
+  })
 
 
   function isDateBeforeToday(date) {
@@ -307,6 +315,18 @@ function uploadImage(color_id){
     let pattern = /(\d+GB\s\d+GB)/;
     return size.match(pattern)
   }
+
+
+  function isEmpty(obj) {
+    for(var prop in obj) {
+      if(Object.prototype.hasOwnProperty.call(obj, prop)) {
+        return false;
+      }
+    }
+  
+    return JSON.stringify(obj) === JSON.stringify({});
+  }
+
 const submit = document.querySelector("#submit")
 // when submit push data to add_new_phone.php 
 submit && submit.addEventListener("click", (e) => {
@@ -328,7 +348,22 @@ submit && submit.addEventListener("click", (e) => {
         alert("Invalid dimensions!")
         flag = false
     }
-   
+    
+    if(items_image.length < 1){
+      flag = false
+      alert("Empty image!")
+    }
+
+    if(items_color.length < 1){
+      flag = false
+      alert("Empty color!")
+    }
+
+    if(items_variant.length < 1){
+      flag = false
+      alert("Empty ram & internal storage!")
+    }
+
     // if(isValidateDisplayResolution($("#resolution").val())){
     //     flag = true
     // }else{
@@ -338,13 +373,13 @@ submit && submit.addEventListener("click", (e) => {
 
     
         // console.log(items)
-      let phone = {
+      const phone = {
             name: $("#phoneName").val(),
             brand: $("#brand option:selected").attr("value"),
             date: $("#date").val()
       };
 
-      let spec = {
+      const spec = {
         chipset: $("#chipset").val(),
         cpu: $("#cpu").val(),
         dimensions: $("#dimensions").val(),
@@ -364,17 +399,27 @@ submit && submit.addEventListener("click", (e) => {
         wifi: $("#wifi").val(),
         misc: $("#misc").val()
       };
-      if(flag){
-        $.ajax({
-          type: "POST",
-          url: "../../php/phone/add_new_phone.php",
-          data: { phone: phone , spec: spec, dataColor: items_color, dataVariant: items_variant, dataImage: items_image}
-        }).done(function( response ) {
-          var message = "Add new product success!";
-          document.location.href = `../../html/phone/all_phone.php?message=` + message 
-          //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
-        });
-      }
+      if(flag && confirm("Are you sure you want to add this new product?")){
+        if (Object.values(phone).includes('') || Object.values(phone).includes(null) || Object.values(phone).includes(undefined) ||
+            Object.values(spec).includes('') || Object.values(spec).includes(null) || Object.values(spec).includes(undefined)) {
+          alert('There is an empty value in the fields');
+        } else {
+          console.log('All values in the phone object are non-empty');
+           $.ajax({
+            type: "POST",
+            url: "../../php/phone/add_new_phone.php",
+            data: { phone: phone , spec: spec, dataColor: items_color, dataVariant: items_variant, dataImage: items_image}
+          }).done(function( response ) {
+            var message = "Add new product success!";
+            document.location.href = `../../html/phone/all_phone.php?message=` + message 
+            //alert(response); // hiển thị dữ liệu phản hồi trả về từ server
+          });
+        }
+      
+        }else{
+          console.log("not ok")
+        }
+      
       
     })
 
