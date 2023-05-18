@@ -154,9 +154,9 @@ function click_item_sidebar(item) {
   item.addClass("active");
 }
 
-if(url.includes("all_phone.php")) 
+if(url.includes("all_phone.php") || url.includes("form_add_phone.php") || url.includes("form_edit_phone.php")) 
   click_sub_item_sidebar(product,all_item,category);
-if(url.includes("category.php"))
+if(url.includes("category.php") || url.includes("form_add_category.php") || url.includes("form_edit_category.php"))
   click_sub_item_sidebar(product,category,all_item); 
 if(url.includes("inventory.php"))   
   click_item_sidebar(inventory);
